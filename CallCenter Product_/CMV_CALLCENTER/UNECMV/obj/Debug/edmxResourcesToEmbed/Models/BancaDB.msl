@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BANCAModelStoreContainer" CdmEntityContainer="ContextBanca">
+    <EntitySetMapping Name="TBL_CALLCENTER_REGISTRO_REPORTE">
+      <EntityTypeMapping TypeName="BANCAModel.TBL_CALLCENTER_REGISTRO_REPORTE">
+        <MappingFragment StoreEntitySet="TBL_CALLCENTER_REGISTRO_REPORTE">
+          <ScalarProperty Name="ID_SUPUESTOS_REPORTE" ColumnName="ID_SUPUESTOS_REPORTE" />
+          <ScalarProperty Name="id_registro_reporte" ColumnName="id_registro_reporte" />
+          <ScalarProperty Name="numero_socio" ColumnName="numero_socio" />
+          <ScalarProperty Name="detalles_llamada" ColumnName="detalles_llamada" />
+          <ScalarProperty Name="fecha_registro_reporte" ColumnName="fecha_registro_reporte" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_CALLCENTER_INSERTAR_REGISTRO_REPORTE" FunctionName="BANCAModel.Store.SP_CALLCENTER_INSERTAR_REGISTRO_REPORTE">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BANCAModel.SP_CALLCENTER_INSERTAR_REGISTRO_REPORTE_Result">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="error_procedure" ColumnName="error_procedure" />
+          <ScalarProperty Name="error_line" ColumnName="error_line" />
+          <ScalarProperty Name="error_severity" ColumnName="error_severity" />
+          <ScalarProperty Name="error_message" ColumnName="error_message" />
+          <ScalarProperty Name="id_reporte" ColumnName="id_reporte" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_BANCA_OBTENER_NOTIFICACION_CORREO" FunctionName="BANCAModel.Store.SP_BANCA_OBTENER_NOTIFICACION_CORREO" />
+    <EntitySetMapping Name="CAT_CALLCENTER_ACCIONES_CAUSA">
+      <EntityTypeMapping TypeName="BANCAModel.CAT_CALLCENTER_ACCIONES_CAUSA">
+        <MappingFragment StoreEntitySet="CAT_CALLCENTER_ACCIONES_CAUSA">
+          <ScalarProperty Name="accion" ColumnName="accion" />
+          <ScalarProperty Name="id_accion_causa" ColumnName="id_accion_causa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAT_CALLCENTER_MEDIO_MOVIMIENTO">
+      <EntityTypeMapping TypeName="BANCAModel.CAT_CALLCENTER_MEDIO_MOVIMIENTO">
+        <MappingFragment StoreEntitySet="CAT_CALLCENTER_MEDIO_MOVIMIENTO">
+          <ScalarProperty Name="descripcion_medio" ColumnName="descripcion_medio" />
+          <ScalarProperty Name="id_medio_movimiento" ColumnName="id_medio_movimiento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_CALLCENTER_OBTENER_MEDIO_MOVIMIENTO" FunctionName="BANCAModel.Store.SP_CALLCENTER_OBTENER_MEDIO_MOVIMIENTO">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BANCAModel.SP_CALLCENTER_OBTENER_MEDIO_MOVIMIENTO_Result">
+          <ScalarProperty Name="id_medio_movimiento" ColumnName="id_medio_movimiento" />
+          <ScalarProperty Name="descripcion_medio" ColumnName="descripcion_medio" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="TBL_BANCA_SOCIOS">
+      <EntityTypeMapping TypeName="BANCAModel.TBL_BANCA_SOCIOS">
+        <MappingFragment StoreEntitySet="TBL_BANCA_SOCIOS">
+          <ScalarProperty Name="fecha_alta_recuperar_contrasena" ColumnName="fecha_alta_recuperar_contrasena" />
+          <ScalarProperty Name="recuperar_contrasena" ColumnName="recuperar_contrasena" />
+          <ScalarProperty Name="fecha_codigo_contrasena" ColumnName="fecha_codigo_contrasena" />
+          <ScalarProperty Name="codigo_contrasena" ColumnName="codigo_contrasena" />
+          <ScalarProperty Name="fecha_cancelacion" ColumnName="fecha_cancelacion" />
+          <ScalarProperty Name="fecha_bloqueo_OTP" ColumnName="fecha_bloqueo_OTP" />
+          <ScalarProperty Name="descripcion_cancelacion" ColumnName="descripcion_cancelacion" />
+          <ScalarProperty Name="descripcion_bloqueo" ColumnName="descripcion_bloqueo" />
+          <ScalarProperty Name="contrasena_estado_cuenta" ColumnName="contrasena_estado_cuenta" />
+          <ScalarProperty Name="fecha_de_desbloqueo" ColumnName="fecha_de_desbloqueo" />
+          <ScalarProperty Name="fecha_alta_solicitud" ColumnName="fecha_alta_solicitud" />
+          <ScalarProperty Name="intentos_respuesta" ColumnName="intentos_respuesta" />
+          <ScalarProperty Name="intentos_sesion" ColumnName="intentos_sesion" />
+          <ScalarProperty Name="fecha_ultima_sesion" ColumnName="fecha_ultima_sesion" />
+          <ScalarProperty Name="id_ultima_sesion" ColumnName="id_ultima_sesion" />
+          <ScalarProperty Name="viene_de_bloqueo" ColumnName="viene_de_bloqueo" />
+          <ScalarProperty Name="vigencia_contrasena_temporal" ColumnName="vigencia_contrasena_temporal" />
+          <ScalarProperty Name="id_imagen_antiphishing" ColumnName="id_imagen_antiphishing" />
+          <ScalarProperty Name="fecha_motivo_bloqueo" ColumnName="fecha_motivo_bloqueo" />
+          <ScalarProperty Name="banca_activa" ColumnName="banca_activa" />
+          <ScalarProperty Name="id_motivo_bloqueo" ColumnName="id_motivo_bloqueo" />
+          <ScalarProperty Name="respuesta" ColumnName="respuesta" />
+          <ScalarProperty Name="id_pregunta_secreta" ColumnName="id_pregunta_secreta" />
+          <ScalarProperty Name="id_estatus_banca" ColumnName="id_estatus_banca" />
+          <ScalarProperty Name="fecha_alta_persona" ColumnName="fecha_alta_persona" />
+          <ScalarProperty Name="fecha_contrasena_temporal" ColumnName="fecha_contrasena_temporal" />
+          <ScalarProperty Name="contrasena_temp" ColumnName="contrasena_temp" />
+          <ScalarProperty Name="fecha_alta_contrasena" ColumnName="fecha_alta_contrasena" />
+          <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+          <ScalarProperty Name="numero_socio" ColumnName="numero_socio" />
+          <ScalarProperty Name="id_persona" ColumnName="id_persona" />
+          <ScalarProperty Name="id_socio" ColumnName="id_socio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_BANCA_OBTENER_MONTO_MAXIMO" FunctionName="BANCAModel.Store.SP_BANCA_OBTENER_MONTO_MAXIMO">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BANCAModel.SP_BANCA_OBTENER_MONTO_MAXIMO_Result">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="error_procedure" ColumnName="error_procedure" />
+          <ScalarProperty Name="error_line" ColumnName="error_line" />
+          <ScalarProperty Name="error_severity" ColumnName="error_severity" />
+          <ScalarProperty Name="error_message" ColumnName="error_message" />
+          <ScalarProperty Name="id_limite" ColumnName="id_limite" />
+          <ScalarProperty Name="id_limite_transferencia" ColumnName="id_limite_transferencia" />
+          <ScalarProperty Name="minimo" ColumnName="minimo" />
+          <ScalarProperty Name="maximo" ColumnName="maximo" />
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_BANCA_BLOQUEAR_SOCIO" FunctionName="BANCAModel.Store.SP_BANCA_BLOQUEAR_SOCIO">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BANCAModel.SP_BANCA_BLOQUEAR_SOCIO_Result">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="error_procedure" ColumnName="error_procedure" />
+          <ScalarProperty Name="error_line" ColumnName="error_line" />
+          <ScalarProperty Name="error_severity" ColumnName="error_severity" />
+          <ScalarProperty Name="error_message" ColumnName="error_message" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_BANCA_MODIFICAR_MONTO_MAXIMO" FunctionName="BANCAModel.Store.SP_BANCA_MODIFICAR_MONTO_MAXIMO">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BANCAModel.SP_BANCA_MODIFICAR_MONTO_MAXIMO_Result">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="error_procedure" ColumnName="error_procedure" />
+          <ScalarProperty Name="error_line" ColumnName="error_line" />
+          <ScalarProperty Name="error_severity" ColumnName="error_severity" />
+          <ScalarProperty Name="error_message" ColumnName="error_message" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="CAT_CALLCENTER_TIPO_CUENTA_NO_AFECTADA">
+      <EntityTypeMapping TypeName="BANCAModel.CAT_CALLCENTER_TIPO_CUENTA_NO_AFECTADA">
+        <MappingFragment StoreEntitySet="CAT_CALLCENTER_TIPO_CUENTA_NO_AFECTADA">
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="ID_CUENTA_NO_AFECTADA" ColumnName="ID_CUENTA_NO_AFECTADA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f1cd3fea2fa74e45aa2212373d21d5a4" Name="Diagrama1" ZoomLevel="77">
+        <EntityTypeShape EntityType="HAPEModel.CAT_UNE_ESTATUS_REPORTE" Width="2.125" PointX="4.625" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HAPEModel.CAT_UNE_MEDIO_CONTACTO" Width="2" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HAPEModel.CAT_UNE_SUPUESTOS_REPORTE" Width="2.875" PointX="4.125" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HAPEModel.CAT_UNE_TIPO_REPORTE" Width="2.25" PointX="1.125" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HAPEModel.TBL_UNE_CANALIZACIONES" Width="2.125" PointX="10.375" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HAPEModel.TBL_UNE_REPORTE" Width="1.5" PointX="8.25" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="HAPEModel.FK_CAT_UNE_ESTATUS_REPORTE_TBL_UNE_REPORTE" ManuallyRouted="false" />
+        <AssociationConnector Association="HAPEModel.FK_CAT_UNE_MEDIO_CONTACTO_TBL_UNE_REPORTE" ManuallyRouted="false" />
+        <AssociationConnector Association="HAPEModel.FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_SUPUESTOS_REPORTE" ManuallyRouted="false" />
+        <AssociationConnector Association="HAPEModel.FK_CAT_UNE_TIPO_REPORTE_TBL_UNE_REPORTE" ManuallyRouted="false" />
+        <AssociationConnector Association="HAPEModel.FK_TBL_UNE_REPORTE_TBL_UNE_CANALIZACIONES" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HAPEModel.CLAVES" Width="2.25" PointX="12.75" PointY="2.375" />
+        <EntityTypeShape EntityType="HAPEModel.TBL_PRESENCE_LLAMADAS" Width="2.125" PointX="2.875" PointY="7.625" />
+        <EntityTypeShape EntityType="HAPEModel.TBL_UNE_USUARIOS_ASIGNADOS" Width="2" PointX="10" PointY="9.75" />
+        <AssociationConnector Association="HAPEModel.FK_TBL_UNE_REPORTE_TBL_UNE_USUARIOS_ASIGNADOS" />
+        <EntityTypeShape EntityType="HAPEModel.ENTIDAD_FEDERATIVA" Width="1.75" PointX="2.125" PointY="0.75" />
+        <EntityTypeShape EntityType="HAPEModel.CAT_UNE_CUENTAS" Width="2.5" PointX="4" PointY="11.5" />
+        <EntityTypeShape EntityType="HAPEModel.CAT_UNE_TIPO_CUENTA" Width="1.875" PointX="0.625" PointY="7.875" />
+        <AssociationConnector Association="HAPEModel.FK_CAT_UNE_CUENTAS_TBL_UNE_REPORTE" />
+        <AssociationConnector Association="HAPEModel.FK_CAT_UNE_TIPO_CUENTA_CAT_UNE_CUENTAS" />
+        <AssociationConnector Association="HAPEModel.FK_CAT_UNE_TIPO_CUENTA_TBL_UNE_REPORTE" />
+        <EntityTypeShape EntityType="HAPEModel.TBL_UNE_RESPUESTA_SATISFACTORIA" Width="1.75" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="HAPEModel.SUCURSALES" Width="1.5" PointX="7.125" PointY="12" />
+        <AssociationConnector Association="HAPEModel.FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_CUENTAS" />
+        <AssociationConnector Association="HAPEModel.FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_TIPO_CUENTA" />
+        <EntityTypeShape EntityType="HAPEModel.TBL_UNE_PERMISOS_ADMIN" Width="2" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="HAPEModel.TBL_UNE_ARCHIVOS_ADJUNTOS" Width="1.875" PointX="16.375" PointY="13" />
+        <EntityTypeShape EntityType="HAPEModel.TBL_UNE_TIPO_ARCHIVO" Width="1.875" PointX="14.125" PointY="13.375" />
+        <AssociationConnector Association="HAPEModel.FK_TBL_UNE_TIPO_ARCHIVO_TBL_UNE_ARCHIVOS_ADJUNTOS_ID_TIPO_ARCHIVO" />
+        <EntityTypeShape EntityType="HAPEModel.TBL_UNE_PIVOTE_REPORTE" Width="1.5" PointX="9.375" PointY="12.75" />
+        <EntityTypeShape EntityType="HAPEModel.CAT_UNE_PROCEDE_DEBITO" Width="2" PointX="3.375" PointY="14.875" />
+        <AssociationConnector Association="HAPEModel.FK_CAT_UNE_PROCEDE_DEBITO_TBL_UNE_REPORTE" />
+        <EntityTypeShape EntityType="HAPEModel.TBL_UNE_COMISIONES" Width="1.5" PointX="11.375" PointY="12.75" />
+        <EntityTypeShape EntityType="HAPEModel.CAT_UNE_FINALIZADO_DEBITO" Width="1.5" PointX="11.375" PointY="15.75" />
+        <AssociationConnector Association="HAPEModel.FK_CAT_UNE_FINALIZADO_DEBITO_TBL_UNE_REPORTE" />
+        <EntityTypeShape EntityType="HAPEModel.SICORP_ROLES" Width="1.5" PointX="15.625" PointY="17.25" />
+        <EntityTypeShape EntityType="HAPEModel.TBL_UNE_CONVERSION_LLAMADAS" Width="1.5" PointX="16.375" PointY="0.75" />
+        <EntityTypeShape EntityType="HAPEModel.CAT_UNE_PROCEDE_CORRESPONSALIAS" Width="1.5" PointX="16.375" PointY="3.75" />
+        <AssociationConnector Association="HAPEModel.FK_TBL_UNE_REPORTE_CAT_UNE_PROCEDE_CORRESPONSALIAS_ID_PROCEDE_CORRESPONSALIAS" />
+        <EntityTypeShape EntityType="HAPEModel.CAT_UNE_TIPO_CUENTA_BANCA" Width="1.5" PointX="16.375" PointY="6.75" />
+        <EntityTypeShape EntityType="HAPEModel.CAT_UNE_CANAL" Width="1.5" PointX="16.75" PointY="6.75" />
+        <EntityTypeShape EntityType="HAPEModel.CAT_UNE_CAUSA_RESOLUCION" Width="1.5" PointX="16.75" PointY="9.75" />
+        <EntityTypeShape EntityType="HAPEModel.CAT_UNE_MOTIVO_CANCELACION" Width="1.5" PointX="0.75" PointY="17.75" />
+        <EntityTypeShape EntityType="HAPEModel.CAT_UNE_PRODUCTO" Width="1.5" PointX="2.75" PointY="17.75" />
+        <EntityTypeShape EntityType="HAPEModel.CAT_UNE_RESOLUCION" Width="1.5" PointX="4.75" PointY="17.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

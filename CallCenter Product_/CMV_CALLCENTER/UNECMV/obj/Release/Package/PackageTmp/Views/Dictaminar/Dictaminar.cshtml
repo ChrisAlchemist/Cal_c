@@ -1,0 +1,226 @@
+﻿@using UNECMV.Models
+@model TBL_UNE_REPORTE
+
+@{
+    UNECMV.Models.CLAVES SesionUsuario = Session["SesionUsuario"] as UNECMV.Models.CLAVES;
+    var listaTipoReportes = new UNECMV.Controllers.RegistrarController().obtenerTipoReporte();
+    var listaSupuestos = new UNECMV.Controllers.PreviewController().cargarSupuestos(Convert.ToInt32(Model.ID_TIPO_REPORTE));
+    var listaMediosContacto = new UNECMV.Controllers.RegistrarController().obtenerMediosContacto();
+    String ultimoComentario = new UNECMV.Controllers.DictaminarController().ObtenerUltimaRespuesta(Model.FOLIO);
+}
+
+@{
+    ViewBag.Title = "Dictaminar";
+}
+
+<script src="~/Estilos/Wizard/js/jquery-1.9.1.min.js"></script>
+<script src="~/Eventos/Dictaminar.js"></script>
+<link href="~/Estilos/css/Validaciones.css" rel="stylesheet" />
+<div class="row">
+    <div class="col-md-12">
+        <center><h3>Dictaminar folio número <kbd>@Model.FOLIO</kbd></h3></center>
+    </div>
+</div>
+<div id="dvLoading" hidden></div>
+
+<hr />
+
+@Html.HiddenFor(x => x.FOLIO, new { @id = "inputFolio_" })
+<input id ="inputNumusuario_" value = @SesionUsuario.Numusuario  hidden />
+@Html.HiddenFor(x => x.ID_DE_SUCURSAL)
+<div class="row">
+    <div class="col-md-3">
+        @Html.LabelFor(x => x.CAT_UNE_ESTATUS_REPORTE.DESCRIPCION, "Estatus del reporte:")
+        @Html.TextBoxFor(x => x.CAT_UNE_ESTATUS_REPORTE.DESCRIPCION, new { @Value = Model.CAT_UNE_ESTATUS_REPORTE.DESCRIPCION, @class = "form-control", @id = "inputEstatus", @readOnly = "" })
+    </div>
+    <div class="col-md-3">
+        @Html.LabelFor(x => x.FECHA_ALTA, "Fecha de alta:")
+        @{
+            DateTime dt;
+            dt = Convert.ToDateTime(Model.FECHA_ALTA);
+            @Html.TextBoxFor(x => x.FECHA_ALTA, new { @Value = dt.ToShortDateString(), @class = "form-control", @id = "inputFecha", @readOnly = "" })
+        }
+    </div>
+    <div class="col-md-3">
+        <label for="inputEsSocio">Contacto:</label>
+        @{
+            List<SelectListItem> itemsSocio = new List<SelectListItem>();
+            itemsSocio.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+            itemsSocio.Add(new SelectListItem
+            {
+                Text = "Es Socio",
+                Value = "1"
+            });
+
+            itemsSocio.Add(new SelectListItem
+            {
+                Text = "No Es Socio",
+                Value = "2"
+            });
+
+            itemsSocio.Add(new SelectListItem
+            {
+                Text = "Menor",
+                Value = "3"
+            });
+
+            @Html.DropDownListFor(x => x.ES_SOCIO, itemsSocio, new { @class = "form-control select2", @id = "inputEsSocio", @onchange = "", @disabled = "" })
+        }
+    </div>
+    <div class="col-md-3">
+        @Html.LabelFor(x => x.NUMERO, "Número:")
+        @Html.TextBoxFor(x => x.NUMERO, new { @class = "form-control", @id = "inputNumSocio", @readOnly = "" })
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-3">
+        @Html.LabelFor(x => x.NOMBRE_S, "Nombre:")
+        @Html.TextBoxFor(x => x.NOMBRE_S, new { @Value = Model.NOMBRE_S, @class = "form-control", @placeholder = "Ej: 667231", @id = "inputSocio", @readOnly = "" })
+    </div>
+    <div class="col-md-2">
+        @Html.LabelFor(x => x.APELLIDO_PATERNO, "Apellido Paterno:")
+        @Html.TextBoxFor(x => x.APELLIDO_PATERNO, new { @Value = Model.APELLIDO_PATERNO, @class = "form-control", @id = "inputAP", @readOnly = "" })
+    </div>
+    <div class="col-md-2">
+        @Html.LabelFor(x => x.APELLIDO_MATERNO, "Apellido Materno:")
+        @Html.TextBoxFor(x => x.APELLIDO_MATERNO, new { @Value = Model.APELLIDO_MATERNO, @class = "form-control", @id = "inputAM", @readOnly = "" })
+    </div>
+    <div class="col-md-2">
+        @Html.LabelFor(x => x.TELEFONO, "Teléfono:")
+        @Html.TextBoxFor(x => x.TELEFONO, new { @Value = Model.TELEFONO, @class = "form-control", @placeholder = "Tel.", @id = "inputTel", @readOnly = "" })
+    </div>
+    <div class="col-md-2">
+        @Html.LabelFor(x => x.TEL_CELULAR, "Teléfono Celular:")
+        @Html.TextBoxFor(x => x.TEL_CELULAR, new { @Value = Model.TEL_CELULAR, @class = "form-control", @placeholder = "Cel.", @id = "inputTelCel", @readonly = "" })
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <label for="inputMedioContacto">Medio de contacto</label>
+        @{
+            List<SelectListItem> itemsMedio = new List<SelectListItem>();
+            itemsMedio.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+            foreach (var lista in listaMediosContacto)
+            {
+                itemsMedio.Add(new SelectListItem
+                {
+                    Text = lista.DESCRIPCION,
+                    Value = lista.ID_MEDIO_CONTACTO.ToString()
+                });
+            }
+            @Html.DropDownListFor(x => x.ID_MEDIO_CONTACTO, itemsMedio, new { @class = "form-control select2", @id = "inputMedioContacto", @onchange = "", @disabled = "" })
+        }
+    </div>
+    <div class="col-md-3">
+        <label for="selectReporte" class="control-label">Tipo de reporte:</label>
+        @{
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+            foreach (var lista in listaTipoReportes)
+            {
+                items.Add(new SelectListItem
+                {
+                    Text = lista.DESCRIPCION,
+                    Value = lista.ID_TIPO_REPORTE.ToString()
+                });
+            }
+            @Html.DropDownListFor(x => x.ID_TIPO_REPORTE, items, new { @class = "form-control select2", @id = "selectReporte", @onchange = "cargarSupuestos(value)", @disabled = "" })
+        }
+    </div>
+    <div class="col-md-6">
+        <label for="selectSupuesto" class="control-label">Supuesto del reporte:</label>
+        @{
+            List<SelectListItem> items2 = new List<SelectListItem>();
+            items2.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+            foreach (var lista in listaSupuestos)
+            {
+                items2.Add(new SelectListItem
+                {
+                    Text = lista.DESCRIPCION,
+                    Value = lista.ID_SUPUESTOS_REPORTE.ToString()
+                });
+            }
+            @Html.DropDownListFor(x => x.ID_SUPUESTOS_REPORTE, items2, new { @class = "form-control select2", @id = "selectSupuesto", @onchange = "supuestos()", @disabled = "" })
+        }
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        @Html.LabelFor(x => x.DESCRIPCION_REPORTE, "Reclamación del socio:")
+        @Html.TextAreaFor(x => x.DESCRIPCION_REPORTE, new { @class = "form-control", @placeholder = "Descripción", @id = "inputDescripcion", @maxlength = "1000", @rows = "9", @onkeypress = "descripcionReporte()", @readOnly = "" })
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <label>Última respuesta a la reclamación:</label>
+        <textarea class="form-control" value="@ultimoComentario" id="ultimoComentario" rows="10" readonly>@ultimoComentario</textarea>
+    </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-success" role="alert" id="divAlertaExito" hidden><strong>Accion realizada correctamente</strong></div>
+        <div class="alert alert-danger" role="alert" id="divAlertaFracaso" hidden><strong>Error en la respuesta del reporte</strong></div>
+    </div>
+</div>
+
+@if (Model.ID_ESTATUS_REPORTE == 4)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <button id="btnRechazar" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModalRechazar"><span class="glyphicon glyphicon-remove"></span> Rechazar</button>
+            <button id="btnAceptar" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModalAceptar"><span class="glyphicon glyphicon-ok"></span> Aceptar</button>
+        </div>
+    </div>
+}
+
+<div class="modal fade" id="myModalRechazar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Rechazar número de folio <kbd>@Model.FOLIO</kbd></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="areaRespuesta">Comentarios:</label>
+                        <textarea class="form-control" id="areaRespuestaRechaza" rows="10" maxlength="1000" onkeypress="validaRechaza()"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCancelarModalR">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="btnRechazarModal" onclick="validaR()"><span class="glyphicon glyphicon-remove"></span> Rechazar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModalAceptar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Aceptar número de folio <kbd>@Model.FOLIO</kbd></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="areaRespuestaAceptar">Comentarios:</label>
+                        <textarea class="form-control" id="areaRespuestaAceptar" rows="9" maxlength="1000" onkeypress="validaAceptar()"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCancelarModalA" >Cancelar</button>
+                <button type="button" class="btn btn-success" id="btnAceptarModal"  onclick="validaA()"><span class="glyphicon glyphicon-ok"></span> Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>

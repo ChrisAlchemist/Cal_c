@@ -1,0 +1,50 @@
+﻿.rojo:focus {
+    box-shadow: 0 0 5px rgba(255,0,0,1);
+    border: 1px solid rgba(255,0,0,0.8);
+}
+
+.verde:focus {
+    box-shadow: 0 0 5px rgba(0,255,0,1);
+    border: 1px solid rgba(0,255,0,0.8);
+}
+
+.rojoValidacion {
+    box-shadow: 0 0 5px rgba(255,0,0,1);
+    border: 3px solid rgba(255,0,0,0.8);
+}
+
+/*#dvLoading
+{
+   background: #808080;
+   height: 100px;
+   width: 100px;
+   position: fixed;
+   z-index: 1000;
+   left: 50%;
+   top: 50%;
+   margin: -25px 0 0 -25px;
+}*/
+
+#dvLoading {
+    background: #808080;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 10000;
+    /* left: 50%; */
+    /* top: 50%; */
+    margin: -35px 0 0 -40px;
+    opacity: 0.5;
+}
+
+/*textarea{
+    resize:none;
+}*/
+
+.centrarContenido{
+    text-align: center;
+}
+
+.contenidoIzquierda{
+    text-align: left;
+}

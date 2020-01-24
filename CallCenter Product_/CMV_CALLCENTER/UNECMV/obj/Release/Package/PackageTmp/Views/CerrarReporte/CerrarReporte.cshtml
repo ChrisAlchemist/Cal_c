@@ -1,0 +1,56 @@
+﻿@using UNECMV.Models
+@model TBL_UNE_REPORTE
+
+@{
+    ViewBag.Title = "CerrarReporte";
+}
+
+@{
+    UNECMV.Models.CLAVES SesionUsuario = Session["SesionUsuario"] as UNECMV.Models.CLAVES;
+}
+
+<script src="~/Estilos/Wizard/js/jquery-1.9.1.min.js"></script>
+<link href="~/Estilos/css/Validaciones.css" rel="stylesheet" />
+<script src="~/Eventos/CerrarReporte.js"></script>
+
+<div class="row">
+    <div class="col--md-8">
+        <center><h3>Cerrar folio número <kbd>@Model.FOLIO</kbd></h3></center>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <label>Nombre:</label>
+        <input class="form-control" value="@Model.NOMBRE_S @Model.APELLIDO_PATERNO @Model.APELLIDO_MATERNO" readonly />
+    </div>
+    <div class="col-md-3">
+        <label>Tipo de reporte:</label>
+        <input class="form-control" value="@Model.CAT_UNE_TIPO_REPORTE.DESCRIPCION" readonly />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <label>Observación:</label>
+        @Html.TextAreaFor(x => x.DESCRIPCION_REPORTE, new { @class="form-control", @rows="5", @readonly=""} )
+    </div>
+</div>
+
+@using (Html.BeginForm("Cerrar", "CerrarReporte", FormMethod.Post, new { @id = "frmCerrar" }))
+{
+    @Html.HiddenFor(x=>x.FOLIO)
+    <div class="row">
+        <div class="col-md-12">
+            @Html.LabelFor(x => x.Observaciones_cierre, "Observaciones de cierre:")
+            @Html.TextAreaFor(x => x.Observaciones_cierre, new { @class = "form-control", @placeholder = "Observaciones de cierre", @id = "inputObservaciones", @maxlength = "1000", @rows = "10", @onkeypress = "ObservacionesReporte()" })
+        </div>
+    </div>
+    <br />
+}
+
+    <div class="row">
+        <div class="col-md-12">
+            <center><button class="btn btn-success btn-lg" onclick="validacion()"><span class="glyphicon glyphicon-saved"></span> Cerrar</button></center>
+        </div>
+    </div>

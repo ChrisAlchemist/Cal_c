@@ -1,0 +1,26 @@
+﻿.rojo:focus {
+    box-shadow: 0 0 5px rgba(255,0,0,1);
+    border: 1px solid rgba(255,0,0,0.8);
+}
+
+.verde:focus {
+    box-shadow: 0 0 5px rgba(0,255,0,1);
+    border: 1px solid rgba(0,255,0,0.8);
+}
+
+.rojoValidacion {
+    box-shadow: 0 0 5px rgba(255,0,0,1);
+    border: 3px solid rgba(255,0,0,0.8);
+}
+
+#dvLoading
+{
+   background:#FFF url('../Imagenes/loader.gif') no-repeat center center;
+   height: 100px;
+   width: 100px;
+   position: fixed;
+   z-index: 1000;
+   left: 50%;
+   top: 50%;
+   margin: -25px 0 0 -25px;
+}

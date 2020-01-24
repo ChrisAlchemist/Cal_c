@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4a90c0c8c71445f18ba9bab1b8ec1c5a" Name="Diagram1">
+        <EntityTypeShape EntityType="BANCAModel.TBL_CALLCENTER_REGISTRO_REPORTE" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BANCAModel.CAT_CALLCENTER_ACCIONES_CAUSA" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="BANCAModel.CAT_CALLCENTER_MEDIO_MOVIMIENTO" Width="1.5" PointX="3.375" PointY="3.75" />
+        <EntityTypeShape EntityType="BANCAModel.TBL_BANCA_SOCIOS" Width="1.5" PointX="0.75" PointY="4.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

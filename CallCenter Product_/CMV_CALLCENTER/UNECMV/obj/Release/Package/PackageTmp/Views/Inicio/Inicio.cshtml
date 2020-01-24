@@ -1,0 +1,140 @@
+﻿@{
+    ViewBag.Title = "UNE";
+}
+
+@{
+    UNECMV.Models.CLAVES SesionUsuario = Session["SesionUsuario"] as UNECMV.Models.CLAVES;
+    var listaTipoReportes = new UNECMV.Controllers.InicioController().obtenerReportes(SesionUsuario.Numusuario, SesionUsuario.Id_de_sucursal, SesionUsuario.Usuario);
+}
+
+<script src="~/Eventos/Inicio.js"></script>
+
+<center><h3 class="page-header" id="dashboardID">Reportes Canalizados al area</h3></center>
+
+<table id="example" class="table table-striped" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Folio</th>
+            <th>Estatus</th>
+            <th>Responsable</th>
+            <th>Fecha Registro</th>
+            <th>Preview</th>
+            <th>Canalizar</th>
+            <th>Responder</th>
+            @if(SesionUsuario.Numusuario == 115)
+            {
+                <th>Dictaminar</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            DateTime dt;
+            foreach (var obj in listaTipoReportes)
+            {
+                dt = Convert.ToDateTime(@obj.FECHA_ALTA);
+                <tr>
+                    <td>@obj.NOMBRE_S @obj.APELLIDO_PATERNO @obj.APELLIDO_MATERNO</td>
+                    <td>@obj.FOLIO</td>
+                    <td id="@obj.FOLIO">@obj.CAT_UNE_ESTATUS_REPORTE.DESCRIPCION</td>
+
+                    @{ 
+                        var nombre = new UNECMV.Controllers.ResponderController().responsable(@obj.FOLIO);
+                        <td>@nombre</td>
+                    }
+
+                    <td>@dt.ToShortDateString()</td>
+                    <td><a role="button" class="btn btn-info btn-xs" href="@Url.Action("Preview","Preview", @obj)">Vista Previa</a></td>
+
+
+                    @if (SesionUsuario.Numusuario != 115)
+                    {
+                        <td><button type="button" class="btn btn-warning btn-xs" disabled="">Canalizar Area</button></td>
+                    }
+                    else
+                    {
+                        if (@obj.ID_ESTATUS_REPORTE == 2)
+                        {
+                            <td><a type="button" class="btn btn-warning btn-xs" href="@Url.Action("Canalizar","Canalizar",@obj)">Canalizar Area</a></td>
+                        }
+                        else
+                        {
+                            <td><button type="button" class="btn btn-warning btn-xs" disabled="">Canalizar Area</button></td>
+                        }
+                    }
+
+                    @if (@obj.ID_ESTATUS_REPORTE == 3 || @obj.ID_ESTATUS_REPORTE == 4)
+                    {
+                        if (@obj.ID_ESTATUS_REPORTE == 3)
+                        {
+                            int esResp = new UNECMV.Controllers.InicioController().EsResponsable(SesionUsuario.Numusuario, @obj.FOLIO);
+                            if (esResp == 1)
+                            {
+                                <td><a type="button" class="btn btn-success btn-xs" href="@Url.Action("Responder","Responder",@obj)">Respuesta Area</a></td>
+                            }
+                            else
+                            {
+                                <td><a type="button" class="btn btn-success btn-xs" href="" disabled="">Respuesta Area</a></td>
+                            }
+                        }
+                        else
+                        {
+                            <td><a type="button" class="btn btn-success btn-xs" href="" disabled="">Respuesta Area</a></td>
+                        }
+
+                        @*if (@obj.ID_ESTATUS_REPORTE == 4 && SesionUsuario.Numusuario != 115)
+                        {
+                            <td><a type="button" class="btn btn-success btn-xs" href="" disabled="">Respuesta Area</a></td>
+                        }
+                        if (@obj.ID_ESTATUS_REPORTE == 4 && SesionUsuario.Numusuario == 115)
+                        {
+                            <td><a type="button" class="btn btn-success btn-xs" href="@Url.Action("Responder","Responder",@obj)">Respuesta Area</a></td>
+                        }*@
+                    }
+                    else
+                    {
+                        <td><a type="button" class="btn btn-success btn-xs" href="" disabled="">Respuesta Area</a></td>
+                    }
+
+
+                    @if (SesionUsuario.Numusuario == 115)
+                    {
+                        if (@obj.ID_ESTATUS_REPORTE == 4)
+                        {
+                            <td><a type="button" class="btn btn-info btn-xs" href="@Url.Action("Dictaminar","Dictaminar",@obj)">Dictaminar</a></td>
+                        }
+                        else
+                        {
+                            <td><a type="button" class="btn btn-info btn-xs" href="" disabled>Dictaminar</a></td>
+                        }
+                    }
+
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">¿Deseas canalizar el reporte <kbd><span id="uneFolio">1</span></kbd> al area correspondiente?</h4>
+            </div>
+            <div class="modal-body">
+                <input id="inputUNE" hidden />
+                <div class="alert alert-success" role="alert" id="divAlertaExito" hidden=""><strong>Canalización realizada correctamente</strong></div>
+                <div class="alert alert-danger" role="alert" id="divAlertaFracaso" hidden=""><strong>Error en la canalización del reporte</strong></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-warning" id="btnCanalizar" onclick="canalizar($('#inputUNE').val())">Canalizar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Estilos/js/jquery.min.js"></script>

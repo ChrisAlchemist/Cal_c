@@ -1,0 +1,205 @@
+﻿@using UNECMV;
+@model UNECMV.Models.TBL_UNE_REPORTE
+
+@{
+    ViewBag.Title = "UNE";
+}
+
+@{ 
+    var listaTipoReportes = new UNECMV.Controllers.RegistrarController().obtenerTipoReporte();
+    var listaMediosContacto = new UNECMV.Controllers.RegistrarController().obtenerMediosContacto();
+    UNECMV.Models.CLAVES SesionUsuario = Session["SesionUsuario"] as UNECMV.Models.CLAVES;
+}
+
+<link href="~/Estilos/Wizard/CSS/normalize.css" rel="stylesheet" />
+<link href="~/Estilos/Wizard/CSS/main.css" rel="stylesheet" />
+<link href="~/Estilos/Wizard/CSS/jquery.steps.css" rel="stylesheet" />
+<script src="~/Estilos/Wizard/js/jquery-1.9.1.min.js"></script>
+<script src="~/Estilos/Wizard/js/jquery.cookie-1.3.1.js"></script>
+<script src="~/Estilos/Wizard/js/modernizr-2.6.2.min.js"></script>
+<script src="~/Estilos/Wizard/js/jquery.steps.js"></script>
+<link href="~/Estilos/css/Validaciones.css" rel="stylesheet" />
+<script src="~/Eventos/registrar.js"></script>
+
+<div class="content">
+    <div id="dvLoading" hidden></div>
+    @*@using (Html.BeginForm("RegistrarReporte", "Registrar", FormMethod.Post, new { @id = "frmRegistrar" })) {*@ 
+        <div id="wizard">
+            <h2>Datos de captura</h2>
+            <section>
+                <div class="row">
+                    <div class="col-md-6 form-inline">
+                        <label for="inputEsSocio">Contacto:</label>
+                        @{
+                            List<SelectListItem> itemsSocio = new List<SelectListItem>();
+                            itemsSocio.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+                            itemsSocio.Add(new SelectListItem
+                            {
+                                Text = "Es Socio",
+                                Value = "1"
+                            });
+
+                            itemsSocio.Add(new SelectListItem
+                            {
+                                Text = "No Es Socio",
+                                Value = "2"
+                            });
+
+                            itemsSocio.Add(new SelectListItem
+                            {
+                                Text = "Persona Moral",
+                                Value = "3"
+                            });
+                            @Html.DropDownListFor(x => x.ES_SOCIO, itemsSocio, new { @class = "form-control select2", @id = "inputEsSocio", @onchange = "EsSocio(value)" })
+                        }
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3" id="divInputSocio">
+                        @Html.LabelFor(Model => Model.NUMERO, "Número de socio:")
+                        @Html.TextBoxFor(Model => Model.NUMERO, new { @class = "form-control", @placeholder = "Ej: 667231", @id = "inputSocio", @disabled = "", @oninput = "reiniciaDatosSocio()", @type="number" })
+                    </div>
+                    <div class="col-md-1">
+                        <button id="buscarNumSocio" class="btn btn-info" onclick="hacer_click($('#inputSocio').val())" disabled style="margin-top: 25px;">Buscar</button>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="selectPerMoral">Representante legal</label>
+                        <select class="form-control select2" id="selectPerMoral" onchange="cargaDatosPM()" disabled>
+                            <option>Representante Legal</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        @Html.LabelFor(Model => Model.FOLIO, "Número de folio:")
+                        @Html.TextBoxFor(Model => Model.FOLIO, new { @class = "form-control", @placeholder = "folio", @id = "inputFolio", @readOnly = "", @oninput = "", @type = "number" })
+                    </div>
+                </div>
+                <hr />
+@using (Html.BeginForm("RegistrarReporte", "Registrar", FormMethod.Post, new { @id = "frmRegistrar" }))
+{
+                @Html.HiddenFor(Model => Model.ES_SOCIO, new { @id = "inputEsSocio_" })
+                @Html.HiddenFor(Model => Model.NUMERO, new { @id = "inputSocio_" })
+                @Html.HiddenFor(Model => Model.ID_DE_SUCURSAL, new { @Value = @SesionUsuario.Id_de_sucursal })
+                @Html.HiddenFor(Model => Model.USUARIO_REGISTRA, new { @Value = @SesionUsuario.Numusuario })
+                @Html.HiddenFor(Model => Model.FOLIO, new { @id="inputFolio_" })
+                <div class="row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(Model => Model.NOMBRE_S, "Nombre:")
+                        @Html.TextBoxFor(Model => Model.NOMBRE_S, new { @class = "form-control", @placeholder = "Nombre", @id = "inputNombre", @readonly = "" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.LabelFor(Model => Model.APELLIDO_PATERNO, "Ap. Paterno:")
+                        @Html.TextBoxFor(Model => Model.APELLIDO_PATERNO, new { @class = "form-control", @placeholder = "Ap. Paterno", @id = "inputAP", @readonly = "" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.LabelFor(Model => Model.APELLIDO_MATERNO, "Ap. Materno:")
+                        @Html.TextBoxFor(Model => Model.APELLIDO_MATERNO, new { @class = "form-control", @placeholder = "Ap. Materno", @id = "inputAM", @readonly = "" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.LabelFor(Model => Model.TELEFONO, "Teléfono:")
+                        @Html.TextBoxFor(Model => Model.TELEFONO, new { @class = "form-control", @placeholder = "Tel.", @id = "inputTel", @readonly = "" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.LabelFor(Model => Model.TEL_CELULAR, "Tel. Celular:")
+                        @Html.TextBoxFor(Model => Model.TEL_CELULAR, new { @class = "form-control", @placeholder = "Cel.", @id = "inputTelCel", @readonly = "" })
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="inputCalle">Domicilio: </label>
+                        <input type="text" class="form-control" id="inputCalle" placeholder="" readonly />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputMunicipio">Municipio: </label>
+                        <input type="text" class="form-control" id="inputMunicipio" placeholder="" readonly />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="selectReporte" class="control-label">Tipo de reporte:</label>
+                        @{
+                            List<SelectListItem> items = new List<SelectListItem>();
+                            items.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+                            foreach (var lista in listaTipoReportes)
+                            {
+                                items.Add(new SelectListItem
+                                {
+                                    Text = lista.DESCRIPCION,
+                                    Value = lista.ID_TIPO_REPORTE.ToString()
+                                });
+                            }
+                            @Html.DropDownListFor(Model => Model.ID_TIPO_REPORTE, items, new { @class = "form-control select2", @id = "selectReporte", @onchange = "cargarSupuestos(value)" })
+                        }
+                    </div>
+                    <div class="col-md-3">
+                        <label for="selectSupuesto" class="control-label">Supuesto del reporte:</label>
+                        @{
+                            @Html.DropDownListFor(Model => Model.ID_SUPUESTOS_REPORTE, new SelectList(string.Empty, "Value", "Text"), "SELECCIONAR", new { @class = "form-control select2", @id = "selectSupuesto", @onchange = "supuestos()" })
+                        }
+                    </div>
+                    <div class="col-md-6">
+                        <label for="selectMedioContacto" class="control-label">Medio de contacto:</label>
+                        @{
+                            List<SelectListItem> itemsMedio = new List<SelectListItem>();
+                            itemsMedio.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+                            foreach (var lista in listaMediosContacto)
+                            {
+                                itemsMedio.Add(new SelectListItem
+                                {
+                                    Text = lista.DESCRIPCION,
+                                    Value = lista.ID_MEDIO_CONTACTO.ToString()
+                                });
+                            }
+                            @Html.DropDownListFor(Model => Model.ID_MEDIO_CONTACTO, itemsMedio, new { @class = "form-control select2", @id = "selectMedioContacto", @onchange = "medioContacto()" })
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.LabelFor(Model => Model.DESCRIPCION_REPORTE, "Descripción del reporte:")
+                        @Html.TextAreaFor(Model => Model.DESCRIPCION_REPORTE, new { @class = "form-control", @placeholder = "Descripción", @id = "inputDescripcion", @maxlength = "1000", @rows = "5", @onkeypress = "descripcionReporte()" })
+                    </div>
+                </div>           
+}
+            </section>
+
+            <h2>Generar reporte</h2>
+            <section>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h3><strong>Nombre:</strong> </h3> <input class="form-control" id="spanNombre" readonly/>
+                    </div>
+                    <div class="col-md-2">
+                        <h3><strong>Telefono:</strong></h3> <input class="form-control" id="spanTel" readonly/>
+                    </div>
+                    <div class="col-md-2">
+                        <h3><strong>Tel. celular:</strong></h3><input class="form-control" id="spanTelCel" readonly/>
+                    </div>
+                    <div class="col-md-2">
+                        <h3><strong>Folio:</strong></h3><input class="form-control" id="spanFolio" readonly/>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h3><strong>Medio de contacto:</strong></h3><input class="form-control" id="spanMedio" readonly />
+                    </div>
+                    <div class="col-md-3">
+                        <h3><strong>Tipo de reporte:</strong></h3><input class="form-control" id="spanTP" readonly />
+                    </div>
+                    <div class="col-md-3">
+                        <h3><strong>Supuesto:</strong></h3><input class="form-control" id="spanTS" readonly />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3><strong>Descripción del reporte:</strong></h3><textarea class="form-control" id="spanDescr" maxlength="1000" rows = "10" readonly />
+                    </div>
+                </div>
+            </section>
+
+        </div>
+</div>
+

@@ -1,0 +1,542 @@
+﻿@using CMV_CALLCENTER.Models
+@model TBL_UNE_REPORTE
+
+@{
+    ViewBag.Title = "RegistrarNotificacion";
+}
+
+@{
+    CMV_CALLCENTER.Models.CLAVES SesionUsuario = Session["SesionUsuario"] as CMV_CALLCENTER.Models.CLAVES;
+    String ultimoComentario = new CMV_CALLCENTER.Controllers.DictaminarController().ObtenerUltimaRespuesta(Model.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena);
+}
+
+<script src="~/Estilos/Wizard/js/jquery-1.9.1.min.js"></script>
+<script>
+    var folioBanca = @Model.folio_banca;
+    var estatusReporte = @Model.ID_ESTATUS_REPORTE;
+</script>
+<script src="~/Eventos/RegistrarNotificacion.js"></script>
+<link href="~/Estilos/css/Validaciones.css" rel="stylesheet" />
+<link href="~/Estilos/Datepicker/css/datepicker.css" rel="stylesheet" />
+<script src="~/Estilos/Datepicker/js/bootstrap-datepicker.js"></script>
+<script src="~/Estilos/js/moment.min.js"></script>
+
+<div class="row">
+    <div class="col-md-12">
+        <center><h3>Registrar Notificación </h3></center>
+        <hr />
+    </div>
+</div>
+
+<hr style="border-color: dimgray;" />
+
+<div id="dvLoading" style="margin: -107px 0 0 -40px;" hidden><img src="~/Estilos/Imagenes/loader.gif" style="top:40%; left:50%; position:relative" /></div>
+
+<div class="row">
+    <div class="col-md-3" id="div-folioUne">
+        @Html.LabelFor(x => x.NUM_FOLIO, "Número de folio")
+        @Html.TextBoxFor(x => x.NUM_FOLIO, new { @class = "form-control", @id = "inputNumFolio", @disabled = "" })
+    </div>
+    @if (Model.folio_banca != null && Model.folio_banca > 0)
+    {
+        <div class="col-md-3">
+            @Html.LabelFor(x => x.folio_banca, "Folio CMV Finanzas:")
+            @Html.TextBoxFor(x => x.folio_banca, new { @class = "form-control", @id = "inputFolioBanca", @readOnly = "" })
+        </div>
+    }
+</div>
+@Html.HiddenFor(x => x.FOLIO, new { @id = "inputFolio" })
+<br />
+<div class="row">
+    <div class="col-md-3">
+        <label for="inputEsSocio">Tipo de persona:</label>
+        @{
+            List<SelectListItem> itemsSocio = new List<SelectListItem>();
+            itemsSocio.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+            itemsSocio.Add(new SelectListItem
+            {
+                Text = "Es Socio",
+                Value = "1"
+            });
+
+            itemsSocio.Add(new SelectListItem
+            {
+                Text = "Usuario",
+                Value = "2"
+            });
+
+            itemsSocio.Add(new SelectListItem
+            {
+                Text = "Persona Moral",
+                Value = "3"
+            });
+
+            @Html.DropDownListFor(x => x.ES_SOCIO, itemsSocio, new { @class = "form-control select2", @id = "inputEsSocio", @onchange = "", @disabled = "" })
+        }
+    </div>
+    <div class="col-md-3">
+        @Html.LabelFor(x => x.NUMERO, "Número:")
+        @Html.TextBoxFor(x => x.NUMERO, new { @class = "form-control", @id = "inputNumSocio", @readOnly = "" })
+    </div>
+    <div class="col-md-4" id="div-representante-leg" ">
+        <label for="inputEsSocio">Representante legal:</label>
+        <select class="form-control select2" id="selectPersonaLegal" disabled>
+            @{
+                if (Model.ES_SOCIO == 3)
+                {
+                    <option value="3">@Model.NOMBRE_S @Model.APELLIDO_PATERNO @Model.APELLIDO_MATERNO</option>
+                }
+                else
+                {
+                    <option value="0">N/A</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="col-md-2">
+        @Html.LabelFor(x => x.FECHA_ALTA, "Fecha de alta:")
+        @{
+            DateTime dt;
+            dt = Convert.ToDateTime(Model.FECHA_ALTA);
+            @Html.TextBoxFor(x => x.FECHA_ALTA, new { @Value = dt.ToShortDateString(), @class = "form-control", @id = "inputFecha", @readOnly = "" })
+        }
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-3">
+        @Html.LabelFor(x => x.NOMBRE_S, "Nombre(s):")
+        @Html.TextBoxFor(x => x.NOMBRE_S, new { @Value = Model.NOMBRE_S, @class = "form-control", @placeholder = "Ej: 667231", @id = "inputSocio", @readOnly = "" })
+    </div>
+    <div class="col-md-3">
+        @Html.LabelFor(x => x.APELLIDO_PATERNO, "Apellido Paterno:")
+        @Html.TextBoxFor(x => x.APELLIDO_PATERNO, new { @Value = Model.APELLIDO_PATERNO, @class = "form-control", @id = "inputAP", @readOnly = "" })
+    </div>
+    <div class="col-md-3">
+        @Html.LabelFor(x => x.APELLIDO_MATERNO, "Apellido Materno:")
+        @Html.TextBoxFor(x => x.APELLIDO_MATERNO, new { @Value = Model.APELLIDO_MATERNO, @class = "form-control", @id = "inputAM", @readOnly = "" })
+    </div>
+    <div class="col-md-3" id="div-Tel">
+        @Html.LabelFor(x => x.TELEFONO, "Teléfono:")
+        @Html.TextBoxFor(x => x.TELEFONO, new { @Value = Model.TELEFONO, @class = "form-control", @placeholder = "Tel.", @id = "inputTel", @readOnly = "" })
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-3" id="div-celular">
+        @Html.LabelFor(x => x.TEL_CELULAR, "Teléfono Celular:")
+        @Html.TextBoxFor(x => x.TEL_CELULAR, new { @Value = Model.TEL_CELULAR, @class = "form-control", @placeholder = "Cel.", @id = "inputTelCel", @readonly = "" })
+    </div>
+    <div class="col-md-9" id="div-domicilio">
+        @Html.LabelFor(x => x.DOMICILIO, "Domicilio:")
+        @Html.TextBoxFor(x => x.DOMICILIO, new { @class = "form-control", @placeholder = "Domicilio", @id = "inputCalle", @maxlength = "200", @readonly = "", @oninput = "validaDomicilio()" })
+    </div>
+</div>
+<hr style="border-color: dimgray;" />
+<div class="row">
+    <div class="col-md-3">
+        @Html.LabelFor(x => x.REPORTE_CORRESPONSALIAS, "Aplica Corresponsal:")
+        @Html.CheckBoxFor(x => x.REPORTE_CORRESPONSALIAS, new { @type = "checkbox", @id = "checkCorresponsalias", @name = "checkCorr", @Value = true, @disabled = "disabled" })
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-3" id="div-suc-causa">
+        <label for="selectSucursal">Sucursal de la causa:</label>
+        @{
+            List<SelectListItem> itemsSucRegistro = new List<SelectListItem>();
+            itemsSucRegistro.Add(new SelectListItem { Text = "NINGUNA", Value = "0" });
+            foreach (var item in ViewData["sucursales"] as List<CMV_CALLCENTER.Models.SUCURSALES>)
+            {
+                itemsSucRegistro.Add(new SelectListItem
+                {
+                    Text = item.Descripcion,
+                    Value = item.Id_de_Sucursal.ToString()
+                });
+            }
+            itemsSucRegistro.Add(new SelectListItem
+            {
+                Text = "OXXO",
+                Value = "1000"
+            });
+            @Html.DropDownListFor(x => x.ID_SUCURSAL_REGISTRO, itemsSucRegistro, new { @class = "form-control select2", @id = "selectSucursalRegistro", @onchange = "CambioSucursalRegistro()", @disabled = "" })
+        }
+    </div>
+    <div class="col-md-3" id="div-EntFed">
+        <label for="selectEntidad" class="control-label">Entidad Federativa:</label>
+        @{
+            List<SelectListItem> itemsEntidades = new List<SelectListItem>();
+            itemsEntidades.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+            foreach (var lista in ViewData["listaEntidades"] as List<CMV_CALLCENTER.Models.ENTIDAD_FEDERATIVA>)
+            {
+                itemsEntidades.Add(new SelectListItem
+                {
+                    Text = lista.DESCRIPCION,
+                    Value = lista.ID_ENTIDAD_FEDERATIVA.ToString()
+                });
+            }
+            @Html.DropDownListFor(x => x.ENTIDAD, itemsEntidades, new { @class = "form-control select2", @id = "selectEntidad", @onchange = "selectEntFed()", @disabled = "" })
+        }
+    </div>
+    <div class="col-md-3">
+        <label for="inputMedioContacto">Medio de contacto:</label>
+        @{
+            List<SelectListItem> itemsMedio = new List<SelectListItem>();
+            itemsMedio.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+            foreach (var lista in ViewData["listaMediosContacto"] as List<CMV_CALLCENTER.Models.CAT_UNE_MEDIO_CONTACTO>)
+            {
+                itemsMedio.Add(new SelectListItem
+                {
+                    Text = lista.DESCRIPCION,
+                    Value = lista.ID_MEDIO_CONTACTO.ToString()
+                });
+            }
+            @Html.DropDownListFor(x => x.ID_MEDIO_CONTACTO, itemsMedio, new { @class = "form-control select2", @id = "inputMedioContacto", @onchange = "", @disabled = "" })
+        }
+    </div>
+    <div class="col-md-3" id="div-no-referencia">
+        @Html.LabelFor(x => x.NUMERO_DE_REFERENCIA, "Número de referencia:")
+        @Html.TextBoxFor(x => x.NUMERO_DE_REFERENCIA, new { @class = "form-control", @id = "inputNumReferencia", @readonly = "" })
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-3">
+        <label for="selectReporte" class="control-label">Tipo de reporte:</label>
+        @{
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+            foreach (var lista in ViewData["listaTipoReportes"] as List<CMV_CALLCENTER.Models.CAT_UNE_TIPO_REPORTE>)
+            {
+                items.Add(new SelectListItem
+                {
+                    Text = lista.DESCRIPCION,
+                    Value = lista.ID_TIPO_REPORTE.ToString()
+                });
+            }
+            @Html.DropDownListFor(x => x.ID_TIPO_REPORTE, items, new { @class = "form-control select2", @id = "selectReporte", @onchange = "cargarSupuestos(value)", @disabled = "" })
+        }
+    </div>
+
+    <div class="col-md-3">
+        <label for="selectPtmoCapt" class="control-label">Tipo de operación:</label>
+        @{
+            List<SelectListItem> itemsCuentas = new List<SelectListItem>();
+            itemsCuentas.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+
+            foreach (var item in (ViewData["tipoCuentas"] as List<CMV_CALLCENTER.Models.CAT_UNE_TIPO_CUENTA>))
+            {
+                itemsCuentas.Add(new SelectListItem
+                {
+                    Text = item.DESCRIPCION,
+                    Value = item.ID_TIPO_CUENTA.ToString()
+                });
+            }
+            @Html.DropDownListFor(x => x.ID_TIPO_CUENTA, itemsCuentas, new { @class = "form-control select2", @id = "selectPtmoCapt", @onchange = "selectCuenta()", @disabled = "disabled" })
+        }
+    </div>
+    <div class="col-md-3">
+        <label for="selectTipoCuenta" class="control-label"> Operación:</label>
+        @{
+            List<SelectListItem> itemsC = new List<SelectListItem>();
+            itemsC.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+
+            foreach (var item in (ViewData["cuentas"] as List<CMV_CALLCENTER.Models.CAT_UNE_CUENTAS>))
+            {
+                itemsC.Add(new SelectListItem
+                {
+                    Text = item.DESCRIPCION,
+                    Value = item.ID_CUENTA.ToString()
+                });
+            }
+            @Html.DropDownListFor(x => x.ID_CUENTA, itemsC, "SELECCIONAR", new { @class = "form-control select2", @id = "selectTipoCuenta", @onchange = "tipoCuenta()", @disabled = "" })
+        }
+    </div>
+    <div class="col-md-3" id="div-tarjeta-cred">
+        @Html.LabelFor(x => x.Num_Tarjeta, "Número de trajeta(Debito)");
+        @Html.TextBoxFor(x => x.Num_Tarjeta, new { @class = "form-control", @id = "inputNumTarjeta", @readonly = "" })
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-6">
+        <label for="selectSupuesto" class="control-label">Causa del reporte:</label>
+        @{
+            List<SelectListItem> items2 = new List<SelectListItem>();
+            items2.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+            foreach (var lista in ViewData["listaSupuestos"] as List<CAT_UNE_SUPUESTOS_REPORTE>)
+            {
+                items2.Add(new SelectListItem
+                {
+                    Text = lista.DESCRIPCION,
+                    Value = lista.ID_SUPUESTOS_REPORTE.ToString()
+                });
+            }
+            @Html.DropDownListFor(x => x.ID_SUPUESTOS_REPORTE, items2, new { @class = "form-control select2", @id = "selectSupuesto", @onchange = "supuestos()", @disabled = "" })
+        }
+    </div>
+    <div class="col-md-3" id="div-importeReclamacion">
+        @{
+            if (Model.IMPORTE_RECLAMACION > 0)
+            {
+                @Html.LabelFor(x => x.IMPORTE_RECLAMACION, "Importe en reclamación:")
+                @Html.TextBoxFor(x => x.IMPORTE_RECLAMACION, new { @Value = Model.IMPORTE_RECLAMACION, @class = "form-control", @placeholder = "Importe en reclamacion", @id = "inputReclamacion", @readonly = "" })
+            }
+            else
+            {
+                @Html.LabelFor(x => x.IMPORTE_RECLAMACION, "Importe en reclamación:")
+                @Html.TextBoxFor(x => x.IMPORTE_RECLAMACION, new { @Value = "$0.00", @class = "form-control", @placeholder = "Importe en reclamacion", @id = "inputReclamacion", @readonly = "" })
+            }
+        }
+
+    </div>
+    <div class="col-md-3" id="div-importeCorrespondiente">
+        @{
+
+            if (Model.ID_TIPO_REPORTE == 3)
+            {
+
+                @Html.LabelFor(x => x.IMPORTE_SOLUCION, "Importe correspondiente:")
+                @Html.TextBoxFor(x => x.IMPORTE_SOLUCION, new { @class = "form-control", @placeholder = "Importe correspondiente", @id = "inputSolucion", @onkeypress = "inputSolucion()", @readonly = "" })
+
+            }
+            else if (Model.ID_TIPO_REPORTE == 4 && Model.IMPORTE_RECLAMACION > 0)
+            {
+
+                @Html.LabelFor(x => x.IMPORTE_SOLUCION, "Importe correspondiente:")
+                @Html.TextBoxFor(x => x.IMPORTE_SOLUCION, new { @class = "form-control", @placeholder = "Importe correspondiente", @id = "inputSolucion", @onkeypress = "inputSolucion()", @readonly = "" })
+
+            }
+            else
+            {
+
+                @Html.LabelFor(x => x.IMPORTE_SOLUCION, "Importe correspondiente:")
+                @Html.TextBoxFor(x => x.IMPORTE_SOLUCION, new { @Value = "$0.00", @class = "form-control", @placeholder = "Importe correspondiente", @id = "inputSolucion", @onkeypress = "inputSolucion()", @readonly = "" })
+
+            }
+        }
+    </div>
+
+</div>
+
+@if (Model.ID_PROCEDE_DEBITO == 2)
+{
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-warning" role="alert" id="divAlertaCargoDebito"><strong>Se generara un cargo al socio por concepto de reclamación no procedente</strong></div>
+        </div>
+    </div>
+}
+
+<br />
+
+@using (Html.BeginForm("RegistrarDocumentoNotificar", "Notificar", FormMethod.Post, new { enctype = "multipart/form-data", @id = "frmEnviar" }))
+{
+    <div class="row">
+        <div class="col-md-3" id="div-fech-aclaracion">
+            @Html.LabelFor(x => x.FECHA_SOLICITUD_ACLARACION, "Fecha solicitud de aclaración:")
+            @Html.TextBoxFor(x => x.FECHA_SOLICITUD_ACLARACION, new { @class = "form-control", @id = "fechaAclaracion", @onchange = "cambioFecha(id)", @disabled = "", @readonly = "" })
+        </div>
+        <div class="col-md-3" id="div-fech-transaccion">
+            @Html.LabelFor(x => x.FECHA_TRANSACCION, "Fecha de la transacción:")
+
+            @Html.TextBoxFor(x => x.FECHA_TRANSACCION, new { @Value = dt.ToShortDateString(), @class = "form-control", @id = "fechaTransaccion", @onchange = "cambioFecha(id)", @disabled = "", @readonly = "" })
+        </div>
+        <div class="col-md-3" id="div-select-medDetMov">
+            <label for="selectMedioMov" class="control-label">Medio de detección de movimiento:</label>
+            @{
+                List<SelectListItem> itemsMedioDetMov = new List<SelectListItem>();
+                itemsMedioDetMov.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+
+                foreach (var item in (ViewData["listaMedioMovimiento"] as List<CMV_CALLCENTER.Models.CAT_CALLCENTER_MEDIO_MOVIMIENTO>))
+                {
+                    itemsMedioDetMov.Add(new SelectListItem
+                    {
+                        Text = item.descripcion_medio,
+                        Value = item.id_medio_movimiento.ToString()
+                    });
+                }
+                @Html.DropDownListFor(x => x.id_medio_deteccion_movimiento, itemsMedioDetMov, new { @class = "form-control select2", @id = "selectMedioMov", @onchange = "", @disabled = "" })
+            }
+        </div>
+        <div class="col-md-3" id="div-folioAutorizacion">
+            @Html.LabelFor(x => x.folio_autorizacion_banca, "Folio de autorización: ")
+            @Html.TextBoxFor(x => x.folio_autorizacion_banca, new { @class = "form-control", @id = "inputFolioAutorizacion", @disabled = "", @type = "text", @maxlength = "12", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3" id="div-selectTipoCuentaBanca">
+            <label for="selectTipoCuentaBanca" class="control-label">Tipo de cuenta(CMV Finanzas):</label>
+            @{
+                List<SelectListItem> itemstipoCuentaBanca = new List<SelectListItem>();
+                itemstipoCuentaBanca.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+
+                foreach (var item in (ViewData["listaTipoCuentaBanca"] as List<CMV_CALLCENTER.Models.CAT_UNE_TIPO_CUENTA_BANCA>))
+                {
+                    itemstipoCuentaBanca.Add(new SelectListItem
+                    {
+                        Text = item.DESCRIPCION,
+                        Value = item.ID_TIPO_CUENTA_BANCA.ToString()
+                    });
+                }
+                @Html.DropDownListFor(x => x.id_tipo_cuenta_banca, itemstipoCuentaBanca, new { @class = "form-control select2", @id = "selectTipoCuentaBanca", @onchange = "", @disabled = "" })
+            }
+        </div>
+        <div class="col-md-6">
+            @Html.HiddenFor(x => x.FOLIO, new { @id = "inputFolioOcultoRechazar", @Value = Model.FOLIO })
+            <label for="file">Adjuntar documento*:</label>
+            <input type="file" name="file" id="file" class="form-control" accept="application/pdf" />
+            <label style="font-size:8px;">*No obligatorio</label>
+        </div>
+    </div>
+    <br />
+
+    if (Model.ID_TIPO_REPORTE == 3)
+    {
+        <div class="row">
+            <div class="col-md-3">
+                @Html.LabelFor(x => x.NUMERO_CUENTA_PTMO, "Número de cuenta/préstamo/DPF:", new { @id = "labelinputNumeroCuentaPtmo" })
+                @Html.TextBoxFor(x => x.NUMERO_CUENTA_PTMO, new { @class = "form-control", @id = "inputNumeroCuentaPtmo", @readonly = "" })
+            </div>
+            <div class="col-md-3">
+                <label for="selectProducto" class="control-label">Producto:</label>
+                @{
+                    List<SelectListItem> itemsProducto = new List<SelectListItem>();
+                    itemsProducto.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+                    foreach (var item in (ViewData["listaProductos"] as List<CMV_CALLCENTER.Models.CAT_UNE_PRODUCTO>))
+                    {
+                        itemsProducto.Add(new SelectListItem
+                        {
+                            Text = item.NOMBRE,
+                            Value = item.ID_PRODUCTO.ToString()
+                        });
+                    }
+                    @Html.DropDownListFor(x => x.ID_PRODUCTO, itemsProducto, new { @class = "form-control select2", @id = "selectProducto", @onchange = "Productos(value)", @disabled = "" })
+
+                }
+            </div>
+            <div class="col-md-3">
+                <label for="selectCanal" class="control-label">Canal de transacción:</label>
+                @{
+                    List<SelectListItem> itemsCanales = new List<SelectListItem>();
+                    itemsCanales.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+
+                    foreach (var item in (ViewData["listaCanales"] as List<CMV_CALLCENTER.Models.CAT_UNE_CANAL>))
+                    {
+                        itemsCanales.Add(new SelectListItem
+                        {
+                            Text = item.NOMBRE,
+                            Value = item.ID_CANAL.ToString()
+                        });
+                    }
+                    @Html.DropDownListFor(x => x.ID_CANAL, itemsCanales, new { @class = "form-control select2", @id = "selectCanal", @onchange = "Canales(value)", @disabled = "" })
+
+                }
+            </div>
+            <div class="col-md-3">
+                <label for="selectMotivoCancelacion" class="control-label">Motivo de reclamación:</label>
+                @{
+                    List<SelectListItem> itemsReclamacion = new List<SelectListItem>();
+                    itemsReclamacion.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+
+                    foreach (var item in (ViewData["listaMotivoCancelacion"] as List<CMV_CALLCENTER.Models.CAT_UNE_MOTIVO_CANCELACION>))
+                    {
+                        itemsReclamacion.Add(new SelectListItem
+                        {
+                            Text = item.NOMBRE,
+                            Value = item.ID_MOTIVO_CANCELACION.ToString()
+                        });
+                    }
+                    @Html.DropDownListFor(x => x.ID_MOTIVO_CANCELACION, itemsReclamacion, new { @class = "form-control select2", @id = "selectMotivoCancelacion", @onchange = "Motivos(value)", @disabled = "" })
+                }
+            </div>
+        </div>
+        <br />
+    }
+    
+    if (Model.ID_TIPO_REPORTE == 3)
+    {
+        <div class="row">
+            <div class="col-md-3" id="div-dictamen">
+                <label for="selectSucursal">Dictamen:</label>
+                @{
+                    List<SelectListItem> itemsResolucion = new List<SelectListItem>();
+                    itemsResolucion.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+                    foreach (var item in ViewData["listaResolucion"] as List<CMV_CALLCENTER.Models.CAT_UNE_RESOLUCION>)
+                    {
+                        itemsResolucion.Add(new SelectListItem
+                        {
+                            Text = item.NOMBRE,
+                            Value = item.ID_RESOLUCION.ToString()
+                        });
+                    }
+                    @Html.DropDownListFor(x => x.ID_RESOLUCION, itemsResolucion, new { @class = "form-control select2", @id = "selectResolucion", @onChange = "", @disabled = "" })
+                }
+
+            </div>
+            <div class="col-md-5" id="div-causaResol">
+                <label for="selectCausaResolucion">Causa resolución:</label>
+                @{
+                    List<SelectListItem> itemsResolucionCausa = new List<SelectListItem>();
+                    itemsResolucionCausa.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+                    foreach (var item in ViewData["ListaCausaResolucion"] as List<CMV_CALLCENTER.Models.CAT_UNE_CAUSA_RESOLUCION>)
+                    {
+
+                        itemsResolucionCausa.Add(new SelectListItem
+                        {
+                            Text = item.NOMBRE,
+                            Value = item.ID_CAUSA_RESOLUCION.ToString()
+                        });
+                    }
+                    @Html.DropDownListFor(x => x.ID_CAUSA_RESOLUCION, itemsResolucionCausa, new { @class = "form-control select2", @id = "selectCausaResolucion", @disabled = "" })
+                }
+            </div>
+
+            <div class="col-md-3" id="div-fechAbonoCliente">
+                @Html.LabelFor(x => x.FECHA_ABONO, "Fecha de abono al cliente:")
+                @if (Model.ID_TIPO_REPORTE == 3)
+                {
+                    @Html.TextBoxFor(x => x.FECHA_ABONO, new { @class = "form-control", @id = "fechaAbono", @onchange = "", @readonly = "" })
+                }
+                else
+                {
+                    @Html.TextBoxFor(x => x.FECHA_ABONO, new { @class = "form-control", @id = "fechaAbono", @onchange = "", @disabled = "" })
+                }
+            </div>
+        </div>
+    }
+
+
+    <hr style="border-color: dimgray;" />
+
+    <div class="row">
+        <div class="col-md-4">
+            @Html.LabelFor(x => x.DESCRIPCION_REPORTE, "Reclamación:")
+            @Html.TextAreaFor(x => x.DESCRIPCION_REPORTE, new { @class = "form-control", @placeholder = "Descripción", @id = "inputDescripcion", @maxlength = "1000", @rows = "8", @onkeypress = "descripcionReporte()", @readOnly = "" })
+        </div>
+        <div class="col-md-4" id="div-respuestaReporte">
+            <label>Respuesta al reporte:</label>
+            <textarea class="form-control" value="@ultimoComentario" id="ultimoComentario" rows="8" readonly>@ultimoComentario</textarea>
+        </div>
+        <div class="col-md-4">
+            <label for="areaComentarios">Comentarios de registro:</label>
+            @Html.TextAreaFor(x => x.Observaciones_cierre, new { @id = "areaComentarios", @class = "form-control", @rows = "8", @maxlength = "1000", @onkeypress = "keyAreaComentarios()" })
+            @*<textarea id="areaComentarios" class="form-control" rows="6" maxlength="1000" onkeypress="keyAreaComentarios()"></textarea>*@
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success" role="alert" id="divAlertaExito" hidden><strong>Acción realizada correctamente</strong></div>
+            <div class="alert alert-danger" role="alert" id="divAlertaFracaso" hidden><strong>Error en la notificación del reporte</strong></div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <center><button type="button" class="btn btn-success" id="btnGuardar" onclick="generar()"><span class="glyphicon glyphicon-saved"></span> Registrar</button></center>
+    </div>
+</div>

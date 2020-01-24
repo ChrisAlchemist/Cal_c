@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BANCAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CAT_CALLCENTER_ACCIONES_CAUSA">
+    <Key>
+      <PropertyRef Name="id_accion_causa" />
+    </Key>
+    <Property Name="id_accion_causa" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="accion" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="CAT_CALLCENTER_MEDIO_MOVIMIENTO">
+    <Key>
+      <PropertyRef Name="id_medio_movimiento" />
+    </Key>
+    <Property Name="id_medio_movimiento" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion_medio" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="CAT_CALLCENTER_TIPO_CUENTA_NO_AFECTADA">
+    <Key>
+      <PropertyRef Name="ID_CUENTA_NO_AFECTADA" />
+    </Key>
+    <Property Name="ID_CUENTA_NO_AFECTADA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TBL_BANCA_SOCIOS">
+    <Key>
+      <PropertyRef Name="id_socio" />
+    </Key>
+    <Property Name="id_socio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_persona" Type="int" />
+    <Property Name="numero_socio" Type="int" />
+    <Property Name="contrasena" Type="varchar" MaxLength="1000" />
+    <Property Name="fecha_alta_contrasena" Type="datetime" />
+    <Property Name="contrasena_temp" Type="varchar" MaxLength="1000" />
+    <Property Name="fecha_contrasena_temporal" Type="datetime" />
+    <Property Name="fecha_alta_persona" Type="datetime" />
+    <Property Name="id_estatus_banca" Type="int" />
+    <Property Name="id_pregunta_secreta" Type="int" />
+    <Property Name="respuesta" Type="varchar(max)" />
+    <Property Name="id_motivo_bloqueo" Type="int" />
+    <Property Name="banca_activa" Type="bit" />
+    <Property Name="fecha_motivo_bloqueo" Type="datetime" />
+    <Property Name="id_imagen_antiphishing" Type="int" />
+    <Property Name="vigencia_contrasena_temporal" Type="bit" />
+    <Property Name="viene_de_bloqueo" Type="bit" />
+    <Property Name="id_ultima_sesion" Type="int" />
+    <Property Name="fecha_ultima_sesion" Type="datetime" />
+    <Property Name="intentos_sesion" Type="int" />
+    <Property Name="intentos_respuesta" Type="int" />
+    <Property Name="fecha_alta_solicitud" Type="datetime" />
+    <Property Name="fecha_de_desbloqueo" Type="datetime" />
+    <Property Name="contrasena_estado_cuenta" Type="varchar(max)" />
+    <Property Name="descripcion_bloqueo" Type="varchar(max)" />
+    <Property Name="descripcion_cancelacion" Type="varchar(max)" />
+    <Property Name="fecha_bloqueo_OTP" Type="datetime" />
+    <Property Name="fecha_cancelacion" Type="datetime" />
+    <Property Name="codigo_contrasena" Type="bigint" />
+    <Property Name="fecha_codigo_contrasena" Type="datetime" />
+    <Property Name="recuperar_contrasena" Type="bit" />
+    <Property Name="fecha_alta_recuperar_contrasena" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TBL_CALLCENTER_REGISTRO_REPORTE">
+    <Key>
+      <PropertyRef Name="id_registro_reporte" />
+    </Key>
+    <Property Name="id_registro_reporte" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="numero_socio" Type="bigint" />
+    <Property Name="detalles_llamada" Type="varchar(max)" />
+    <Property Name="fecha_registro_reporte" Type="datetime" />
+    <Property Name="ID_SUPUESTOS_REPORTE" Type="bigint" />
+  </EntityType>
+  <Function Name="SP_BANCA_BLOQUEAR_SOCIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="numero_Socio" Type="int" Mode="In" />
+    <Parameter Name="tipo_origen" Type="int" Mode="In" />
+    <Parameter Name="numero_usuario" Type="varchar" Mode="In" />
+    <Parameter Name="descripcion_bloqueo" Type="varchar(max)" Mode="In" />
+    <Parameter Name="id_tipo_bitacora" Type="int" Mode="In" />
+    <Parameter Name="id_motivo_bloqueo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_BANCA_MODIFICAR_MONTO_MAXIMO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="numero_Socio" Type="int" Mode="In" />
+    <Parameter Name="tipo_origen" Type="int" Mode="In" />
+    <Parameter Name="numero_usuario" Type="varchar" Mode="In" />
+    <Parameter Name="monto_maximo_transferencia" Type="money" Mode="In" />
+  </Function>
+  <Function Name="SP_BANCA_OBTENER_MONTO_MAXIMO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idLimiteTransferencia" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_BANCA_OBTENER_NOTIFICACION_CORREO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id_notificacion_correo" Type="int" Mode="In" />
+    <Parameter Name="numero" Type="int" Mode="In" />
+    <Parameter Name="num_usuario" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_CALLCENTER_INSERTAR_REGISTRO_REPORTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="numero_Socio" Type="bigint" Mode="In" />
+    <Parameter Name="ID_SUPUESTOS_REPORTE" Type="bigint" Mode="In" />
+    <Parameter Name="detalles_llamada" Type="varchar(max)" Mode="In" />
+    <Parameter Name="numero_usuario" Type="varchar" Mode="In" />
+    <Parameter Name="id_tipo_bitacora" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_CALLCENTER_OBTENER_MEDIO_MOVIMIENTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_CALLCENTER_REPORTES_OBTENER_ULTIMO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="BANCAModelStoreContainer">
+    <EntitySet Name="CAT_CALLCENTER_ACCIONES_CAUSA" EntityType="Self.CAT_CALLCENTER_ACCIONES_CAUSA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAT_CALLCENTER_MEDIO_MOVIMIENTO" EntityType="Self.CAT_CALLCENTER_MEDIO_MOVIMIENTO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAT_CALLCENTER_TIPO_CUENTA_NO_AFECTADA" EntityType="Self.CAT_CALLCENTER_TIPO_CUENTA_NO_AFECTADA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_BANCA_SOCIOS" EntityType="Self.TBL_BANCA_SOCIOS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_CALLCENTER_REGISTRO_REPORTE" EntityType="Self.TBL_CALLCENTER_REGISTRO_REPORTE" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,103 @@
+﻿@using UNECMV;
+@model UNECMV.Models.TBL_UNE_REPORTE
+
+@{
+    ViewBag.Title = "Reportes";
+}
+
+<script src="~/Estilos/js/jquery.min.js"></script>
+<link href="~/Estilos/Datepicker/css/datepicker.css" rel="stylesheet" />
+<script src="~/Estilos/Datepicker/js/bootstrap-datepicker.js"></script>
+<script src="~/Estilos/js/jquery.dataTables.min.js"></script>
+<link href="~/Estilos/css/dataTable.css" rel="stylesheet" />
+<script src="~/Eventos/Condusef.js"></script>
+<link href="~/Estilos/css/Validaciones.css" rel="stylesheet" />
+
+<div id="dvLoading" hidden><img src="~/Estilos/Imagenes/loader.gif" style="top:40%; left:50%; position:relative" /></div>
+
+<div class="row">
+    <div class="col-md-12"><center><h3>Generación de reportes</h3></center></div>
+</div>
+<hr />
+    <div class="row">
+        <div class="col-md-2">
+            <label for="fechaInicio">Fecha de inicio:<strong>*</strong></label>
+            <input class="form-control" id="fechaInicio" placeholder="Fecha inicio" onchange="cambioFecha(id)" />
+        </div>
+
+        <div class="col-md-2">
+            <label for="fechaFin">Fecha fin:<strong>*</strong></label>
+            <input class="form-control span2" id="fechaFin" placeholder="Fecha fin" onchange="cambioFecha(id)" />
+        </div>
+        <div class="col-md-3">
+            <label for="selectReporte" class="control-label">Tipo de reporte:</label>
+            <select class="form-control" id="selectTipoReporte">
+                <option value="0">Todas</option>
+                @{
+                    foreach (var lista in ViewData["tipoReporte"] as List<UNECMV.Models.CAT_UNE_TIPO_REPORTE>)
+                    {
+                        <option value="@lista.ID_TIPO_REPORTE">@lista.DESCRIPCION</option>
+                    }
+            }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label for="selectEstatusGeneral">Estatus:</label>
+            <select class="form-control" id="selectEstatusGeneral">
+                <option value="0">Todas</option>
+                <option value="1">Pendiente</option>
+                <option value="2">Concluido</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="selectEstatusInterno">Estatus General:</label>
+            <select class="form-control" id="selectEstatusInterno">
+                <option value="0">Todas</option>
+                @{
+                    foreach (var item in ViewData["estatusReporte"] as List<UNECMV.Models.CAT_UNE_ESTATUS_REPORTE>)
+                    {
+                        <option value="@item.ID_ESTATUS_REPORTE">@item.DESCRIPCION</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label for="selectSucursal">Sucursal de registro:</label>
+            <select class="form-control" id="selectSucursal">
+                <option value="0">Todas</option>
+                @{
+                    foreach (var item in ViewData["sucursales"] as List<UNECMV.Models.SUCURSALES>)
+                    {
+                        <option value="@item.Id_de_Sucursal">@item.Descripcion</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="selectSucursalSocio">Sucursal de socio:</label>
+            <select class="form-control" id="selectSucursalSocio">
+                <option value="0">Todas</option>
+                @{
+                    foreach (var item in ViewData["sucursales"] as List<UNECMV.Models.SUCURSALES>)
+                    {
+                        <option value="@item.Id_de_Sucursal">@item.Descripcion</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <center><button class="btn btn-success" id="btnGenera" style="margin-top: 25px;" onclick="validaForm($('#fechaInicio').val(), $('#fechaFin').val())"><span class="glyphicon glyphicon-play"></span> Generar reporte</button></center>
+        </div>
+        <div class="col-md-2">
+            <center><button class="btn btn-success" id="btnGeneraExcel" style="margin-top: 25px;" onclick="generaExcel()" disabled><span class="glyphicon glyphicon-floppy-save"></span> Generar Excel</button></center>
+        </div>
+    </div>
+<hr />
+<div class="row">
+    <div class="col-md-12" id="tabla">
+        
+    </div>
+</div>

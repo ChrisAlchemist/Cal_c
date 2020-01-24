@@ -1,0 +1,1216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HAPEModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ContextUne" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="CAT_UNE_ESTATUS_REPORTE" EntityType="HAPEModel.CAT_UNE_ESTATUS_REPORTE" />
+    <EntitySet Name="CAT_UNE_MEDIO_CONTACTO" EntityType="HAPEModel.CAT_UNE_MEDIO_CONTACTO" />
+    <EntitySet Name="CAT_UNE_SUPUESTOS_REPORTE" EntityType="HAPEModel.CAT_UNE_SUPUESTOS_REPORTE" />
+    <EntitySet Name="CAT_UNE_TIPO_REPORTE" EntityType="HAPEModel.CAT_UNE_TIPO_REPORTE" />
+    <EntitySet Name="TBL_UNE_CANALIZACIONES" EntityType="HAPEModel.TBL_UNE_CANALIZACIONES" />
+    <EntitySet Name="TBL_UNE_REPORTE" EntityType="HAPEModel.TBL_UNE_REPORTE" />
+    <AssociationSet Name="FK_CAT_UNE_ESTATUS_REPORTE_TBL_UNE_REPORTE" Association="HAPEModel.FK_CAT_UNE_ESTATUS_REPORTE_TBL_UNE_REPORTE">
+      <End Role="CAT_UNE_ESTATUS_REPORTE" EntitySet="CAT_UNE_ESTATUS_REPORTE" />
+      <End Role="TBL_UNE_REPORTE" EntitySet="TBL_UNE_REPORTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAT_UNE_MEDIO_CONTACTO_TBL_UNE_REPORTE" Association="HAPEModel.FK_CAT_UNE_MEDIO_CONTACTO_TBL_UNE_REPORTE">
+      <End Role="CAT_UNE_MEDIO_CONTACTO" EntitySet="CAT_UNE_MEDIO_CONTACTO" />
+      <End Role="TBL_UNE_REPORTE" EntitySet="TBL_UNE_REPORTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_SUPUESTOS_REPORTE" Association="HAPEModel.FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_SUPUESTOS_REPORTE">
+      <End Role="CAT_UNE_TIPO_REPORTE" EntitySet="CAT_UNE_TIPO_REPORTE" />
+      <End Role="CAT_UNE_SUPUESTOS_REPORTE" EntitySet="CAT_UNE_SUPUESTOS_REPORTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAT_UNE_TIPO_REPORTE_TBL_UNE_REPORTE" Association="HAPEModel.FK_CAT_UNE_TIPO_REPORTE_TBL_UNE_REPORTE">
+      <End Role="CAT_UNE_TIPO_REPORTE" EntitySet="CAT_UNE_TIPO_REPORTE" />
+      <End Role="TBL_UNE_REPORTE" EntitySet="TBL_UNE_REPORTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBL_UNE_REPORTE_TBL_UNE_CANALIZACIONES" Association="HAPEModel.FK_TBL_UNE_REPORTE_TBL_UNE_CANALIZACIONES">
+      <End Role="TBL_UNE_REPORTE" EntitySet="TBL_UNE_REPORTE" />
+      <End Role="TBL_UNE_CANALIZACIONES" EntitySet="TBL_UNE_CANALIZACIONES" />
+    </AssociationSet>
+    <EntitySet Name="CLAVES" EntityType="HAPEModel.CLAVES" />
+    <EntitySet Name="TBL_PRESENCE_LLAMADAS" EntityType="HAPEModel.TBL_PRESENCE_LLAMADAS" />
+    <FunctionImport Name="SP_UNE_ACTUALIZA_TELEFONOS" ReturnType="Collection(Int32)">
+      <Parameter Name="NUMERO" Mode="In" Type="Int32" />
+      <Parameter Name="TELEFONO" Mode="In" Type="String" />
+      <Parameter Name="TEL_CELULAR" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UNE_CARGAR_SUPUESTOS" ReturnType="Collection(HAPEModel.SP_UNE_CARGAR_SUPUESTOS_Result)">
+      <Parameter Name="ID_TIPO_REPORTE" Mode="In" Type="Int32" />
+      <Parameter Name="ID_TIPO_CUENTA" Mode="In" Type="Int32" />
+      <Parameter Name="ID_CUENTA" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UNE_OBTENER_PROXIMO_FOLIO" ReturnType="Collection(Decimal)" />
+    <FunctionImport Name="proximo_folio" ReturnType="Collection(HAPEModel.proximo_folio_Result)" />
+    <FunctionImport Name="prox_folio" EntitySet="TBL_UNE_REPORTE" ReturnType="Collection(HAPEModel.TBL_UNE_REPORTE)" />
+    <FunctionImport Name="SP_UNE_OBTENER_FOLIO" ReturnType="Collection(HAPEModel.SP_UNE_OBTENER_FOLIO_Result)">
+      <Parameter Name="NUMUSUARIO" Mode="In" Type="Int32" />
+      <Parameter Name="SESION" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="TBL_UNE_USUARIOS_ASIGNADOS" EntityType="HAPEModel.TBL_UNE_USUARIOS_ASIGNADOS" />
+    <AssociationSet Name="FK_TBL_UNE_REPORTE_TBL_UNE_USUARIOS_ASIGNADOS" Association="HAPEModel.FK_TBL_UNE_REPORTE_TBL_UNE_USUARIOS_ASIGNADOS">
+      <End Role="TBL_UNE_REPORTE" EntitySet="TBL_UNE_REPORTE" />
+      <End Role="TBL_UNE_USUARIOS_ASIGNADOS" EntitySet="TBL_UNE_USUARIOS_ASIGNADOS" />
+    </AssociationSet>
+    <FunctionImport Name="SP_UNE_OBTENER_AREA_SUCURSAL" ReturnType="Collection(HAPEModel.SP_UNE_OBTENER_AREA_SUCURSAL_Result)">
+      <Parameter Name="NUMUSUARIO" Mode="In" Type="Int32" />
+      <Parameter Name="IDSUCURSAL" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UNE_CARGA_ULTIMO_COMENTARIO" ReturnType="Collection(HAPEModel.SP_UNE_CARGA_ULTIMO_COMENTARIO_Result)">
+      <Parameter Name="FOLIO" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UNE_REPRESENTANTES_LEGALES" ReturnType="Collection(HAPEModel.SP_UNE_REPRESENTANTES_LEGALES_Result)">
+      <Parameter Name="NUMERO" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UNE_CARGA_DATOS_REPRESENTANTE_LEGAL" ReturnType="Collection(HAPEModel.SP_UNE_CARGA_DATOS_REPRESENTANTE_LEGAL_Result)">
+      <Parameter Name="ID_PERSONA_REL" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="ENTIDAD_FEDERATIVA" EntityType="HAPEModel.ENTIDAD_FEDERATIVA" />
+    <FunctionImport Name="SP_UNE_OBTENER_ENTIDAD_FEDERATIVA" ReturnType="Collection(HAPEModel.SP_UNE_OBTENER_ENTIDAD_FEDERATIVA_Result)">
+      <Parameter Name="ID_DE_SUCURSAL" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="CAT_UNE_CUENTAS" EntityType="HAPEModel.CAT_UNE_CUENTAS" />
+    <EntitySet Name="CAT_UNE_TIPO_CUENTA" EntityType="HAPEModel.CAT_UNE_TIPO_CUENTA" />
+    <AssociationSet Name="FK_CAT_UNE_CUENTAS_TBL_UNE_REPORTE" Association="HAPEModel.FK_CAT_UNE_CUENTAS_TBL_UNE_REPORTE">
+      <End Role="CAT_UNE_CUENTAS" EntitySet="CAT_UNE_CUENTAS" />
+      <End Role="TBL_UNE_REPORTE" EntitySet="TBL_UNE_REPORTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAT_UNE_TIPO_CUENTA_CAT_UNE_CUENTAS" Association="HAPEModel.FK_CAT_UNE_TIPO_CUENTA_CAT_UNE_CUENTAS">
+      <End Role="CAT_UNE_TIPO_CUENTA" EntitySet="CAT_UNE_TIPO_CUENTA" />
+      <End Role="CAT_UNE_CUENTAS" EntitySet="CAT_UNE_CUENTAS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAT_UNE_TIPO_CUENTA_TBL_UNE_REPORTE" Association="HAPEModel.FK_CAT_UNE_TIPO_CUENTA_TBL_UNE_REPORTE">
+      <End Role="CAT_UNE_TIPO_CUENTA" EntitySet="CAT_UNE_TIPO_CUENTA" />
+      <End Role="TBL_UNE_REPORTE" EntitySet="TBL_UNE_REPORTE" />
+    </AssociationSet>
+    <EntitySet Name="TBL_UNE_RESPUESTA_SATISFACTORIA" EntityType="HAPEModel.TBL_UNE_RESPUESTA_SATISFACTORIA" />
+    <EntitySet Name="SUCURSALES" EntityType="HAPEModel.SUCURSALES" />
+    <AssociationSet Name="FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_CUENTAS" Association="HAPEModel.FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_CUENTAS">
+      <End Role="CAT_UNE_CUENTAS" EntitySet="CAT_UNE_CUENTAS" />
+      <End Role="CAT_UNE_SUPUESTOS_REPORTE" EntitySet="CAT_UNE_SUPUESTOS_REPORTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_TIPO_CUENTA" Association="HAPEModel.FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_TIPO_CUENTA">
+      <End Role="CAT_UNE_TIPO_CUENTA" EntitySet="CAT_UNE_TIPO_CUENTA" />
+      <End Role="CAT_UNE_SUPUESTOS_REPORTE" EntitySet="CAT_UNE_SUPUESTOS_REPORTE" />
+    </AssociationSet>
+    <EntitySet Name="TBL_UNE_PERMISOS_ADMIN" EntityType="HAPEModel.TBL_UNE_PERMISOS_ADMIN" />
+    <FunctionImport Name="SP_UNE_PERMISOS_USUARIO" ReturnType="Collection(Int32)">
+      <Parameter Name="ID_ROL" Mode="In" Type="Int32" />
+      <Parameter Name="CASO" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="TBL_UNE_ARCHIVOS_ADJUNTOS" EntityType="HAPEModel.TBL_UNE_ARCHIVOS_ADJUNTOS" />
+    <EntitySet Name="TBL_UNE_TIPO_ARCHIVO" EntityType="HAPEModel.TBL_UNE_TIPO_ARCHIVO" />
+    <AssociationSet Name="FK_TBL_UNE_TIPO_ARCHIVO_TBL_UNE_ARCHIVOS_ADJUNTOS_ID_TIPO_ARCHIVO" Association="HAPEModel.FK_TBL_UNE_TIPO_ARCHIVO_TBL_UNE_ARCHIVOS_ADJUNTOS_ID_TIPO_ARCHIVO">
+      <End Role="TBL_UNE_TIPO_ARCHIVO" EntitySet="TBL_UNE_TIPO_ARCHIVO" />
+      <End Role="TBL_UNE_ARCHIVOS_ADJUNTOS" EntitySet="TBL_UNE_ARCHIVOS_ADJUNTOS" />
+    </AssociationSet>
+    <FunctionImport Name="SP_UNE_OBTENER_ARCHIVOS_ADJUNTOS" ReturnType="Collection(Int32)">
+      <Parameter Name="FOLIO" Mode="In" Type="Int32" />
+      <Parameter Name="CASO" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UNE_REESTABLECER_FOLIOS_USUARIO">
+      <Parameter Name="numusuario" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UNE_CARGA_COMENTARIO" ReturnType="Collection(HAPEModel.SP_UNE_CARGA_COMENTARIO_Result)">
+      <Parameter Name="FOLIO" Mode="In" Type="Int32" />
+      <Parameter Name="CASO" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="TBL_UNE_PIVOTE_REPORTE" EntityType="HAPEModel.TBL_UNE_PIVOTE_REPORTE" />
+    <FunctionImport Name="SP_UNE_CARGAR_REPORTE" ReturnType="Collection(HAPEModel.SP_UNE_CARGAR_REPORTE_Result1)">
+      <Parameter Name="FECHA_INICIAL" Mode="In" Type="String" />
+      <Parameter Name="FECHA_FINAL" Mode="In" Type="String" />
+      <Parameter Name="TIPO_REPORTE" Mode="In" Type="Int32" />
+      <Parameter Name="ESTATUS_GENERAL" Mode="In" Type="Int32" />
+      <Parameter Name="SUBESTATUS" Mode="In" Type="Int32" />
+      <Parameter Name="ENTIDAD_FEDERATIVA" Mode="In" Type="Int32" />
+      <Parameter Name="SUCURSAL_SOCIO" Mode="In" Type="Int32" />
+      <Parameter Name="NUMUSUARIO" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UNE_BUSCA_NUMERO_SOCIO" ReturnType="Collection(HAPEModel.SP_UNE_BUSCA_NUMERO_SOCIO_Result1)">
+      <Parameter Name="numero" Mode="In" Type="Int32" />
+      <Parameter Name="tipoPersona" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="CAT_UNE_PROCEDE_DEBITO" EntityType="HAPEModel.CAT_UNE_PROCEDE_DEBITO" />
+    <AssociationSet Name="FK_CAT_UNE_PROCEDE_DEBITO_TBL_UNE_REPORTE" Association="HAPEModel.FK_CAT_UNE_PROCEDE_DEBITO_TBL_UNE_REPORTE">
+      <End Role="CAT_UNE_PROCEDE_DEBITO" EntitySet="CAT_UNE_PROCEDE_DEBITO" />
+      <End Role="TBL_UNE_REPORTE" EntitySet="TBL_UNE_REPORTE" />
+    </AssociationSet>
+    <EntitySet Name="TBL_UNE_COMISIONES" EntityType="HAPEModel.TBL_UNE_COMISIONES" />
+    <FunctionImport Name="SP_ATM_INSERTAR_COMISION">
+      <Parameter Name="numero" Mode="In" Type="Int32" />
+      <Parameter Name="id_tipomov" Mode="In" Type="Int32" />
+      <Parameter Name="monto" Mode="In" Type="Decimal" />
+      <Parameter Name="fecha" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <EntitySet Name="CAT_UNE_FINALIZADO_DEBITO" EntityType="HAPEModel.CAT_UNE_FINALIZADO_DEBITO" />
+    <AssociationSet Name="FK_CAT_UNE_FINALIZADO_DEBITO_TBL_UNE_REPORTE" Association="HAPEModel.FK_CAT_UNE_FINALIZADO_DEBITO_TBL_UNE_REPORTE">
+      <End Role="CAT_UNE_FINALIZADO_DEBITO" EntitySet="CAT_UNE_FINALIZADO_DEBITO" />
+      <End Role="CAT_UNE_FINALIZADO_DEBITO1" EntitySet="CAT_UNE_FINALIZADO_DEBITO" />
+    </AssociationSet>
+    <FunctionImport Name="SP_UNE_REESTABLECER_FOLIOS_USUARIO_SESION">
+      <Parameter Name="numusuario" Mode="In" Type="Int32" />
+      <Parameter Name="SESION" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UNE_ACTUALIZA_FOLIO_USUARIO_SESION">
+      <Parameter Name="numusuario" Mode="In" Type="Int32" />
+      <Parameter Name="FOLIO" Mode="In" Type="Int32" />
+      <Parameter Name="SESION" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UNE_ENVIAR_CORREOS" />
+    <FunctionImport Name="SP_UNE_OBTENER_USUARIOS" ReturnType="Collection(HAPEModel.SP_UNE_OBTENER_USUARIOS_Result)" />
+    <FunctionImport Name="SP_UNE_OBTENER_SUPUESTOS_VALIDA_IMPORTE" ReturnType="Collection(HAPEModel.SP_UNE_OBTENER_SUPUESTOS_VALIDA_IMPORTE_Result)" />
+    <FunctionImport Name="SP_UNE_OBTENER_NOMBRE_RESPONSABLE" ReturnType="Collection(String)">
+      <Parameter Name="FOLIO" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="SICORP_ROLES" EntityType="HAPEModel.SICORP_ROLES" />
+    <FunctionImport Name="SP_UNE_REGISTRA_REPORTE" ReturnType="Collection(Int32)">
+      <Parameter Name="NUM_FOLIO" Mode="In" Type="Int32" />
+      <Parameter Name="ES_SOCIO" Mode="In" Type="Int32" />
+      <Parameter Name="NUMERO" Mode="In" Type="Int32" />
+      <Parameter Name="NOMBRE_S" Mode="In" Type="String" />
+      <Parameter Name="APELLIDO_PATERNO" Mode="In" Type="String" />
+      <Parameter Name="APELLIDO_MATERNO" Mode="In" Type="String" />
+      <Parameter Name="TELEFONO" Mode="In" Type="String" />
+      <Parameter Name="TEL_CELULAR" Mode="In" Type="String" />
+      <Parameter Name="USUARIO_REGISTRA" Mode="In" Type="Int32" />
+      <Parameter Name="ID_DE_SUCURSAL" Mode="In" Type="Int32" />
+      <Parameter Name="DESCRIPCION_REPORTE" Mode="In" Type="String" />
+      <Parameter Name="ENTIDAD" Mode="In" Type="Int32" />
+      <Parameter Name="IMPORTE_RECLAMACION" Mode="In" Type="Decimal" />
+      <Parameter Name="IMPORTE_SOLUCION" Mode="In" Type="Decimal" />
+      <Parameter Name="ID_TIPO_REPORTE" Mode="In" Type="Int32" />
+      <Parameter Name="ID_SUPUESTOS_REPORTE" Mode="In" Type="Int32" />
+      <Parameter Name="ID_MEDIO_CONTACTO" Mode="In" Type="Int32" />
+      <Parameter Name="ID_ESTATUS_REPORTE" Mode="In" Type="Int32" />
+      <Parameter Name="ID_TIPO_CUENTA" Mode="In" Type="Int32" />
+      <Parameter Name="ID_CUENTA" Mode="In" Type="Int32" />
+      <Parameter Name="ID_SUCURSAL_REGISTRO" Mode="In" Type="Int32" />
+      <Parameter Name="DIAS_RESTANTES_GENERAL" Mode="In" Type="Int32" />
+      <Parameter Name="Num_Tarjeta" Mode="In" Type="String" />
+      <Parameter Name="DOMICILIO" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_CMV_OBTENER_CORREO_SERVIDOR_MODULO" ReturnType="Collection(HAPEModel.SP_CMV_OBTENER_CORREO_SERVIDOR_MODULO_Result)">
+      <Parameter Name="NOM_EXE" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UNE_OBTENER_FOLIOS_LLAMADA_SALIDA" ReturnType="Collection(HAPEModel.SP_UNE_OBTENER_FOLIOS_LLAMADA_SALIDA_Result)">
+      <Parameter Name="TELEFONO" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="TBL_UNE_CONVERSION_LLAMADAS" EntityType="HAPEModel.TBL_UNE_CONVERSION_LLAMADAS" />
+    <EntitySet Name="CAT_UNE_PROCEDE_CORRESPONSALIAS" EntityType="HAPEModel.CAT_UNE_PROCEDE_CORRESPONSALIAS" />
+    <AssociationSet Name="FK_TBL_UNE_REPORTE_CAT_UNE_PROCEDE_CORRESPONSALIAS_ID_PROCEDE_CORRESPONSALIAS" Association="HAPEModel.FK_TBL_UNE_REPORTE_CAT_UNE_PROCEDE_CORRESPONSALIAS_ID_PROCEDE_CORRESPONSALIAS">
+      <End Role="CAT_UNE_PROCEDE_CORRESPONSALIAS" EntitySet="CAT_UNE_PROCEDE_CORRESPONSALIAS" />
+      <End Role="TBL_UNE_REPORTE" EntitySet="TBL_UNE_REPORTE" />
+    </AssociationSet>
+    <FunctionImport Name="SP_BANCA_OBTIENE_SOCIO" ReturnType="Collection(HAPEModel.SP_BANCA_OBTIENE_SOCIO_Result)">
+      <Parameter Name="numeroSocio" Mode="In" Type="Int64" />
+      <Parameter Name="noUsuario" Mode="In" Type="Int32" />
+      <Parameter Name="idTIpoPersona" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="CAT_UNE_TIPO_CUENTA_BANCA" EntityType="HAPEModel.CAT_UNE_TIPO_CUENTA_BANCA" />
+    <EntitySet Name="CAT_UNE_CANAL" EntityType="HAPEModel.CAT_UNE_CANAL" />
+    <EntitySet Name="CAT_UNE_CAUSA_RESOLUCION" EntityType="HAPEModel.CAT_UNE_CAUSA_RESOLUCION" />
+    <EntitySet Name="CAT_UNE_MOTIVO_CANCELACION" EntityType="HAPEModel.CAT_UNE_MOTIVO_CANCELACION" />
+    <EntitySet Name="CAT_UNE_PRODUCTO" EntityType="HAPEModel.CAT_UNE_PRODUCTO" />
+    <EntitySet Name="CAT_UNE_RESOLUCION" EntityType="HAPEModel.CAT_UNE_RESOLUCION" />
+    <FunctionImport Name="SP_UNE_CARGAR_REPORTE_2701" ReturnType="Collection(HAPEModel.SP_UNE_CARGAR_REPORTE_2701_Result)">
+      <Parameter Name="FECHA_INICIAL" Mode="In" Type="String" />
+      <Parameter Name="FECHA_FINAL" Mode="In" Type="String" />
+      <Parameter Name="TIPO_REPORTE" Mode="In" Type="Int32" />
+      <Parameter Name="ESTATUS_GENERAL" Mode="In" Type="Int32" />
+      <Parameter Name="SUBESTATUS" Mode="In" Type="Int32" />
+      <Parameter Name="ENTIDAD_FEDERATIVA" Mode="In" Type="Int32" />
+      <Parameter Name="SUCURSAL_SOCIO" Mode="In" Type="Int32" />
+      <Parameter Name="NUMUSUARIO" Mode="In" Type="Int32" />
+      <Parameter Name="FILTRO_MONTO_RECLAMACION" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UNE_OBTENER_PLAZOS_FIJOS_ACTIVOS" ReturnType="Collection(HAPEModel.SP_UNE_OBTENER_PLAZOS_FIJOS_ACTIVOS_Result)">
+      <Parameter Name="NUMERO" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UNE_OBTENER_NUM_PTMO" ReturnType="Collection(HAPEModel.SP_UNE_OBTENER_NUM_PTMO_Result)">
+      <Parameter Name="NUMERO" Mode="In" Type="Int32" />
+      <Parameter Name="IDMOV" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UNE_OBTENER_NUMPTMO" ReturnType="Collection(HAPEModel.SP_UNE_OBTENER_NUMPTMO_Result)">
+      <Parameter Name="NUMERO" Mode="In" Type="Int32" />
+      <Parameter Name="IDMOV" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_CALLCENTER_GENERAR_FECHA_COMPROMISO_REPORTE" ReturnType="Collection(DateTime)">
+      <Parameter Name="dias_resolucion" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="CAT_UNE_ESTATUS_REPORTE">
+    <Key>
+      <PropertyRef Name="ID_ESTATUS_REPORTE" />
+    </Key>
+    <Property Name="ID_ESTATUS_REPORTE" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="TBL_UNE_REPORTE" Relationship="HAPEModel.FK_CAT_UNE_ESTATUS_REPORTE_TBL_UNE_REPORTE" FromRole="CAT_UNE_ESTATUS_REPORTE" ToRole="TBL_UNE_REPORTE" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_MEDIO_CONTACTO">
+    <Key>
+      <PropertyRef Name="ID_MEDIO_CONTACTO" />
+    </Key>
+    <Property Name="ID_MEDIO_CONTACTO" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="TBL_UNE_REPORTE" Relationship="HAPEModel.FK_CAT_UNE_MEDIO_CONTACTO_TBL_UNE_REPORTE" FromRole="CAT_UNE_MEDIO_CONTACTO" ToRole="TBL_UNE_REPORTE" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_SUPUESTOS_REPORTE">
+    <Key>
+      <PropertyRef Name="ID_SUPUESTOS_REPORTE" />
+    </Key>
+    <Property Name="ID_SUPUESTOS_REPORTE" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_TIPO_REPORTE" Type="Int32" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="DIAS_REQUERIDOS" Type="Int32" />
+    <NavigationProperty Name="CAT_UNE_TIPO_REPORTE" Relationship="HAPEModel.FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_SUPUESTOS_REPORTE" FromRole="CAT_UNE_SUPUESTOS_REPORTE" ToRole="CAT_UNE_TIPO_REPORTE" />
+    <Property Name="ID_TIPO_CUENTA" Type="Int32" />
+    <Property Name="ID_CUENTA" Type="Int32" />
+    <NavigationProperty Name="CAT_UNE_CUENTAS" Relationship="HAPEModel.FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_CUENTAS" FromRole="CAT_UNE_SUPUESTOS_REPORTE" ToRole="CAT_UNE_CUENTAS" />
+    <NavigationProperty Name="CAT_UNE_TIPO_CUENTA" Relationship="HAPEModel.FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_TIPO_CUENTA" FromRole="CAT_UNE_SUPUESTOS_REPORTE" ToRole="CAT_UNE_TIPO_CUENTA" />
+    <Property Name="ACTIVO" Type="Int32" />
+    <Property Name="VALIDA_IMPORTE_RECLAMACION" Type="Int32" />
+    <Property Name="requiere_autentificacion" Type="Boolean" />
+    <Property Name="id_accion_causa" Type="Int32" />
+    <Property Name="ID_CANAL" Type="Int32" />
+    <Property Name="ID_MOTIVO_CANCELACION" Type="Int32" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_TIPO_REPORTE">
+    <Key>
+      <PropertyRef Name="ID_TIPO_REPORTE" />
+    </Key>
+    <Property Name="ID_TIPO_REPORTE" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="CAT_UNE_SUPUESTOS_REPORTE" Relationship="HAPEModel.FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_SUPUESTOS_REPORTE" FromRole="CAT_UNE_TIPO_REPORTE" ToRole="CAT_UNE_SUPUESTOS_REPORTE" />
+    <NavigationProperty Name="TBL_UNE_REPORTE" Relationship="HAPEModel.FK_CAT_UNE_TIPO_REPORTE_TBL_UNE_REPORTE" FromRole="CAT_UNE_TIPO_REPORTE" ToRole="TBL_UNE_REPORTE" />
+  </EntityType>
+  <EntityType Name="TBL_UNE_CANALIZACIONES">
+    <Key>
+      <PropertyRef Name="ID_CANALIZACION" />
+    </Key>
+    <Property Name="ID_CANALIZACION" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="FOLIO" Type="Int32" />
+    <Property Name="fecha_alta" Type="DateTime" Precision="3" />
+    <Property Name="COMENTARIOS" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="numusuario" Type="Int32" />
+    <NavigationProperty Name="TBL_UNE_REPORTE" Relationship="HAPEModel.FK_TBL_UNE_REPORTE_TBL_UNE_CANALIZACIONES" FromRole="TBL_UNE_CANALIZACIONES" ToRole="TBL_UNE_REPORTE" />
+    <Property Name="ID_TIPO_COMENTARIO" Type="Int32" />
+  </EntityType>
+  <EntityType Name="TBL_UNE_REPORTE">
+    <Key>
+      <PropertyRef Name="FOLIO" />
+    </Key>
+    <Property Name="FOLIO" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ES_SOCIO" Type="Int32" />
+    <Property Name="NUMERO" Type="Int32" />
+    <Property Name="NOMBRE_S" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
+    <Property Name="APELLIDO_PATERNO" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
+    <Property Name="APELLIDO_MATERNO" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
+    <Property Name="TELEFONO" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="TEL_CELULAR" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="FECHA_ALTA" Type="DateTime" Precision="3" />
+    <Property Name="USUARIO_REGISTRA" Type="Int32" />
+    <Property Name="ID_DE_SUCURSAL" Type="Int32" />
+    <Property Name="DESCRIPCION_REPORTE" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="ID_TIPO_REPORTE" Type="Int32" />
+    <Property Name="ID_SUPUESTOS_REPORTE" Type="Int32" />
+    <Property Name="ID_MEDIO_CONTACTO" Type="Int32" />
+    <Property Name="ID_ESTATUS_REPORTE" Type="Int32" />
+    <Property Name="Fecha_cierre" Type="DateTime" Precision="3" />
+    <Property Name="Observaciones_cierre" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="CAT_UNE_ESTATUS_REPORTE" Relationship="HAPEModel.FK_CAT_UNE_ESTATUS_REPORTE_TBL_UNE_REPORTE" FromRole="TBL_UNE_REPORTE" ToRole="CAT_UNE_ESTATUS_REPORTE" />
+    <NavigationProperty Name="CAT_UNE_MEDIO_CONTACTO" Relationship="HAPEModel.FK_CAT_UNE_MEDIO_CONTACTO_TBL_UNE_REPORTE" FromRole="TBL_UNE_REPORTE" ToRole="CAT_UNE_MEDIO_CONTACTO" />
+    <NavigationProperty Name="CAT_UNE_TIPO_REPORTE" Relationship="HAPEModel.FK_CAT_UNE_TIPO_REPORTE_TBL_UNE_REPORTE" FromRole="TBL_UNE_REPORTE" ToRole="CAT_UNE_TIPO_REPORTE" />
+    <NavigationProperty Name="TBL_UNE_CANALIZACIONES" Relationship="HAPEModel.FK_TBL_UNE_REPORTE_TBL_UNE_CANALIZACIONES" FromRole="TBL_UNE_REPORTE" ToRole="TBL_UNE_CANALIZACIONES" />
+    <NavigationProperty Name="TBL_UNE_USUARIOS_ASIGNADOS" Relationship="HAPEModel.FK_TBL_UNE_REPORTE_TBL_UNE_USUARIOS_ASIGNADOS" FromRole="TBL_UNE_REPORTE" ToRole="TBL_UNE_USUARIOS_ASIGNADOS" />
+    <Property Name="ENTIDAD" Type="Int32" />
+    <Property Name="IMPORTE_RECLAMACION" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="IMPORTE_SOLUCION" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="ID_TIPO_CUENTA" Type="Int32" />
+    <Property Name="ID_CUENTA" Type="Int32" />
+    <NavigationProperty Name="CAT_UNE_CUENTAS" Relationship="HAPEModel.FK_CAT_UNE_CUENTAS_TBL_UNE_REPORTE" FromRole="TBL_UNE_REPORTE" ToRole="CAT_UNE_CUENTAS" />
+    <NavigationProperty Name="CAT_UNE_TIPO_CUENTA" Relationship="HAPEModel.FK_CAT_UNE_TIPO_CUENTA_TBL_UNE_REPORTE" FromRole="TBL_UNE_REPORTE" ToRole="CAT_UNE_TIPO_CUENTA" />
+    <Property Name="ID_SATISFACTORIO" Type="Int32" />
+    <Property Name="ID_SUCURSAL_REGISTRO" Type="Int32" />
+    <Property Name="Comentarios_cancelacion" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA_Canalizacion" Type="DateTime" Precision="3" />
+    <Property Name="NUM_FOLIO" Type="Int32" />
+    <Property Name="DIAS_RESTANTES_GENERAL" Type="Int32" />
+    <Property Name="DIAS_RESTANTES_AREA_ESPECIALIZADA" Type="Int32" />
+    <Property Name="VoBo" Type="Int32" />
+    <Property Name="Vencido" Type="Int32" />
+    <Property Name="Num_Tarjeta" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Name="ID_PROCEDE_DEBITO" Type="Int32" />
+    <NavigationProperty Name="CAT_UNE_PROCEDE_DEBITO" Relationship="HAPEModel.FK_CAT_UNE_PROCEDE_DEBITO_TBL_UNE_REPORTE" FromRole="TBL_UNE_REPORTE" ToRole="CAT_UNE_PROCEDE_DEBITO" />
+    <Property Name="BANDEJA_DEBITO" Type="Int32" />
+    <Property Name="ID_FINALIZADO_DEBITO" Type="Int32" />
+    <Property Name="DOMICILIO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="NUMERO_DE_REFERENCIA" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="ID_PROCEDE_CORRESPONSALIAS" Type="Int32" />
+    <NavigationProperty Name="CAT_UNE_PROCEDE_CORRESPONSALIAS" Relationship="HAPEModel.FK_TBL_UNE_REPORTE_CAT_UNE_PROCEDE_CORRESPONSALIAS_ID_PROCEDE_CORRESPONSALIAS" FromRole="TBL_UNE_REPORTE" ToRole="CAT_UNE_PROCEDE_CORRESPONSALIAS" />
+    <Property Name="REPORTE_CORRESPONSALIAS" Type="Boolean" />
+    <Property Name="FECHA_SOLICITUD_ACLARACION" Type="DateTime" Precision="3" />
+    <Property Name="FECHA_TRANSACCION" Type="DateTime" Precision="3" />
+    <Property Name="folio_banca" Type="Int32" />
+    <Property Name="id_medio_deteccion_movimiento" Type="Int32" />
+    <Property Name="folio_autorizacion_banca" Type="Int32" />
+    <Property Name="reporte_banca" Type="Boolean" />
+    <Property Name="id_tipo_cuenta_banca" Type="Int32" />
+    <Property Name="ID_PRODUCTO" Type="Int32" />
+    <Property Name="ID_CANAL" Type="Int32" />
+    <Property Name="ID_MOTIVO_CANCELACION" Type="Int32" />
+    <Property Name="ID_RESOLUCION" Type="Int32" />
+    <Property Name="ID_CAUSA_RESOLUCION" Type="Int32" />
+    <Property Name="NUMERO_CUENTA_PTMO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA_ABONO" Type="DateTime" Precision="3" />
+    <Property Name="fecha_compromiso_reporte" Type="DateTime" Precision="3" />
+    <Property Name="id_cuenta_no_afectada_banca" Type="Int32" />
+  </EntityType>
+  <Association Name="FK_CAT_UNE_ESTATUS_REPORTE_TBL_UNE_REPORTE">
+    <End Role="CAT_UNE_ESTATUS_REPORTE" Type="HAPEModel.CAT_UNE_ESTATUS_REPORTE" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TBL_UNE_REPORTE" Type="HAPEModel.TBL_UNE_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_ESTATUS_REPORTE">
+        <PropertyRef Name="ID_ESTATUS_REPORTE" />
+      </Principal>
+      <Dependent Role="TBL_UNE_REPORTE">
+        <PropertyRef Name="ID_ESTATUS_REPORTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAT_UNE_MEDIO_CONTACTO_TBL_UNE_REPORTE">
+    <End Role="CAT_UNE_MEDIO_CONTACTO" Type="HAPEModel.CAT_UNE_MEDIO_CONTACTO" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TBL_UNE_REPORTE" Type="HAPEModel.TBL_UNE_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_MEDIO_CONTACTO">
+        <PropertyRef Name="ID_MEDIO_CONTACTO" />
+      </Principal>
+      <Dependent Role="TBL_UNE_REPORTE">
+        <PropertyRef Name="ID_MEDIO_CONTACTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_SUPUESTOS_REPORTE">
+    <End Role="CAT_UNE_TIPO_REPORTE" Type="HAPEModel.CAT_UNE_TIPO_REPORTE" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CAT_UNE_SUPUESTOS_REPORTE" Type="HAPEModel.CAT_UNE_SUPUESTOS_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_TIPO_REPORTE">
+        <PropertyRef Name="ID_TIPO_REPORTE" />
+      </Principal>
+      <Dependent Role="CAT_UNE_SUPUESTOS_REPORTE">
+        <PropertyRef Name="ID_TIPO_REPORTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAT_UNE_TIPO_REPORTE_TBL_UNE_REPORTE">
+    <End Role="CAT_UNE_TIPO_REPORTE" Type="HAPEModel.CAT_UNE_TIPO_REPORTE" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TBL_UNE_REPORTE" Type="HAPEModel.TBL_UNE_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_TIPO_REPORTE">
+        <PropertyRef Name="ID_TIPO_REPORTE" />
+      </Principal>
+      <Dependent Role="TBL_UNE_REPORTE">
+        <PropertyRef Name="ID_TIPO_REPORTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBL_UNE_REPORTE_TBL_UNE_CANALIZACIONES">
+    <End Role="TBL_UNE_REPORTE" Type="HAPEModel.TBL_UNE_REPORTE" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TBL_UNE_CANALIZACIONES" Type="HAPEModel.TBL_UNE_CANALIZACIONES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_UNE_REPORTE">
+        <PropertyRef Name="FOLIO" />
+      </Principal>
+      <Dependent Role="TBL_UNE_CANALIZACIONES">
+        <PropertyRef Name="FOLIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CLAVES">
+    <Key>
+      <PropertyRef Name="Numusuario" />
+    </Key>
+    <Property Type="Int32" Name="Numusuario" Nullable="false" />
+    <Property Type="String" Name="Usuario" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="Numemp" Nullable="false" />
+    <Property Type="Int32" Name="autorizo" Nullable="false" />
+    <Property Type="String" Name="Correo" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Nombre_s" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Apellido_paterno" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Apellido_materno" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="Fecha_Cambio_Contrasena" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="Id_de_sucursal" Nullable="false" />
+    <Property Type="String" Name="Cierre" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="Cta_Deud" MaxLength="14" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Permisos" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Permisos_Respaldo" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="Id_area" Nullable="false" />
+    <Property Type="String" Name="Nota_Cal" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Aviso1_Cal" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Aviso2_Cal" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Aviso1_Estado" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Aviso2_Estado" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Leyenda_Ficha" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Contrasena" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Nom_Maquina" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Gafete_Impreso" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Type="DateTime" Name="Gafete_Fecha" Precision="3" />
+    <Property Type="String" Name="NSS" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Int16" Name="Id_ccostos_nomina" />
+    <Property Type="Int32" Name="Id_GeneroWoccu" />
+    <Property Type="String" Name="Correo_externo" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Permisos_CYC" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="Id_Dpto" />
+    <Property Type="Int32" Name="Id_Rol" />
+    <Property Type="Int32" Name="Id_bloqueo" Nullable="false" />
+    <Property Type="String" Name="Objetivo" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="Numusuario_Jefe" />
+    <Property Type="Int32" Name="Id_Ticket" />
+    <Property Type="Int32" Name="Id_Proceso" />
+    <Property Type="Int32" Name="Id_Accion" />
+    <Property Type="Int32" Name="Comodin" />
+  </EntityType>
+  <EntityType Name="TBL_PRESENCE_LLAMADAS">
+    <Key>
+      <PropertyRef Name="contador" />
+    </Key>
+    <Property Type="Int32" Name="contador" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="folio_cmv" />
+    <Property Type="String" Name="folio_prensence" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="call_id_presence" />
+    <Property Type="String" Name="ruta_audio" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="tipo_llamada" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="nombre_audio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="SP_UNE_BUSCA_NUMERO_SOCIO_Result">
+    <Property Type="Int32" Name="Numero" Nullable="true" />
+    <Property Type="String" Name="Nombre_s" Nullable="true" MaxLength="40" />
+    <Property Type="String" Name="Apellido_Paterno" Nullable="true" MaxLength="40" />
+    <Property Type="String" Name="Apellido_Materno" Nullable="true" MaxLength="40" />
+    <Property Type="String" Name="CALLE" Nullable="true" MaxLength="60" />
+    <Property Type="String" Name="NUMERO_EXTERIOR" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="NUMERO_INTERIOR" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="Id_Colonia_CNBV" Nullable="true" />
+    <Property Type="String" Name="Nombre_Colonia" Nullable="true" MaxLength="65" />
+    <Property Type="Int32" Name="CP" Nullable="false" />
+    <Property Type="String" Name="municipio" Nullable="true" MaxLength="75" />
+    <Property Type="String" Name="estado" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="Tel_Celular" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="Tel_Trabajo" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="Telefono" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="Telefono_adicional" Nullable="true" MaxLength="15" />
+    <Property Type="Int32" Name="Id_de_Sucursal" Nullable="true" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="35" />
+    <Property Type="Int32" Name="estatus" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_UNE_CARGAR_SUPUESTOS_Result">
+    <Property Type="Int32" Name="ID_SUPUESTOS_REPORTE" Nullable="false" />
+    <Property Type="String" Name="DESCRIPCION" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="DIAS_REQUERIDOS" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="proximo_folio_Result">
+    <Property Type="Decimal" Name="FOLIO" Nullable="true" Precision="38" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="SP_UNE_OBTENER_FOLIO_Result">
+    <Property Type="Int32" Name="FOLIO" Nullable="true" />
+    <Property Type="Int32" Name="ESTATUS" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="TBL_UNE_USUARIOS_ASIGNADOS">
+    <Key>
+      <PropertyRef Name="contador" />
+    </Key>
+    <Property Name="contador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="folio" Type="Int32" />
+    <Property Name="numusuario" Type="Int32" />
+    <Property Name="responsable" Type="Int32" />
+    <Property Name="fecha_asignacion" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="TBL_UNE_REPORTE" Relationship="HAPEModel.FK_TBL_UNE_REPORTE_TBL_UNE_USUARIOS_ASIGNADOS" FromRole="TBL_UNE_USUARIOS_ASIGNADOS" ToRole="TBL_UNE_REPORTE" />
+  </EntityType>
+  <Association Name="FK_TBL_UNE_REPORTE_TBL_UNE_USUARIOS_ASIGNADOS">
+    <End Type="HAPEModel.TBL_UNE_REPORTE" Role="TBL_UNE_REPORTE" Multiplicity="0..1" />
+    <End Type="HAPEModel.TBL_UNE_USUARIOS_ASIGNADOS" Role="TBL_UNE_USUARIOS_ASIGNADOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_UNE_REPORTE">
+        <PropertyRef Name="FOLIO" />
+      </Principal>
+      <Dependent Role="TBL_UNE_USUARIOS_ASIGNADOS">
+        <PropertyRef Name="folio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="SP_UNE_OBTENER_AREA_SUCURSAL_Result">
+    <Property Type="String" Name="PUESTO" Nullable="false" MaxLength="35" />
+    <Property Type="Int32" Name="ESTATUS" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_UNE_CARGA_ULTIMO_COMENTARIO_Result">
+    <Property Type="Int32" Name="ID_CANALIZACION" Nullable="false" />
+    <Property Type="Int32" Name="FOLIO" Nullable="true" />
+    <Property Type="DateTime" Name="fecha_alta" Nullable="true" Precision="23" />
+    <Property Type="String" Name="COMENTARIOS" Nullable="true" MaxLength="1000" />
+    <Property Type="Int32" Name="numusuario" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SP_UNE_REPRESENTANTES_LEGALES_Result">
+    <Property Type="String" Name="NOMBRE" Nullable="true" MaxLength="72" />
+    <Property Type="Int32" Name="id_persona_rel" Nullable="false" />
+    <Property Type="Int32" Name="ESTATUS" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_UNE_CARGA_DATOS_REPRESENTANTE_LEGAL_Result">
+    <Property Type="String" Name="nombre" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="apellido_paterno" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="apellido_materno" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="telefono" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="calle" Nullable="true" MaxLength="60" />
+    <Property Type="String" Name="num_ext" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="num_int" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="Nombre_Colonia" Nullable="true" MaxLength="65" />
+    <Property Type="Int32" Name="Codigo_Postal" Nullable="false" />
+    <Property Type="String" Name="CNBV_Municipio" Nullable="true" MaxLength="75" />
+    <Property Type="String" Name="DESCRIPCION" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="estatus" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="ENTIDAD_FEDERATIVA">
+    <Key>
+      <PropertyRef Name="ID_ENTIDAD_FEDERATIVA" />
+    </Key>
+    <Property Name="ID_ENTIDAD_FEDERATIVA" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="USUARIO_ALTA" Type="Int32" Nullable="false" />
+    <Property Name="USUARIO_MODIFICA" Type="Int32" />
+    <Property Name="FECHA_ALTA" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FECHA_MODIFICA" Type="DateTime" Precision="3" />
+    <Property Name="CLAVE_ESTADO" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="ID_PROSA_ENTIDAD_F" Type="Int32" />
+    <Property Name="Id_Pais" Type="Int32" />
+    <Property Name="NIVEL_RIESGO" Type="Int32" />
+  </EntityType>
+  <ComplexType Name="SP_UNE_OBTENER_ENTIDAD_FEDERATIVA_Result">
+    <Property Type="String" Name="DESCRIPCION" Nullable="false" MaxLength="20" />
+    <Property Type="Int16" Name="ID_ENTIDAD_FEDERATIVA" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="CAT_UNE_CUENTAS">
+    <Key>
+      <PropertyRef Name="ID_CUENTA" />
+    </Key>
+    <Property Name="ID_CUENTA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ID_TIPO_CUENTA" Type="Int32" />
+    <NavigationProperty Name="TBL_UNE_REPORTE" Relationship="HAPEModel.FK_CAT_UNE_CUENTAS_TBL_UNE_REPORTE" FromRole="CAT_UNE_CUENTAS" ToRole="TBL_UNE_REPORTE" />
+    <NavigationProperty Name="CAT_UNE_TIPO_CUENTA" Relationship="HAPEModel.FK_CAT_UNE_TIPO_CUENTA_CAT_UNE_CUENTAS" FromRole="CAT_UNE_CUENTAS" ToRole="CAT_UNE_TIPO_CUENTA" />
+    <NavigationProperty Name="CAT_UNE_SUPUESTOS_REPORTE" Relationship="HAPEModel.FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_CUENTAS" FromRole="CAT_UNE_CUENTAS" ToRole="CAT_UNE_SUPUESTOS_REPORTE" />
+    <Property Name="ID_MOV_HAPE" Type="Int32" />
+    <Property Name="ID_PRODUCTO" Type="Int32" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_TIPO_CUENTA">
+    <Key>
+      <PropertyRef Name="ID_TIPO_CUENTA" />
+    </Key>
+    <Property Name="ID_TIPO_CUENTA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CAT_UNE_CUENTAS" Relationship="HAPEModel.FK_CAT_UNE_TIPO_CUENTA_CAT_UNE_CUENTAS" FromRole="CAT_UNE_TIPO_CUENTA" ToRole="CAT_UNE_CUENTAS" />
+    <NavigationProperty Name="TBL_UNE_REPORTE" Relationship="HAPEModel.FK_CAT_UNE_TIPO_CUENTA_TBL_UNE_REPORTE" FromRole="CAT_UNE_TIPO_CUENTA" ToRole="TBL_UNE_REPORTE" />
+    <NavigationProperty Name="CAT_UNE_SUPUESTOS_REPORTE" Relationship="HAPEModel.FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_TIPO_CUENTA" FromRole="CAT_UNE_TIPO_CUENTA" ToRole="CAT_UNE_SUPUESTOS_REPORTE" />
+  </EntityType>
+  <Association Name="FK_CAT_UNE_CUENTAS_TBL_UNE_REPORTE">
+    <End Type="HAPEModel.CAT_UNE_CUENTAS" Role="CAT_UNE_CUENTAS" Multiplicity="0..1" />
+    <End Type="HAPEModel.TBL_UNE_REPORTE" Role="TBL_UNE_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_CUENTAS">
+        <PropertyRef Name="ID_CUENTA" />
+      </Principal>
+      <Dependent Role="TBL_UNE_REPORTE">
+        <PropertyRef Name="ID_CUENTA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAT_UNE_TIPO_CUENTA_CAT_UNE_CUENTAS">
+    <End Type="HAPEModel.CAT_UNE_TIPO_CUENTA" Role="CAT_UNE_TIPO_CUENTA" Multiplicity="0..1" />
+    <End Type="HAPEModel.CAT_UNE_CUENTAS" Role="CAT_UNE_CUENTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_TIPO_CUENTA">
+        <PropertyRef Name="ID_TIPO_CUENTA" />
+      </Principal>
+      <Dependent Role="CAT_UNE_CUENTAS">
+        <PropertyRef Name="ID_TIPO_CUENTA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAT_UNE_TIPO_CUENTA_TBL_UNE_REPORTE">
+    <End Type="HAPEModel.CAT_UNE_TIPO_CUENTA" Role="CAT_UNE_TIPO_CUENTA" Multiplicity="0..1" />
+    <End Type="HAPEModel.TBL_UNE_REPORTE" Role="TBL_UNE_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_TIPO_CUENTA">
+        <PropertyRef Name="ID_TIPO_CUENTA" />
+      </Principal>
+      <Dependent Role="TBL_UNE_REPORTE">
+        <PropertyRef Name="ID_TIPO_CUENTA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TBL_UNE_RESPUESTA_SATISFACTORIA">
+    <Key>
+      <PropertyRef Name="ID_SATISFACTORIO" />
+    </Key>
+    <Property Name="ID_SATISFACTORIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="SUCURSALES">
+    <Key>
+      <PropertyRef Name="Id_de_Sucursal" />
+    </Key>
+    <Property Name="Id_de_Sucursal" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="false" />
+    <Property Name="Calle" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="Numero_exterior" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Numero_interior" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Zona" Type="Int32" Nullable="false" />
+    <Property Name="Ccostos" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Num_Sucursal" Type="Int16" Nullable="false" />
+    <Property Name="Cuentabancos" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="false" />
+    <Property Name="PolizaIni" Type="Int32" Nullable="false" />
+    <Property Name="PolizaFin" Type="Int32" Nullable="false" />
+    <Property Name="id_colonia" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="correo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="cuentadisponible" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="false" />
+    <Property Name="socioutilitario" Type="Int32" Nullable="false" />
+    <Property Name="Id_Poblacion" Type="Int32" Nullable="false" />
+    <Property Name="Ciudad" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Jef_Sucursal" Type="Int32" Nullable="false" />
+    <Property Name="Depende_de" Type="Int32" Nullable="false" />
+    <Property Name="Prov_Suc" Type="Double" Nullable="false" />
+    <Property Name="Region" Type="Int32" Nullable="false" />
+    <Property Name="Usuario_Min" Type="Int32" Nullable="false" />
+    <Property Name="Usuario_Max" Type="Int32" Nullable="false" />
+    <Property Name="Monto_Max_Caja" Type="Int32" Nullable="false" />
+    <Property Name="Grupo" Type="Int16" Nullable="false" />
+    <Property Name="Sucursal_Bansefi" Type="Int32" Nullable="false" />
+    <Property Name="Cuenta_Oport" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="false" />
+    <Property Name="Region_Actual" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PLD_Tipo_Riesgo" Type="Int16" />
+    <Property Name="Id_Colonia_CNBV" Type="Int32" />
+    <Property Name="Clave_CNBV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Id_Sucursal_Woccu" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CveIF_Woccu" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Id_Estado_Woccu" Type="Int32" />
+    <Property Name="Id_Mpio_Woccu" Type="Int32" />
+    <Property Name="Id_localid_Woccu" Type="Int32" />
+    <Property Name="Id_Horario" Type="Int16" Nullable="false" />
+    <Property Name="Id_prosa" Type="Int32" />
+    <Property Name="OPERA_DOMINGO" Type="Boolean" />
+    <Property Name="baja_logica" Type="Int32" />
+    <Property Name="LATITUD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="LONGITUD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="maximo_disponible" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="clave_sucursal_pld" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_apertura" Type="DateTime" Precision="3" />
+  </EntityType>
+  <ComplexType Name="SP_UNE_CARGAR_REPORTE_Result">
+    <Property Type="Int32" Name="PIVOTE" Nullable="false" />
+    <Property Type="Int32" Name="CONTADOR" Nullable="true" />
+    <Property Type="Int32" Name="NUMUSUARIO_REPORTE" Nullable="true" />
+    <Property Type="Int32" Name="FOLIO" Nullable="true" />
+    <Property Type="DateTime" Name="FECHA_ALTA" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="ES_SOCIO" Nullable="true" />
+    <Property Type="String" Name="NOMBRE" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="NUMERO" Nullable="true" />
+    <Property Type="String" Name="DESCRIPCION" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="ESTATUS" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="SUBESTATUS" Nullable="true" MaxLength="30" />
+    <Property Type="Int32" Name="NUMUSUARIO" Nullable="true" />
+    <Property Type="DateTime" Name="FECHA_RESOLUCION" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="FECHA_NOTIFICACION" Nullable="true" Precision="23" />
+    <Property Type="String" Name="ENTIDAD_FEDERATIVA" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="OPERACION" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="SERVICIO" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="DESCRIPCION_REPORTE" Nullable="true" MaxLength="1000" />
+    <Property Type="Decimal" Name="IMPORTE_RECLAMADO" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="IMPORTE_SOLUCION" Nullable="true" Precision="19" />
+    <Property Type="String" Name="SUCURSAL_REGISTRO" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SUCURSAL_SOCIO" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="TIPO_REPORTE" Nullable="true" MaxLength="30" />
+  </ComplexType>
+  <Association Name="FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_CUENTAS">
+    <End Type="HAPEModel.CAT_UNE_CUENTAS" Role="CAT_UNE_CUENTAS" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="HAPEModel.CAT_UNE_SUPUESTOS_REPORTE" Role="CAT_UNE_SUPUESTOS_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_CUENTAS">
+        <PropertyRef Name="ID_CUENTA" />
+      </Principal>
+      <Dependent Role="CAT_UNE_SUPUESTOS_REPORTE">
+        <PropertyRef Name="ID_CUENTA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_TIPO_CUENTA">
+    <End Type="HAPEModel.CAT_UNE_TIPO_CUENTA" Role="CAT_UNE_TIPO_CUENTA" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="HAPEModel.CAT_UNE_SUPUESTOS_REPORTE" Role="CAT_UNE_SUPUESTOS_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_TIPO_CUENTA">
+        <PropertyRef Name="ID_TIPO_CUENTA" />
+      </Principal>
+      <Dependent Role="CAT_UNE_SUPUESTOS_REPORTE">
+        <PropertyRef Name="ID_TIPO_CUENTA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TBL_UNE_PERMISOS_ADMIN">
+    <Key>
+      <PropertyRef Name="CONTADOR" />
+    </Key>
+    <Property Name="CONTADOR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_ROL" Type="Int32" />
+    <Property Name="NOM_ROL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA_ALTA" Type="DateTime" Precision="3" />
+    <Property Name="ACTIVO" Type="Int32" />
+    <Property Name="PERMISO_CONDUSEF" Type="Int32" />
+    <Property Name="USUARIO_UNE" Type="Int32" />
+    <Property Name="PERMISO_REGISTRAR" Type="Int32" />
+    <Property Name="PERMISO_DEBITO" Type="Int32" />
+    <Property Name="PERMISO_OPERAR_DETALLE" Type="Int32" />
+    <Property Name="USUARIO_CALL_CENTER" Type="Boolean" />
+    <Property Name="ADMINISTRADOR_CALL_CENTER" Type="Boolean" />
+    <Property Name="USUARIO_SUCURSAL" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="TBL_UNE_ARCHIVOS_ADJUNTOS">
+    <Key>
+      <PropertyRef Name="ID_ARCHIVO_ADJUNTAR" />
+    </Key>
+    <Property Name="ID_ARCHIVO_ADJUNTAR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FOLIO" Type="Int32" />
+    <Property Name="RUTA_ARCHIVO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA_ALTA" Type="DateTime" Precision="3" />
+    <Property Name="ID_TIPO_ARCHIVO" Type="Int32" />
+    <NavigationProperty Name="TBL_UNE_TIPO_ARCHIVO" Relationship="HAPEModel.FK_TBL_UNE_TIPO_ARCHIVO_TBL_UNE_ARCHIVOS_ADJUNTOS_ID_TIPO_ARCHIVO" FromRole="TBL_UNE_ARCHIVOS_ADJUNTOS" ToRole="TBL_UNE_TIPO_ARCHIVO" />
+    <Property Name="NOMBRE_ARCHIVO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="NUMUSUARIO" Type="Int32" />
+  </EntityType>
+  <EntityType Name="TBL_UNE_TIPO_ARCHIVO">
+    <Key>
+      <PropertyRef Name="ID_TIPO_ARCHIVO" />
+    </Key>
+    <Property Name="ID_TIPO_ARCHIVO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TBL_UNE_ARCHIVOS_ADJUNTOS" Relationship="HAPEModel.FK_TBL_UNE_TIPO_ARCHIVO_TBL_UNE_ARCHIVOS_ADJUNTOS_ID_TIPO_ARCHIVO" FromRole="TBL_UNE_TIPO_ARCHIVO" ToRole="TBL_UNE_ARCHIVOS_ADJUNTOS" />
+  </EntityType>
+  <Association Name="FK_TBL_UNE_TIPO_ARCHIVO_TBL_UNE_ARCHIVOS_ADJUNTOS_ID_TIPO_ARCHIVO">
+    <End Type="HAPEModel.TBL_UNE_TIPO_ARCHIVO" Role="TBL_UNE_TIPO_ARCHIVO" Multiplicity="0..1" />
+    <End Type="HAPEModel.TBL_UNE_ARCHIVOS_ADJUNTOS" Role="TBL_UNE_ARCHIVOS_ADJUNTOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_UNE_TIPO_ARCHIVO">
+        <PropertyRef Name="ID_TIPO_ARCHIVO" />
+      </Principal>
+      <Dependent Role="TBL_UNE_ARCHIVOS_ADJUNTOS">
+        <PropertyRef Name="ID_TIPO_ARCHIVO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="SP_UNE_CARGA_COMENTARIO_Result">
+    <Property Type="Int32" Name="ID_CANALIZACION" Nullable="false" />
+    <Property Type="Int32" Name="FOLIO" Nullable="true" />
+    <Property Type="DateTime" Name="fecha_alta" Nullable="true" Precision="23" />
+    <Property Type="String" Name="COMENTARIOS" Nullable="true" MaxLength="1000" />
+    <Property Type="Int32" Name="numusuario" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="TBL_UNE_PIVOTE_REPORTE">
+    <Key>
+      <PropertyRef Name="PIVOTE" />
+    </Key>
+    <Property Name="PIVOTE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CONTADOR" Type="Int32" />
+    <Property Name="NUMUSUARIO_REPORTE" Type="Int32" />
+    <Property Name="FOLIO" Type="Int32" />
+    <Property Name="FECHA_ALTA" Type="DateTime" Precision="3" />
+    <Property Name="ES_SOCIO" Type="Int32" />
+    <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="NUMERO" Type="Int32" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="ESTATUS" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="SUBESTATUS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NUMUSUARIO" Type="Int32" />
+    <Property Name="FECHA_RESOLUCION" Type="DateTime" Precision="3" />
+    <Property Name="FECHA_NOTIFICACION" Type="DateTime" Precision="3" />
+    <Property Name="ENTIDAD_FEDERATIVA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="OPERACION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="SERVICIO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPCION_REPORTE" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="IMPORTE_RECLAMADO" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="IMPORTE_SOLUCION" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="SUCURSAL_REGISTRO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SUCURSAL_SOCIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TIPO_REPORTE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="CAUSA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="SP_UNE_CARGAR_REPORTE_Result1">
+    <Property Type="Int32" Name="PIVOTE" Nullable="false" />
+    <Property Type="Int32" Name="CONTADOR" Nullable="true" />
+    <Property Type="Int32" Name="NUMUSUARIO_REPORTE" Nullable="true" />
+    <Property Type="Int32" Name="FOLIO" Nullable="true" />
+    <Property Type="DateTime" Name="FECHA_ALTA" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="ES_SOCIO" Nullable="true" />
+    <Property Type="String" Name="NOMBRE" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="NUMERO" Nullable="true" />
+    <Property Type="String" Name="DESCRIPCION" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="ESTATUS" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="SUBESTATUS" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="NUMUSUARIO" Nullable="true" />
+    <Property Type="DateTime" Name="FECHA_RESOLUCION" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="FECHA_NOTIFICACION" Nullable="true" Precision="23" />
+    <Property Type="String" Name="ENTIDAD_FEDERATIVA" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="OPERACION" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="SERVICIO" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="DESCRIPCION_REPORTE" Nullable="true" MaxLength="1000" />
+    <Property Type="Decimal" Name="IMPORTE_RECLAMADO" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="IMPORTE_SOLUCION" Nullable="true" Precision="19" />
+    <Property Type="String" Name="SUCURSAL_REGISTRO" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SUCURSAL_SOCIO" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="TIPO_REPORTE" Nullable="true" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="SP_UNE_BUSCA_NUMERO_SOCIO_Result1">
+    <Property Type="Int32" Name="Numero" Nullable="true" />
+    <Property Type="String" Name="Nombre_s" Nullable="true" MaxLength="40" />
+    <Property Type="String" Name="Apellido_Paterno" Nullable="true" MaxLength="40" />
+    <Property Type="String" Name="Apellido_Materno" Nullable="true" MaxLength="40" />
+    <Property Type="String" Name="CALLE" Nullable="true" MaxLength="60" />
+    <Property Type="String" Name="NUMERO_EXTERIOR" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="NUMERO_INTERIOR" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="Id_Colonia_CNBV" Nullable="true" />
+    <Property Type="String" Name="Nombre_Colonia" Nullable="true" MaxLength="65" />
+    <Property Type="Int32" Name="CP" Nullable="false" />
+    <Property Type="String" Name="municipio" Nullable="true" MaxLength="75" />
+    <Property Type="String" Name="estado" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="Tel_Celular" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="Tel_Trabajo" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="Telefono" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="Telefono_adicional" Nullable="true" MaxLength="15" />
+    <Property Type="Int32" Name="Id_de_Sucursal" Nullable="true" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="35" />
+    <Property Type="Int32" Name="estatus" Nullable="false" />
+    <Property Type="String" Name="Num_Tarjeta" Nullable="true" MaxLength="16" />
+  </ComplexType>
+  <EntityType Name="CAT_UNE_PROCEDE_DEBITO">
+    <Key>
+      <PropertyRef Name="ID_PROCEDE_DEBITO" />
+    </Key>
+    <Property Name="ID_PROCEDE_DEBITO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TBL_UNE_REPORTE" Relationship="HAPEModel.FK_CAT_UNE_PROCEDE_DEBITO_TBL_UNE_REPORTE" FromRole="CAT_UNE_PROCEDE_DEBITO" ToRole="TBL_UNE_REPORTE" />
+  </EntityType>
+  <Association Name="FK_CAT_UNE_PROCEDE_DEBITO_TBL_UNE_REPORTE">
+    <End Type="HAPEModel.CAT_UNE_PROCEDE_DEBITO" Role="CAT_UNE_PROCEDE_DEBITO" Multiplicity="0..1" />
+    <End Type="HAPEModel.TBL_UNE_REPORTE" Role="TBL_UNE_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_PROCEDE_DEBITO">
+        <PropertyRef Name="ID_PROCEDE_DEBITO" />
+      </Principal>
+      <Dependent Role="TBL_UNE_REPORTE">
+        <PropertyRef Name="ID_PROCEDE_DEBITO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TBL_UNE_COMISIONES">
+    <Key>
+      <PropertyRef Name="ID_COMISION" />
+    </Key>
+    <Property Name="ID_COMISION" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CONCEPTO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="MONTO" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_FINALIZADO_DEBITO">
+    <Key>
+      <PropertyRef Name="ID_FINALIZADO_DEBITO" />
+    </Key>
+    <Property Name="ID_FINALIZADO_DEBITO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CAT_UNE_FINALIZADO_DEBITO1" Relationship="HAPEModel.FK_CAT_UNE_FINALIZADO_DEBITO_TBL_UNE_REPORTE" FromRole="CAT_UNE_FINALIZADO_DEBITO" ToRole="CAT_UNE_FINALIZADO_DEBITO1" />
+    <NavigationProperty Name="CAT_UNE_FINALIZADO_DEBITO2" Relationship="HAPEModel.FK_CAT_UNE_FINALIZADO_DEBITO_TBL_UNE_REPORTE" FromRole="CAT_UNE_FINALIZADO_DEBITO1" ToRole="CAT_UNE_FINALIZADO_DEBITO" />
+  </EntityType>
+  <Association Name="FK_CAT_UNE_FINALIZADO_DEBITO_TBL_UNE_REPORTE">
+    <End Type="HAPEModel.CAT_UNE_FINALIZADO_DEBITO" Role="CAT_UNE_FINALIZADO_DEBITO" Multiplicity="1" />
+    <End Type="HAPEModel.CAT_UNE_FINALIZADO_DEBITO" Role="CAT_UNE_FINALIZADO_DEBITO1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_FINALIZADO_DEBITO">
+        <PropertyRef Name="ID_FINALIZADO_DEBITO" />
+      </Principal>
+      <Dependent Role="CAT_UNE_FINALIZADO_DEBITO1">
+        <PropertyRef Name="ID_FINALIZADO_DEBITO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="SP_UNE_OBTENER_USUARIOS_Result">
+    <Property Type="String" Name="USUARIO" Nullable="true" MaxLength="125" />
+    <Property Type="Int32" Name="Numusuario" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_UNE_OBTENER_SUPUESTOS_VALIDA_IMPORTE_Result">
+    <Property Type="Int32" Name="ID_SUPUESTOS_REPORTE" Nullable="false" />
+    <Property Type="Int32" Name="ID_TIPO_REPORTE" Nullable="true" />
+    <Property Type="Int32" Name="ID_TIPO_CUENTA" Nullable="true" />
+    <Property Type="Int32" Name="ID_CUENTA" Nullable="true" />
+    <Property Type="String" Name="DESCRIPCION" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="DIAS_REQUERIDOS" Nullable="true" />
+    <Property Type="Int32" Name="ACTIVO" Nullable="true" />
+    <Property Type="Int32" Name="VALIDA_IMPORTE_RECLAMACION" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="SICORP_ROLES">
+    <Key>
+      <PropertyRef Name="Id_Rol" />
+    </Key>
+    <Property Name="Id_Rol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nom_Rol" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="Id_Dpto" Type="Int32" Nullable="false" />
+    <Property Name="Id_tipo_jefe" Type="Int32" />
+    <Property Name="activo" Type="Boolean" />
+    <Property Name="nomenclatura" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Id_Nivel_de_Rol" Type="Int32" />
+  </EntityType>
+  <ComplexType Name="SP_CMV_OBTENER_CORREO_SERVIDOR_MODULO_Result">
+    <Property Type="String" Name="CUENTA_EMISOR" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="SERVIDOR" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="SP_UNE_OBTENER_FOLIOS_LLAMADA_SALIDA_Result">
+    <Property Type="Int32" Name="NUM_FOLIO" Nullable="true" />
+    <Property Type="String" Name="NOMBRE_S" Nullable="true" MaxLength="60" />
+    <Property Type="String" Name="APELLIDO_PATERNO" Nullable="true" MaxLength="60" />
+    <Property Type="String" Name="APELLIDO_MATERNO" Nullable="true" MaxLength="60" />
+    <Property Type="String" Name="TELEFONO" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="TEL_CELULAR" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <EntityType Name="TBL_UNE_CONVERSION_LLAMADAS">
+    <Key>
+      <PropertyRef Name="ID_CONVERSION_LLAMADA" />
+    </Key>
+    <Property Name="ID_CONVERSION_LLAMADA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="INB_OUT_ID" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="NUM_FOLIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA_CONVERSION" Type="DateTime" Precision="3" />
+    <Property Name="RUTA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NOMBRE_ARCHIVO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_PROCEDE_CORRESPONSALIAS">
+    <Key>
+      <PropertyRef Name="ID_PROCEDE_CORRESPONSALIAS" />
+    </Key>
+    <Property Name="ID_PROCEDE_CORRESPONSALIAS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TBL_UNE_REPORTE" Relationship="HAPEModel.FK_TBL_UNE_REPORTE_CAT_UNE_PROCEDE_CORRESPONSALIAS_ID_PROCEDE_CORRESPONSALIAS" FromRole="CAT_UNE_PROCEDE_CORRESPONSALIAS" ToRole="TBL_UNE_REPORTE" />
+  </EntityType>
+  <Association Name="FK_TBL_UNE_REPORTE_CAT_UNE_PROCEDE_CORRESPONSALIAS_ID_PROCEDE_CORRESPONSALIAS">
+    <End Type="HAPEModel.CAT_UNE_PROCEDE_CORRESPONSALIAS" Role="CAT_UNE_PROCEDE_CORRESPONSALIAS" Multiplicity="0..1" />
+    <End Type="HAPEModel.TBL_UNE_REPORTE" Role="TBL_UNE_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_PROCEDE_CORRESPONSALIAS">
+        <PropertyRef Name="ID_PROCEDE_CORRESPONSALIAS" />
+      </Principal>
+      <Dependent Role="TBL_UNE_REPORTE">
+        <PropertyRef Name="ID_PROCEDE_CORRESPONSALIAS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="SP_BANCA_OBTIENE_SOCIO_Result">
+    <Property Type="Int32" Name="estatus" Nullable="false" />
+    <Property Type="Boolean" Name="existeError" Nullable="true" />
+    <Property Type="String" Name="mensajeError" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="nombreCompleto" Nullable="false" MaxLength="122" />
+    <Property Type="Int32" Name="puedeActivar" Nullable="false" />
+    <Property Type="Int32" Name="bloqueado" Nullable="false" />
+    <Property Type="Int32" Name="tieneContratoBanca" Nullable="false" />
+    <Property Type="Boolean" Name="banca_activa" Nullable="false" />
+    <Property Type="Int32" Name="id_estatus_banca" Nullable="false" />
+    <Property Type="Decimal" Name="monto_maximo_transferencia" Nullable="false" Precision="19" />
+    <Property Type="Int32" Name="id_tipo_notificacion" Nullable="true" />
+    <Property Type="String" Name="Mail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Tel_Celular" Nullable="true" MaxLength="15" />
+    <Property Type="Int32" Name="Codigo_Postal" Nullable="true" />
+    <Property Type="String" Name="Nombre_Colonia" Nullable="true" MaxLength="65" />
+    <Property Type="String" Name="Nombre_Localidad" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="DESCRIPCION" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="domiCompleto" Nullable="false" MaxLength="241" />
+    <Property Type="Int32" Name="id_motivo_bloqueo" Nullable="true" />
+    <Property Type="Int32" Name="Id_Persona" Nullable="false" />
+    <Property Type="Int32" Name="Numero" Nullable="true" />
+    <Property Type="String" Name="Nombre_s" Nullable="true" MaxLength="40" />
+    <Property Type="String" Name="Apellido_Paterno" Nullable="true" MaxLength="40" />
+    <Property Type="String" Name="Apellido_Materno" Nullable="true" MaxLength="40" />
+    <Property Type="String" Name="Calle" Nullable="true" MaxLength="60" />
+    <Property Type="String" Name="Numero_Exterior" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="Numero_Interior" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="Telefono" Nullable="true" MaxLength="15" />
+    <Property Type="DateTime" Name="Fecha_Alta" Nullable="true" Precision="23" />
+    <Property Type="String" Name="Reingreso" Nullable="true" MaxLength="1" />
+    <Property Type="DateTime" Name="Fecha_Modifica" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="NumUsuario" Nullable="true" />
+    <Property Type="Int32" Name="Id_Colonia" Nullable="true" />
+    <Property Type="Int32" Name="Id_Colonia2" Nullable="true" />
+    <Property Type="Int32" Name="Id_Tipo_Persona" Nullable="true" />
+    <Property Type="Int32" Name="Id_edo_civil" Nullable="true" />
+    <Property Type="Int32" Name="Id_ocupacion" Nullable="true" />
+    <Property Type="Int32" Name="Id_profesion" Nullable="true" />
+    <Property Type="Int32" Name="Id_de_Sucursal" Nullable="true" />
+    <Property Type="String" Name="Telefono_adicional" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="Clave" Nullable="true" MaxLength="6" />
+    <Property Type="String" Name="Lugar_de_nacimiento" Nullable="true" MaxLength="40" />
+    <Property Type="DateTime" Name="Fecha_de_nacimiento" Nullable="true" Precision="23" />
+    <Property Type="String" Name="Periodicidad_de_compromiso" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Sexo" Nullable="true" MaxLength="1" />
+    <Property Type="String" Name="Domicilio_anterior" Nullable="true" MaxLength="30" />
+    <Property Type="DateTime" Name="Fecha_inicio_labores" Nullable="true" Precision="23" />
+    <Property Type="Double" Name="Ingreso_mensual" Nullable="true" />
+    <Property Type="Double" Name="Otro_ingreso" Nullable="true" />
+    <Property Type="String" Name="Horario" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Periodicidad_otros_gastos" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Gastos_mensuales" Nullable="true" MaxLength="20" />
+    <Property Type="Double" Name="Disponibles" Nullable="true" />
+    <Property Type="String" Name="Periodicidad_ingresos" Nullable="true" MaxLength="25" />
+    <Property Type="Double" Name="Gastos" Nullable="true" />
+    <Property Type="String" Name="Curp" Nullable="true" MaxLength="18" />
+    <Property Type="String" Name="Rfc" Nullable="true" MaxLength="15" />
+    <Property Type="Int32" Name="Dependientes_economicos" Nullable="true" />
+    <Property Type="String" Name="Edades_dependientes_economicos" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="Arraigo" Nullable="true" MaxLength="15" />
+    <Property Type="Int32" Name="Id_empresa" Nullable="true" />
+    <Property Type="Int32" Name="Id_vivienda" Nullable="true" />
+    <Property Type="Double" Name="Compromiso_de_ahorro" Nullable="true" />
+    <Property Type="Int32" Name="Id_banco" Nullable="true" />
+    <Property Type="Int32" Name="Id_medio" Nullable="true" />
+    <Property Type="Int32" Name="Id_caja" Nullable="true" />
+    <Property Type="Int32" Name="Id_motivo" Nullable="true" />
+    <Property Type="Int32" Name="Id_poblacion" Nullable="true" />
+    <Property Type="String" Name="Expediente" Nullable="true" MaxLength="35" />
+    <Property Type="Int32" Name="Id_de_giro" Nullable="true" />
+    <Property Type="Int32" Name="Usuario_alta" Nullable="true" />
+    <Property Type="String" Name="Activo" Nullable="true" MaxLength="1" />
+    <Property Type="Int32" Name="Id_Puesto" Nullable="true" />
+    <Property Type="String" Name="Bloqueado_Cobranza" Nullable="true" MaxLength="1" />
+    <Property Type="Int32" Name="Id_Escolaridad" Nullable="true" />
+    <Property Type="Int16" Name="Id_Promotor" Nullable="true" />
+    <Property Type="Int32" Name="Autoriza" Nullable="true" />
+    <Property Type="Int32" Name="Id_Convenio" Nullable="false" />
+    <Property Type="String" Name="Bloqueado_Exclusion" Nullable="true" MaxLength="1" />
+    <Property Type="Int16" Name="Id_Sieban" Nullable="true" />
+    <Property Type="Int32" Name="Id_colegio" Nullable="true" />
+    <Property Type="Int16" Name="Id_Promocion" Nullable="true" />
+    <Property Type="Int32" Name="Id_Promaf" Nullable="true" />
+    <Property Type="String" Name="Id_Shif" Nullable="true" MaxLength="1" />
+    <Property Type="Int32" Name="Id_Colonia_CNBV" Nullable="true" />
+    <Property Type="Int32" Name="Id_Ocupacion_CNBV" Nullable="true" />
+    <Property Type="Int32" Name="Id_Nomina" Nullable="true" />
+    <Property Type="String" Name="Actualizado" Nullable="true" MaxLength="1" />
+    <Property Type="Int32" Name="Numusuario_Actualiza" Nullable="true" />
+    <Property Type="DateTime" Name="Fecha_Actualizacion" Nullable="true" Precision="23" />
+    <Property Type="Double" Name="Compromiso_de_Ahorro_Max" Nullable="true" />
+    <Property Type="String" Name="Tel_Trabajo" Nullable="true" MaxLength="15" />
+    <Property Type="Int32" Name="ID_GRUPO" Nullable="true" />
+    <Property Type="Int32" Name="Id_SAT" Nullable="true" />
+    <Property Type="Int32" Name="Numero_ExSocio" Nullable="true" />
+    <Property Type="String" Name="NombreUsuarioAlta" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="NumEmpleadoAlta" Nullable="true" />
+    <Property Type="String" Name="CobroLegal" Nullable="true" MaxLength="1" />
+    <Property Type="String" Name="DatosActualizados" Nullable="true" MaxLength="1" />
+  </ComplexType>
+  <EntityType Name="CAT_UNE_TIPO_CUENTA_BANCA">
+    <Key>
+      <PropertyRef Name="ID_TIPO_CUENTA_BANCA" />
+    </Key>
+    <Property Name="ID_TIPO_CUENTA_BANCA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_CANAL">
+    <Key>
+      <PropertyRef Name="ID_CANAL" />
+    </Key>
+    <Property Name="ID_CANAL" Type="Int32" Nullable="false" />
+    <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_CAUSA_RESOLUCION">
+    <Key>
+      <PropertyRef Name="ID_CAUSA_RESOLUCION" />
+    </Key>
+    <Property Name="ID_CAUSA_RESOLUCION" Type="Int32" Nullable="false" />
+    <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_MOTIVO_CANCELACION">
+    <Key>
+      <PropertyRef Name="ID_MOTIVO_CANCELACION" />
+    </Key>
+    <Property Name="ID_MOTIVO_CANCELACION" Type="Int32" Nullable="false" />
+    <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_PRODUCTO">
+    <Key>
+      <PropertyRef Name="ID_PRODUCTO" />
+    </Key>
+    <Property Name="ID_PRODUCTO" Type="Int32" Nullable="false" />
+    <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="ID_MOV_HAPE" Type="Int32" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_RESOLUCION">
+    <Key>
+      <PropertyRef Name="ID_RESOLUCION" />
+    </Key>
+    <Property Name="ID_RESOLUCION" Type="Int32" Nullable="false" />
+    <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="SP_UNE_CARGAR_REPORTE_2701_Result">
+    <Property Type="Int32" Name="CONTADOR" Nullable="true" />
+    <Property Type="Int32" Name="NUMUSUARIO_REPORTE" Nullable="true" />
+    <Property Type="String" Name="PERIODO_REPORTA" Nullable="true" MaxLength="6" />
+    <Property Type="Int32" Name="CLAVE_INSTITUCION" Nullable="true" />
+    <Property Type="Int32" Name="REPORTE" Nullable="true" />
+    <Property Type="Int32" Name="NUMERO_DE_SECUENCIA" Nullable="true" />
+    <Property Type="Int32" Name="FOLIO_DE_RECLAMACIÓN" Nullable="true" />
+    <Property Type="String" Name="FECHA_DE_RECLAMACION" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="FECHA_DE_SUCESO" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="NÚMERO_DE_CUENTA" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="PRODUCTO" Nullable="true" />
+    <Property Type="Int32" Name="CANAL_TRANSACCION" Nullable="true" />
+    <Property Type="Int32" Name="MOTIVO_RECLAMACION" Nullable="true" />
+    <Property Type="Decimal" Name="MONTO_RECLAMACION" Nullable="true" Precision="19" />
+    <Property Type="Int32" Name="ESTADO_RECLAMACION" Nullable="true" />
+    <Property Type="Int32" Name="RESOLUCION" Nullable="true" />
+    <Property Type="String" Name="FECHA_RESOLUCION" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="CAUSA_RESOLUCION" Nullable="true" />
+    <Property Type="Decimal" Name="IMPORTE_ABONADO_CLIENTE" Nullable="true" Precision="19" />
+    <Property Type="String" Name="FECHA_ABONO_CLIENTE" Nullable="true" MaxLength="10" />
+    <Property Type="Decimal" Name="IMPORTE_RECUPERADO" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="QUEBRANTO_PARA_INSTITUCION" Nullable="true" Precision="19" />
+    <Property Type="Int32" Name="ORIGEN_RECLAMACION" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SP_UNE_OBTENER_PLAZOS_FIJOS_ACTIVOS_Result">
+    <Property Type="DateTime" Name="fecha_mov" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="fecha_dpf_final" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="num_dpf" Nullable="true" />
+    <Property Type="Double" Name="tasa_dpf" Nullable="true" />
+    <Property Type="Double" Name="monto" Nullable="true" />
+    <Property Type="Double" Name="saldo" Nullable="true" />
+    <Property Type="Int32" Name="dias" Nullable="true" />
+    <Property Type="Double" Name="interes_dpf" Nullable="true" />
+    <Property Type="Int32" Name="folio" Nullable="true" />
+    <Property Type="String" Name="tipo_poliza" Nullable="true" MaxLength="1" />
+    <Property Type="Int32" Name="numusuario" Nullable="true" />
+    <Property Type="Int32" Name="id_persona" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_UNE_OBTENER_NUM_PTMO_Result">
+    <Property Type="String" Name="Column1" Nullable="true" MaxLength="14" />
+    <Property Type="Int32" Name="NUMERO" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SP_UNE_OBTENER_NUMPTMO_Result">
+    <Property Type="String" Name="NUMPTMO" Nullable="true" MaxLength="14" />
+    <Property Type="Int32" Name="NUMERO" Nullable="true" />
+  </ComplexType>
+</Schema>

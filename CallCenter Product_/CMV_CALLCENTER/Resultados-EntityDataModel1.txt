@@ -1,0 +1,9 @@
+﻿Archivo de modelo generado: BD.edmx.
+La carga de los metadatos desde la base de datos tardó 00:00:00.8863349.
+La generación del modelo tardó 00:02:37.6988207.
+Archivo de modelo generado: BancaDB.edmx.
+La carga de los metadatos desde la base de datos tardó 00:00:00.5970429.
+La generación del modelo tardó 00:00:02.4317280.
+Archivo de modelo generado: BancaDB.edmx.
+La carga de los metadatos desde la base de datos tardó 00:00:00.6172023.
+La generación del modelo tardó 00:00:00.8969341.

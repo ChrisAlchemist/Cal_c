@@ -1,0 +1,82 @@
+﻿@using UNECMV.Models
+@model Tuple<TBL_UNE_REPORTE, TBL_UNE_USUARIOS_ASIGNADOS, TBL_UNE_CANALIZACIONES>
+
+@{
+    ViewBag.Title = "Canalizar";
+}
+
+@{
+    UNECMV.Models.CLAVES SesionUsuario = Session["SesionUsuario"] as UNECMV.Models.CLAVES;
+    var listaUsuarios = new UNECMV.Controllers.CanalizarController().regresaUsuarios();
+}
+
+<script src="~/Estilos/js/jquery.min.js"></script>
+<link href="~/Estilos/Select2/select2.min.css" rel="stylesheet" />
+<script src="~/Estilos/Select2/select2.min.js"></script>
+<script src="~/Eventos/Canalizar.js"></script>
+<link href="~/Estilos/css/Validaciones.css" rel="stylesheet" />
+
+<div class="row">
+    <div class="col-md-12">
+        <center><h3>Canalizar folio Número <kbd>@Model.Item1.FOLIO</kbd></h3></center>
+    </div>
+</div>
+<hr/>
+
+<div id="dvLoading" hidden></div>
+
+<div class="row">
+    <div class="col-md-4">
+        @Html.HiddenFor(x=>x.Item1.FOLIO, new { @id="inputFolio" } )
+        <input value="@SesionUsuario.Numusuario" id="inputNumusuario" hidden="" />
+        <label for="selectUsuario">Usuario responsable:</label>
+        @{
+            List<SelectListItem> itemsUsuarios = new List<SelectListItem>();
+            //itemsUsuarios.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+            foreach (var usuarios in listaUsuarios)
+            {
+                itemsUsuarios.Add(new SelectListItem
+                {
+                    Text = usuarios.Nombre_s + " " + usuarios.Apellido_paterno + " " + usuarios.Apellido_materno,
+                    Value = usuarios.Numusuario.ToString()
+                });
+            }
+            @Html.DropDownListFor(x=> x.Item2.numusuario, itemsUsuarios, new { @class = "js-example-basic-single js-states form-control", @tabindex="-1", @id = "selectUsuario", @onchange = "" })
+
+        }
+    </div>
+    <div class="col-md-8">
+        <label for="selectUsuariosCopia">Usuarios co-responsables:</label>
+        @{
+            @Html.DropDownListFor(x => x.Item2.numusuario, itemsUsuarios, new { @class = "js-example-basic-multiple js-states form-control", @tabindex = "-1", @id = "selectUsuariosCopia", @multiple = "multiple", @onchange = "" })
+        }
+    </div>
+</div>
+
+<br/>
+
+<div class="row">
+    <div class="col-md-12">
+        <label for="comentarios">Comentarios de canalización:</label>
+        <textarea placeholder="Comentarios" class="form-control" rows="10" id="comentarios" maxlength="1000" onkeypress="inputArea()"></textarea>
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <center>
+        <button type="button" class="btn btn-success btn-lg" id="btnCanalizar" onclick="canalizar()"><span class="glyphicon glyphicon-save"> </span> Canalizar</button>
+    </center>
+</div>
+<br/>
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-success" role="alert" id="divAlertaExito" hidden><strong>Canalización realizada correctamente</strong></div>
+        <div class="alert alert-danger" role="alert" id="divAlertaFracaso" hidden><strong>Error en la canalización del reporte</strong></div>
+        <div class="alert alert-danger" role="alert" id="divAlertaInvalido" hidden>
+            <strong>Favor de llenar todos los campos</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+    </div>
+</div>

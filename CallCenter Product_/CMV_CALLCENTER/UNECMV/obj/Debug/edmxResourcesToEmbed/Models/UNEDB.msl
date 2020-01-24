@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BDUNEStoreContainer" CdmEntityContainer="ContextUneBD">
+    <EntitySetMapping Name="CMV_REC_DATA">
+      <EntityTypeMapping TypeName="BDUNE.CMV_REC_DATA">
+        <MappingFragment StoreEntitySet="CMV_REC_DATA">
+          <ScalarProperty Name="ID_TBL_INT" ColumnName="ID_TBL_INT" />
+          <ScalarProperty Name="INB_OUT_ID" ColumnName="INB_OUT_ID" />
+          <ScalarProperty Name="CALLTYPE" ColumnName="CALLTYPE" />
+          <ScalarProperty Name="CRM_FOLIO" ColumnName="CRM_FOLIO" />
+          <ScalarProperty Name="RDATE" ColumnName="RDATE" />
+          <ScalarProperty Name="PATH_REC" ColumnName="PATH_REC" />
+          <ScalarProperty Name="CALL_ID" ColumnName="CALL_ID" />
+          <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+          <ScalarProperty Name="P_STATUS" ColumnName="P_STATUS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

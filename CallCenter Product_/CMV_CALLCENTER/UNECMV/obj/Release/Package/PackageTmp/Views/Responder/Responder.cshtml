@@ -1,0 +1,139 @@
+﻿@using UNECMV.Models
+@model Tuple<TBL_UNE_REPORTE, TBL_UNE_CANALIZACIONES>
+
+@{
+    UNECMV.Models.CLAVES SesionUsuario = Session["SesionUsuario"] as UNECMV.Models.CLAVES;
+    var puesto = new UNECMV.Controllers.ResponderController().puesto(SesionUsuario.Id_de_sucursal, SesionUsuario.Numusuario);
+    var nombre = new UNECMV.Controllers.ResponderController().responsable(Model.Item1.FOLIO);
+    var listaMediosContacto = new UNECMV.Controllers.RegistrarController().obtenerMediosContacto();
+    String ultimoComentario = new UNECMV.Controllers.DictaminarController().ObtenerUltimaRespuesta(Model.Item1.FOLIO);
+}
+
+@{
+    ViewBag.Title = "Responder";
+}
+
+<script src="~/Estilos/js/jquery.min.js"></script>
+<link href="~/Estilos/css/Validaciones.css" rel="stylesheet" />
+<script src="~/Eventos/Responder.js"></script>
+
+<div id="dvLoading" hidden></div>
+
+<div class="row">
+    <div class="col-md-12">
+        <center><h3>Numero de folio: <kbd>@Model.Item1.FOLIO</kbd></h3></center>
+        <hr />
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <label for="inputPuesto">Gerencia/Sucursal:</label>
+        <input class="form-control" value="@puesto" id="inputPuesto" readonly />
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-md-6">
+        <label for="inputResponsable">Usuario Responsable:</label>
+        <input class="form-control" value="@nombre" id="inputResponsable" readonly />
+    </div>
+</div>
+
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Datos Personales del socio</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            @Html.LabelFor(x => x.Item1.NOMBRE_S, "Nombre:")
+            @Html.TextBoxFor(x => x.Item1.NOMBRE_S, new { @Value = Model.Item1.NOMBRE_S, @class = "form-control", @placeholder = "Ej: 667231", @id = "inputSocio", @readOnly = "" })
+        </div>
+        <div class="col-md-2">
+            @Html.LabelFor(x => x.Item1.APELLIDO_PATERNO, "Apellido Paterno:")
+            @Html.TextBoxFor(x => x.Item1.APELLIDO_PATERNO, new { @Value = Model.Item1.APELLIDO_PATERNO, @class = "form-control", @id = "inputAP", @readOnly = "" })
+        </div>
+        <div class="col-md-2">
+            @Html.LabelFor(x => x.Item1.APELLIDO_MATERNO, "Apellido Materno:")
+            @Html.TextBoxFor(x => x.Item1.APELLIDO_MATERNO, new { @Value = Model.Item1.APELLIDO_MATERNO, @class = "form-control", @id = "inputAM", @readOnly = "" })
+        </div>
+        <div class="col-md-2">
+            @Html.LabelFor(x => x.Item1.TELEFONO, "Teléfono:")
+            @Html.TextBoxFor(x => x.Item1.TELEFONO, new { @Value = Model.Item1.TELEFONO, @class = "form-control", @placeholder = "Tel.", @id = "inputTel", @readOnly = "" })
+        </div>
+        <div class="col-md-2">
+            @Html.LabelFor(x => x.Item1.TEL_CELULAR, "Teléfono Celular:")
+            @Html.TextBoxFor(x => x.Item1.TEL_CELULAR, new { @Value = Model.Item1.TEL_CELULAR, @class = "form-control", @placeholder = "Cel.", @id = "inputTelCel", @readonly = "" })
+        </div>
+    </div>
+
+    @*<div class="row">
+            <div class="col-md-3">
+                <label for="selectMedioContacto" class="control-label">Medio de contacto:</label>
+                @{
+                    List<SelectListItem> itemsMedio = new List<SelectListItem>();
+                    itemsMedio.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+                    foreach (var lista in listaMediosContacto)
+                    {
+                        itemsMedio.Add(new SelectListItem
+                        {
+                            Text = lista.DESCRIPCION,
+                            Value = lista.ID_MEDIO_CONTACTO.ToString()
+                        });
+                    }
+                    @Html.DropDownListFor(x => x.Item1.ID_MEDIO_CONTACTO, itemsMedio, new { @class = "form-control select2", @id = "selectMedioContacto", @onchange = "medioContacto()", @disabled = "" })
+                }
+            </div>
+
+        </div>*@
+
+<br />
+    <div class="row">
+        <div class="col-md-12">
+            @Html.LabelFor(x => x.Item1.DESCRIPCION_REPORTE, "Reclamación:")
+            @Html.TextAreaFor(x => x.Item1.DESCRIPCION_REPORTE, new { @class = "form-control", @placeholder = "Descripción", @id = "inputDescripcion", @maxlength = "1000", @rows = "9", @onkeypress = "descripcionReporte()", @readOnly = "" })
+        </div>
+    </div>
+
+    @if (ultimoComentario != "")
+    {
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <label>Última respuesta a la reclamación:</label>
+                <textarea class="form-control" value="@ultimoComentario" id="ultimoComentario" rows="10" readonly>@ultimoComentario</textarea>
+            </div>
+        </div>
+    }
+
+<br />
+    @using (Html.BeginForm("RegistrarRespuesta", "Responder", FormMethod.Post, new { @id = "frmResponder" }))
+    {
+        @Html.HiddenFor(x => x.Item2.FOLIO, new { @id = "inputFolio_", @Value = Model.Item1.FOLIO })
+        @Html.HiddenFor(x => x.Item2.numusuario, new { @id = "inputNumusuario_", @Value = SesionUsuario.Numusuario })
+        <div class="row">
+            <div class="col-md-12">
+                @Html.LabelFor(x => x.Item2.COMENTARIOS, "Respuesta a la reclamación:")
+                @Html.TextAreaFor(x => x.Item2.COMENTARIOS, new { @class = "form-control", @id = "inputRespuesta", @rows = "9", @maxlength = "1000", @onkeypress = "respuesta()" })
+            </div>
+        </div>
+    }
+    <hr />
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success" role="alert" id="divAlertaExito" hidden><strong>Respuesta realizada correctamente</strong></div>
+            <div class="alert alert-danger" role="alert" id="divAlertaFracaso" hidden><strong>Error en la respuesta del reporte</strong></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <center><button type="button" class="btn btn-success btn-lg" id="btnResponder" onclick="valida()"><span class="glyphicon glyphicon-save"> </span> Generar Respuesta</button></center>
+        </div>
+    </div>
+

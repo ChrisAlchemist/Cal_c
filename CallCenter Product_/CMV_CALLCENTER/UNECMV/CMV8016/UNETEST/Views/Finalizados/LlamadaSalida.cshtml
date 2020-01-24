@@ -1,0 +1,92 @@
+﻿@using CMV_CALLCENTER
+@model CMV_CALLCENTER.Entidad.Iframe
+
+@{
+    ViewBag.Title = "LlamadaSalida";
+}
+
+@{ 
+    int conteo = 0;
+    foreach (var item in ViewData["listaPosibleFolios"] as List<CMV_CALLCENTER.Models.SP_UNE_OBTENER_FOLIOS_LLAMADA_SALIDA_Result>)
+    {
+        conteo++;
+    }
+}
+
+<script src="~/Estilos/js/jquery.min.js"></script>
+<script src="~/Estilos/js/jQuery.unobtrusive-ajax.js"></script>
+<link href="~/Estilos/WizardBootstrap/prettify.css" rel="stylesheet" />
+<link href="~/Estilos/css/Validaciones.css" rel="stylesheet" />
+<script src="~/Eventos/LamadaSalida.js"></script>
+
+<center><h3>Registro de llamada de seguimiento</h3></center>
+<hr />
+
+<div class="col-md-12">
+    <div class="col-md-5">
+        <center><h4>Datos de la llamada:</h4></center>
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Número de marcación: </strong>@Model.vPhone</p>
+            </div>
+        </div>
+        <form id="formGuardarLlamada" method="post" enctype="multipart/form-data">
+            @Html.HiddenFor(x=>x.vCALLTYPE)
+            @Html.HiddenFor(x=>x.vContactID)
+            @Html.HiddenFor(x=>x.vAgentID)
+            @Html.HiddenFor(x=>x.vServiceID)
+            @Html.HiddenFor(x=>x.vPhone)
+            <div class="row">
+                <div class="col-md-4">
+                    @Html.LabelFor(x => x.vFolio, "Folio del reporte:")
+                    @Html.TextBoxFor(x => x.vFolio, new { @class = "form-control" })
+                </div>
+            </div>
+            <br />
+        </form>
+        <div class="row">
+            <div class="col-md-4">
+                <button type="button" class="btn btn-info" id="btnGuardarLlamada">Guardar registro</button>
+            </div>
+        </div>
+        <br />
+    </div>
+    <div class="col-md-7">
+        <center><h4>Folios sugeridos:</h4></center>
+        
+        <div class="panel panel-primary">
+            <div class="panel-heading">Folios sugeridos de acuerdo al teléfono marcado</div>
+            @if (conteo == 0)
+            {
+                <div class="panel-body">
+                    No existen coincidencias con el número marcado
+                </div>
+            }
+            <!-- Table -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Folio</th>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>Celular</th>
+                        <th>Asignar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var reporte in ViewData["listaPosibleFolios"] as List<CMV_CALLCENTER.Models.SP_UNE_OBTENER_FOLIOS_LLAMADA_SALIDA_Result>)
+                    {
+                        <tr id="@reporte.NUM_FOLIO">
+                            <td>@reporte.NUM_FOLIO</td>
+                            <td>@reporte.NOMBRE_S @reporte.APELLIDO_PATERNO @reporte.APELLIDO_MATERNO</td>
+                            <td>@reporte.TELEFONO</td>
+                            <td>@reporte.TEL_CELULAR</td>
+                            <td><button class="btn btn-info btn-xs" onclick="asginarInput(@reporte.NUM_FOLIO)">Asignar</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

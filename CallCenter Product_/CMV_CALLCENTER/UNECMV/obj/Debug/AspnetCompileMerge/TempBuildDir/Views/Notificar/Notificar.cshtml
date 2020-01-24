@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Notificar";
+}
+
+@{ 
+    UNECMV.Models.CLAVES SesionUsuario = Session["SesionUsuario"] as UNECMV.Models.CLAVES;
+}
+
+<script src="~/Estilos/Wizard/js/jquery-1.9.1.min.js"></script>
+<script src="~/Estilos/js/jquery.dataTables.min.js"></script>
+<link href="~/Estilos/css/dataTable.css" rel="stylesheet" />
+<script src="~/Eventos/Notificar.js"></script>
+<link href="~/Estilos/css/Validaciones.css" rel="stylesheet" />
+
+<div class="row">
+    <div class="col-md-12">
+        <center><h3>Reportes pendientes por notificar al socio</h3></center>
+    </div>
+</div>
+<table id="example" class="display nowrap dataTable dtr-inline" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Folio</th>
+            <th>Estatus</th>
+            <th>Fecha Registro</th>
+            <th>Acciones Disp.</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ 
+            DateTime dt;
+            foreach (var item in (ViewData["listaNotificaciones"] as List<UNECMV.Models.TBL_UNE_REPORTE>))
+            {
+                dt = Convert.ToDateTime(@item.FECHA_ALTA);
+                <tr>
+                    <td style="font-size:12px;">@item.NOMBRE_S @item.APELLIDO_PATERNO @item.APELLIDO_MATERNO</td>
+                    <td>@item.NUM_FOLIO</td>
+                    <td style="font-size:12px;">@item.CAT_UNE_ESTATUS_REPORTE.DESCRIPCION</td>
+                    <td style="font-size:12px;">@dt.ToShortDateString()</td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Acciones <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("Preview","Preview", @item)"><span class="glyphicon glyphicon-folder-open"></span> Ver detalle</a></li>
+                                <li><a href="@Url.Action("RegistrarNotificacion","Notificar",@item)"><span class="glyphicon glyphicon-info-sign"></span> Registrar Notificación</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

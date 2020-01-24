@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://www.conecta.mx" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="ConectaServicesImplService" targetNamespace="http://www.conecta.mx" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://192.168.98.55:8080/ConectaWebApp/ConectaServicesImpl?xsd=1" namespace="http://www.cryptocard.com/blackshield/" />
+    </xsd:schema>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://192.168.98.55:8080/ConectaWebApp/ConectaServicesImpl?xsd=2" namespace="http://www.conecta.mx" />
+    </xsd:schema>
+  </types>
+  <message name="Reasignacion">
+    <part name="parameters" element="tns:Reasignacion" />
+  </message>
+  <message name="ReasignacionResponse">
+    <part name="parameters" element="tns:ReasignacionResponse" />
+  </message>
+  <message name="CustomException">
+    <part name="fault" element="tns:CustomException" />
+  </message>
+  <message name="ObtenerUsuario">
+    <part name="parameters" element="tns:ObtenerUsuario" />
+  </message>
+  <message name="ObtenerUsuarioResponse">
+    <part name="parameters" element="tns:ObtenerUsuarioResponse" />
+  </message>
+  <message name="RevocarToken">
+    <part name="parameters" element="tns:RevocarToken" />
+  </message>
+  <message name="RevocarTokenResponse">
+    <part name="parameters" element="tns:RevocarTokenResponse" />
+  </message>
+  <message name="EliminarUsuario">
+    <part name="parameters" element="tns:EliminarUsuario" />
+  </message>
+  <message name="EliminarUsuarioResponse">
+    <part name="parameters" element="tns:EliminarUsuarioResponse" />
+  </message>
+  <message name="AgregarUsuario">
+    <part name="parameters" element="tns:AgregarUsuario" />
+  </message>
+  <message name="AgregarUsuarioResponse">
+    <part name="parameters" element="tns:AgregarUsuarioResponse" />
+  </message>
+  <message name="AgregarAprovisionarUsuario">
+    <part name="parameters" element="tns:AgregarAprovisionarUsuario" />
+  </message>
+  <message name="AgregarAprovisionarUsuarioResponse">
+    <part name="parameters" element="tns:AgregarAprovisionarUsuarioResponse" />
+  </message>
+  <message name="ActualizarUsuario">
+    <part name="parameters" element="tns:ActualizarUsuario" />
+  </message>
+  <message name="ActualizarUsuarioResponse">
+    <part name="parameters" element="tns:ActualizarUsuarioResponse" />
+  </message>
+  <message name="AprovisionarUsuarios">
+    <part name="parameters" element="tns:AprovisionarUsuarios" />
+  </message>
+  <message name="AprovisionarUsuariosResponse">
+    <part name="parameters" element="tns:AprovisionarUsuariosResponse" />
+  </message>
+  <message name="ObtenerEstatusToken">
+    <part name="parameters" element="tns:ObtenerEstatusToken" />
+  </message>
+  <message name="ObtenerEstatusTokenResponse">
+    <part name="parameters" element="tns:ObtenerEstatusTokenResponse" />
+  </message>
+  <portType name="ConectaServicesImpl">
+    <operation name="Reasignacion">
+      <input wsam:Action="http://www.conecta.mx/ConectaServicesImpl/ReasignacionRequest" message="tns:Reasignacion" />
+      <output wsam:Action="http://www.conecta.mx/ConectaServicesImpl/ReasignacionResponse" message="tns:ReasignacionResponse" />
+      <fault wsam:Action="http://www.conecta.mx/ConectaServicesImpl/Reasignacion/Fault/CustomException" name="CustomException" message="tns:CustomException" />
+    </operation>
+    <operation name="ObtenerUsuario">
+      <input wsam:Action="http://www.conecta.mx/ConectaServicesImpl/ObtenerUsuarioRequest" message="tns:ObtenerUsuario" />
+      <output wsam:Action="http://www.conecta.mx/ConectaServicesImpl/ObtenerUsuarioResponse" message="tns:ObtenerUsuarioResponse" />
+      <fault wsam:Action="http://www.conecta.mx/ConectaServicesImpl/ObtenerUsuario/Fault/CustomException" name="CustomException" message="tns:CustomException" />
+    </operation>
+    <operation name="RevocarToken">
+      <input wsam:Action="http://www.conecta.mx/ConectaServicesImpl/RevocarTokenRequest" message="tns:RevocarToken" />
+      <output wsam:Action="http://www.conecta.mx/ConectaServicesImpl/RevocarTokenResponse" message="tns:RevocarTokenResponse" />
+      <fault wsam:Action="http://www.conecta.mx/ConectaServicesImpl/RevocarToken/Fault/CustomException" name="CustomException" message="tns:CustomException" />
+    </operation>
+    <operation name="EliminarUsuario">
+      <input wsam:Action="http://www.conecta.mx/ConectaServicesImpl/EliminarUsuarioRequest" message="tns:EliminarUsuario" />
+      <output wsam:Action="http://www.conecta.mx/ConectaServicesImpl/EliminarUsuarioResponse" message="tns:EliminarUsuarioResponse" />
+      <fault wsam:Action="http://www.conecta.mx/ConectaServicesImpl/EliminarUsuario/Fault/CustomException" name="CustomException" message="tns:CustomException" />
+    </operation>
+    <operation name="AgregarUsuario">
+      <input wsam:Action="http://www.conecta.mx/ConectaServicesImpl/AgregarUsuarioRequest" message="tns:AgregarUsuario" />
+      <output wsam:Action="http://www.conecta.mx/ConectaServicesImpl/AgregarUsuarioResponse" message="tns:AgregarUsuarioResponse" />
+      <fault wsam:Action="http://www.conecta.mx/ConectaServicesImpl/AgregarUsuario/Fault/CustomException" name="CustomException" message="tns:CustomException" />
+    </operation>
+    <operation name="AgregarAprovisionarUsuario">
+      <input wsam:Action="http://www.conecta.mx/ConectaServicesImpl/AgregarAprovisionarUsuarioRequest" message="tns:AgregarAprovisionarUsuario" />
+      <output wsam:Action="http://www.conecta.mx/ConectaServicesImpl/AgregarAprovisionarUsuarioResponse" message="tns:AgregarAprovisionarUsuarioResponse" />
+      <fault wsam:Action="http://www.conecta.mx/ConectaServicesImpl/AgregarAprovisionarUsuario/Fault/CustomException" name="CustomException" message="tns:CustomException" />
+    </operation>
+    <operation name="ActualizarUsuario">
+      <input wsam:Action="http://www.conecta.mx/ConectaServicesImpl/ActualizarUsuarioRequest" message="tns:ActualizarUsuario" />
+      <output wsam:Action="http://www.conecta.mx/ConectaServicesImpl/ActualizarUsuarioResponse" message="tns:ActualizarUsuarioResponse" />
+      <fault wsam:Action="http://www.conecta.mx/ConectaServicesImpl/ActualizarUsuario/Fault/CustomException" name="CustomException" message="tns:CustomException" />
+    </operation>
+    <operation name="AprovisionarUsuarios">
+      <input wsam:Action="http://www.conecta.mx/ConectaServicesImpl/AprovisionarUsuariosRequest" message="tns:AprovisionarUsuarios" />
+      <output wsam:Action="http://www.conecta.mx/ConectaServicesImpl/AprovisionarUsuariosResponse" message="tns:AprovisionarUsuariosResponse" />
+      <fault wsam:Action="http://www.conecta.mx/ConectaServicesImpl/AprovisionarUsuarios/Fault/CustomException" name="CustomException" message="tns:CustomException" />
+    </operation>
+    <operation name="ObtenerEstatusToken">
+      <input wsam:Action="http://www.conecta.mx/ConectaServicesImpl/ObtenerEstatusTokenRequest" message="tns:ObtenerEstatusToken" />
+      <output wsam:Action="http://www.conecta.mx/ConectaServicesImpl/ObtenerEstatusTokenResponse" message="tns:ObtenerEstatusTokenResponse" />
+      <fault wsam:Action="http://www.conecta.mx/ConectaServicesImpl/ObtenerEstatusToken/Fault/CustomException" name="CustomException" message="tns:CustomException" />
+    </operation>
+  </portType>
+  <binding name="ConectaServicesImplPortBinding" type="tns:ConectaServicesImpl">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="Reasignacion">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="CustomException">
+        <soap:fault use="literal" name="CustomException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="ObtenerUsuario">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="CustomException">
+        <soap:fault use="literal" name="CustomException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="RevocarToken">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="CustomException">
+        <soap:fault use="literal" name="CustomException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="EliminarUsuario">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="CustomException">
+        <soap:fault use="literal" name="CustomException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="AgregarUsuario">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="CustomException">
+        <soap:fault use="literal" name="CustomException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="AgregarAprovisionarUsuario">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="CustomException">
+        <soap:fault use="literal" name="CustomException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="ActualizarUsuario">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="CustomException">
+        <soap:fault use="literal" name="CustomException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="AprovisionarUsuarios">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="CustomException">
+        <soap:fault use="literal" name="CustomException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="ObtenerEstatusToken">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="CustomException">
+        <soap:fault use="literal" name="CustomException" namespace="" />
+      </fault>
+    </operation>
+  </binding>
+  <service name="ConectaServicesImplService">
+    <port name="ConectaServicesImplPort" binding="tns:ConectaServicesImplPortBinding">
+      <soap:address location="http://192.168.98.55:8080/ConectaWebApp/ConectaServicesImpl" />
+    </port>
+  </service>
+</definitions>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://www.conecta.mx" xmlns:ns1="http://www.cryptocard.com/blackshield/" targetNamespace="http://www.conecta.mx" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.98.55:8080/ConectaWebApp/ConectaServicesImpl?xsd=1" namespace="http://www.cryptocard.com/blackshield/" />
+  <xs:element name="ActualizarUsuario" type="tns:ActualizarUsuario" />
+  <xs:element name="ActualizarUsuarioResponse" type="tns:ActualizarUsuarioResponse" />
+  <xs:element name="AgregarAprovisionarUsuario" type="tns:AgregarAprovisionarUsuario" />
+  <xs:element name="AgregarAprovisionarUsuarioResponse" type="tns:AgregarAprovisionarUsuarioResponse" />
+  <xs:element name="AgregarUsuario" type="tns:AgregarUsuario" />
+  <xs:element name="AgregarUsuarioResponse" type="tns:AgregarUsuarioResponse" />
+  <xs:element name="AprovisionarUsuarios" type="tns:AprovisionarUsuarios" />
+  <xs:element name="AprovisionarUsuariosResponse" type="tns:AprovisionarUsuariosResponse" />
+  <xs:element name="CustomException" nillable="true" type="tns:faultBean" />
+  <xs:element name="EliminarUsuario" type="tns:EliminarUsuario" />
+  <xs:element name="EliminarUsuarioResponse" type="tns:EliminarUsuarioResponse" />
+  <xs:element name="ObtenerEstatusToken" type="tns:ObtenerEstatusToken" />
+  <xs:element name="ObtenerEstatusTokenResponse" type="tns:ObtenerEstatusTokenResponse" />
+  <xs:element name="ObtenerUsuario" type="tns:ObtenerUsuario" />
+  <xs:element name="ObtenerUsuarioResponse" type="tns:ObtenerUsuarioResponse" />
+  <xs:element name="Reasignacion" type="tns:Reasignacion" />
+  <xs:element name="ReasignacionResponse" type="tns:ReasignacionResponse" />
+  <xs:element name="RevocarToken" type="tns:RevocarToken" />
+  <xs:element name="RevocarTokenResponse" type="tns:RevocarTokenResponse" />
+  <xs:complexType name="Reasignacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="UserName" type="xs:string" />
+      <xs:element minOccurs="0" name="email" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReasignacionResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="faultBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="faultcode" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AgregarAprovisionarUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="usuario" type="tns:UserCustom" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UserCustom">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="UserName" type="xs:string" />
+      <xs:element minOccurs="0" name="FirstName" type="xs:string" />
+      <xs:element minOccurs="0" name="Lastname" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" type="xs:string" />
+      <xs:element minOccurs="0" name="Mobile" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AgregarAprovisionarUsuarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ObtenerEstatusToken">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="UserName" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ObtenerEstatusTokenResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ObtenerUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="UserName" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ObtenerUsuarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="ns1:User" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AgregarUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="usuario" type="tns:UserCustom" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AgregarUsuarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RevocarToken">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="UserName" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RevocarTokenResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ActualizarUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="UserName" type="xs:string" />
+      <xs:element minOccurs="0" name="Usuario" type="tns:UserUpdatingCustom" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UserUpdatingCustom">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Email" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ActualizarUsuarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AprovisionarUsuarios">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="usuarios" type="ns1:ArrayOfString" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AprovisionarUsuariosResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EliminarUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="UserName" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EliminarUsuarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

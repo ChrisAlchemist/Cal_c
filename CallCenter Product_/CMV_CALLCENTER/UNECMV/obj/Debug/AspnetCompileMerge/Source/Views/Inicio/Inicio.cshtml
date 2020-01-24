@@ -1,0 +1,223 @@
+﻿@using UNECMV.Models
+@{
+    ViewBag.Title = "UNE";
+}
+
+@{
+    UNECMV.Models.CLAVES SesionUsuario = Session["SesionUsuario"] as UNECMV.Models.CLAVES;
+    UNECMV.Models.TBL_UNE_PERMISOS_ADMIN permisoUsuario = Session["permiso"] as UNECMV.Models.TBL_UNE_PERMISOS_ADMIN;
+    int? tipoJefe = Session["tipoJefe"] as int?;
+    List<TBL_UNE_USUARIOS_ASIGNADOS> usuarios = ViewData["listaReponsables"] as List<TBL_UNE_USUARIOS_ASIGNADOS>;
+}
+
+<script src="~/Estilos/js/jquery.min.js"></script>
+<script src="~/Estilos/js/jquery.dataTables.min.js"></script>
+<link href="~/Estilos/css/dataTable.css" rel="stylesheet" />
+<script src="~/Eventos/Inicio.js"></script>
+@*@if (permisoUsuario.USUARIO_CALL_CENTER == true)
+{
+    <center><h3 class="page-header" id="dashboardID">Reportes Canalizados al área especializada (Call Center)</h3></center>
+}
+else
+{*@
+    <center><h3 class="page-header" id="dashboardID">Reportes Canalizados al área especializada</h3></center>
+@*}*@
+
+
+<table id="example" class="display nowrap dataTable dtr-inline" cellspacing="0" width="100%" style="font-size:12px;">
+    <thead>
+        <tr>
+            <th>Folio</th>
+            <th>Nombre</th>
+            <th>Número</th>
+            <th>Fec. Alta</th>
+            <th>T. restante</th>
+            <th>Causa</th>
+            <th>Usuario alta</th>
+            <th>Nom. Usuario alta</th>
+            <th>Devuelto</th>
+            <th>Fec. Devolución</th>
+            @if (permisoUsuario.USUARIO_CALL_CENTER == true) 
+            {
+                <th>Responsable</th>
+            }
+            else
+            {
+                <th>Vencido</th>
+            }
+
+            @if (permisoUsuario.USUARIO_UNE == 1 || tipoJefe == 4)
+            {
+                <th>Responsable</th>
+            }
+            else if (permisoUsuario.USUARIO_CALL_CENTER == true)
+            {
+                ViewBag.Title = "Canalizados área especializada";
+            }
+            @*//else if (permisoUsuario.USUARIO_CALL_CENTER == true && permisoUsuario.ADMINISTRADOR_CALL_CENTER == true)
+        //{
+        //    ViewBag.Title = "Canalizados (CallCenter)";
+        //}*@
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            DateTime dt, dtC;
+            String fechaAlta, fechaCan;
+            foreach (var obj in ViewData["listaReportes"] as List<TBL_UNE_REPORTE>)
+            {
+                dt = Convert.ToDateTime(@obj.FECHA_ALTA);
+                dtC = Convert.ToDateTime(@obj.FECHA_Canalizacion);
+
+                fechaAlta = String.Format("{0:dd/MM/yyyy}", dt);
+                fechaCan = String.Format("{0:dd/MM/yyyy}", dtC);
+                String nombre = new UNECMV.Controllers.RegistrosController().ObtenerNombreUsuarioAlta(obj.USUARIO_REGISTRA);
+                int? numResponsable = usuarios.Where(x => x.folio == obj.FOLIO && x.responsable == 1).Select(x => x.numusuario).FirstOrDefault();
+                String nombreResponsable = new UNECMV.Controllers.RegistrosController().ObtenerNombreUsuarioAlta(numResponsable);
+        <tr>
+            @if (obj.reporte_banca == false)
+            {
+                <td>@obj.NUM_FOLIO</td>
+            }
+            else
+            {
+                <td>@obj.folio_banca</td>
+            }
+            <td>@obj.NOMBRE_S @obj.APELLIDO_PATERNO @obj.APELLIDO_MATERNO</td>
+            @{
+                if (obj.NUMERO.Equals(""))
+                {
+                    <td>N/A</td>
+                }
+                else
+                {
+                    <td>@obj.NUMERO</td>
+                }
+            }
+            <td>@fechaAlta</td>
+
+            @{
+                if (obj.DIAS_RESTANTES_GENERAL != null)
+                {
+                    <td>@obj.DIAS_RESTANTES_GENERAL días</td>
+                }
+                else
+                {
+                    <td>N/A</td>
+                }
+            }
+
+            @{
+                String descripcion = "";
+                foreach (var item in ViewData["causas"] as List<CAT_UNE_SUPUESTOS_REPORTE>)
+                {
+                    if (item.ID_SUPUESTOS_REPORTE == obj.ID_SUPUESTOS_REPORTE)
+                    {
+                        descripcion = item.DESCRIPCION;
+                        break;
+                    }
+                }
+                if (descripcion.Length <= 45)
+                {
+                    <td>@descripcion</td>
+                }
+                else
+                {
+                    <td>@descripcion.Substring(0, 44)...</td>
+                }
+            }
+
+            <td>@obj.USUARIO_REGISTRA</td>
+            <td>@nombre</td>
+
+            @if (obj.ID_ESTATUS_REPORTE == 3)
+            {
+                <td>NO</td>
+            }
+            else
+            {
+                <td>Si</td>
+            }
+
+            @{
+                if (obj.ID_ESTATUS_REPORTE == 10)
+                {
+                    DateTime fechaDev = new UNECMV.Controllers.InicioController().obtenerFecha(obj.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena);
+                    if (permisoUsuario.USUARIO_CALL_CENTER == true)
+                    {
+                        <td>@fechaDev.ToString("dd/MM/yyyy")</td>
+                    }
+                    else
+                    {
+                        <td>@fechaCan</td>
+                    }
+
+                }
+                else
+                {
+                    <td>N/A</td>
+                }
+            }
+
+            @{
+                if (permisoUsuario.USUARIO_CALL_CENTER == true)
+                {
+                    <td>@nombreResponsable  </td>
+                }
+                else
+                {
+                    if (obj.ID_ESTATUS_REPORTE == 3 || obj.ID_ESTATUS_REPORTE == 4 || obj.ID_ESTATUS_REPORTE == 10)
+                    {
+                        if (obj.Vencido == 2)
+                        {
+                            <td>Vencido</td>
+                        }
+                        else
+                        {
+                            <td>En tiempo</td>
+                        }
+                    }
+                    else
+                    {
+                        <td>N/A</td>
+                    }
+                }
+
+
+            }
+
+            @if (permisoUsuario.USUARIO_UNE == 1 || tipoJefe == 4)
+            {
+                string nombreResp = new UNECMV.Controllers.InicioController().NombreResponsable(obj.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena);
+                <td>@nombreResp</td>
+            }
+
+            <td><a href="@Url.Action("Preview","Preview", @obj)" class="btn btn-info btn-xs">Ver detalle</a></td>
+        </tr>
+            }
+
+        }
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">¿Deseas canalizar el reporte <kbd><span id="uneFolio">1</span></kbd> al area correspondiente?</h4>
+            </div>
+            <div class="modal-body">
+                <input id="inputUNE" hidden />
+                <div class="alert alert-success" role="alert" id="divAlertaExito" hidden=""><strong>Canalización realizada correctamente</strong></div>
+                <div class="alert alert-danger" role="alert" id="divAlertaFracaso" hidden=""><strong>Error en la canalización del reporte</strong></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-warning" id="btnCanalizar" onclick="canalizar($('#inputUNE').val())">Canalizar</button>
+            </div>
+        </div>
+    </div>
+</div>

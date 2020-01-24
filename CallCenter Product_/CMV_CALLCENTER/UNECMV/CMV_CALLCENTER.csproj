@@ -1,0 +1,1264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{010AE964-5E3F-462E-9E22-94976CF93D0A}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CMV_CALLCENTER</RootNamespace>
+    <AssemblyName>CMV_CALLCENTER</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AccesoDatos">
+      <HintPath>..\Librerias\AccesoDatos.dll</HintPath>
+    </Reference>
+    <Reference Include="AgenteConectaWS">
+      <HintPath>..\Librerias\AgenteConectaWS.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.Core">
+      <HintPath>..\Librerias\AWSSDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.SimpleEmail">
+      <HintPath>..\Librerias\AWSSDK.SimpleEmail.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML, Version=0.86.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.86.0\lib\net40\ClosedXML.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="eMailSend">
+      <HintPath>..\Librerias\eMailSend.dll</HintPath>
+    </Reference>
+    <Reference Include="Entidades">
+      <HintPath>..\Librerias\Entidades.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\Librerias\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.pdfa">
+      <HintPath>..\Librerias\itextsharp.pdfa.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="MimeKitLite">
+      <HintPath>..\Librerias\MimeKitLite.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SmsMailUtils">
+      <HintPath>..\Librerias\SmsMailUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="SpreadsheetLight, Version=3.4.8.0, Culture=neutral, PublicKeyToken=32fbb46dc1730c57, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpreadsheetLight.3.4.8\lib\SpreadsheetLight.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Connected Services\conectaServicioAutenticador\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\conectaServicioSAS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\BancaController.cs" />
+    <Compile Include="Controllers\CanalizadosBancaController.cs" />
+    <Compile Include="Controllers\CanalizadosUNEController.cs" />
+    <Compile Include="Controllers\CanalizarController.cs" />
+    <Compile Include="Controllers\CanceladosController.cs" />
+    <Compile Include="Controllers\CancelarController.cs" />
+    <Compile Include="Controllers\CerrarReporteController.cs" />
+    <Compile Include="Controllers\CondusefController.cs" />
+    <Compile Include="Controllers\DebitoController.cs" />
+    <Compile Include="Controllers\DictaminarController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\FinalizadosController.cs" />
+    <Compile Include="Controllers\InicioController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\NotificadosController.cs" />
+    <Compile Include="Controllers\NotificarController.cs" />
+    <Compile Include="Controllers\PreviewController.cs" />
+    <Compile Include="Controllers\RegistrarCallCenterController.cs" />
+    <Compile Include="Controllers\RegistrarController.cs" />
+    <Compile Include="Controllers\RegistrosController.cs" />
+    <Compile Include="Controllers\ResponderController.cs" />
+    <Compile Include="Controllers\ResueltoAreaController.cs" />
+    <Compile Include="Entidad\Audio.cs" />
+    <Compile Include="Entidad\Correo.cs" />
+    <Compile Include="Entidad\DatosReporteCallCenter.cs" />
+    <Compile Include="Entidad\Enumeraciones.cs" />
+    <Compile Include="Entidad\ExportDataTableToExcelModel.cs" />
+    <Compile Include="Entidad\Funciones.cs" />
+    <Compile Include="Entidad\IframeCallCenter.cs" />
+    <Compile Include="Entidad\Iframe.cs" />
+    <Compile Include="Entidad\ItextEvents.cs" />
+    <Compile Include="Entidad\PDF.cs" />
+    <Compile Include="Entidad\PreguntaBanca.cs" />
+    <Compile Include="Entidad\GenerarPDF.cs" />
+    <Compile Include="Entidad\ReporteMultifolio.cs" />
+    <Compile Include="Entidad\RequestForOpeNoAplicadas.cs" />
+    <Compile Include="Entidad\RespuestaBanca.cs" />
+    <Compile Include="Entidad\Socio.cs" />
+    <Compile Include="Entidad\TipoNotificacion.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BancaDB.Context.cs">
+      <DependentUpon>BancaDB.Context.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Models\BancaDB.cs">
+      <DependentUpon>BancaDB.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Models\BancaDB.Designer.cs">
+      <DependentUpon>BancaDB.edmx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Models\BD.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BD.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BD.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BD.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BD.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BD1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BD.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BD2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BD.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CAT_CALLCENTER_ACCIONES_CAUSA.cs">
+      <DependentUpon>BancaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CAT_CALLCENTER_MEDIO_MOVIMIENTO.cs">
+      <DependentUpon>BancaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CAT_CALLCENTER_TIPO_CUENTA_NO_AFECTADA.cs">
+      <DependentUpon>BancaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CAT_UNE_CANAL.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CAT_UNE_CAUSA_RESOLUCION.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CAT_UNE_CUENTAS.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CAT_UNE_ESTATUS_REPORTE.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CAT_UNE_FINALIZADO_DEBITO.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CAT_UNE_MEDIO_CONTACTO.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CAT_UNE_MOTIVO_CANCELACION.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CAT_UNE_PROCEDE_CORRESPONSALIAS.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CAT_UNE_PROCEDE_DEBITO.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CAT_UNE_PRODUCTO.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CAT_UNE_RESOLUCION.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CAT_UNE_SUPUESTOS_REPORTE.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CAT_UNE_TIPO_CUENTA.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CAT_UNE_TIPO_CUENTA_BANCA.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CAT_UNE_TIPO_REPORTE.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CLAVES.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CMV_REC_DATA.cs">
+      <DependentUpon>UNEDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ComplexType1.cs">
+      <DependentUpon>BancaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ENTIDAD_FEDERATIVA.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\proximo_folio_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SICORP_ROLES.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_BANCA_BLOQUEAR_SOCIO_Result.cs">
+      <DependentUpon>BancaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_BANCA_MODIFICAR_MONTO_MAXIMO_Result.cs">
+      <DependentUpon>BancaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_BANCA_OBTENER_MONTO_MAXIMO_Result.cs">
+      <DependentUpon>BancaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_BANCA_OBTIENE_SOCIO_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_CALLCENTER_INSERTAR_REGISTRO_REPORTE_Result.cs">
+      <DependentUpon>BancaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_CALLCENTER_OBTENER_MEDIO_MOVIMIENTO_Result.cs">
+      <DependentUpon>BancaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_CMV_OBTENER_CORREO_SERVIDOR_MODULO_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_UNE_BUSCA_NUMERO_SOCIO_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_UNE_BUSCA_NUMERO_SOCIO_Result1.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_UNE_CARGAR_REPORTE_2701_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_UNE_CARGAR_REPORTE_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_UNE_CARGAR_REPORTE_Result1.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_UNE_CARGAR_SUPUESTOS_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_UNE_CARGA_COMENTARIO_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_UNE_CARGA_DATOS_REPRESENTANTE_LEGAL_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_UNE_CARGA_ULTIMO_COMENTARIO_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_UNE_OBTENER_AREA_SUCURSAL_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_UNE_OBTENER_ENTIDAD_FEDERATIVA_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_UNE_OBTENER_FOLIOS_LLAMADA_SALIDA_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_UNE_OBTENER_FOLIO_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_UNE_OBTENER_NUMPTMO_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_UNE_OBTENER_NUM_PTMO_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_UNE_OBTENER_PLAZOS_FIJOS_ACTIVOS_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_UNE_OBTENER_SUPUESTOS_VALIDA_IMPORTE_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_UNE_OBTENER_USUARIOS_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_UNE_REPRESENTANTES_LEGALES_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SUCURSALES.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TBL_BANCA_SOCIOS.cs">
+      <DependentUpon>BancaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TBL_CALLCENTER_REGISTRO_REPORTE.cs">
+      <DependentUpon>BancaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TBL_PRESENCE_LLAMADAS.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TBL_UNE_ARCHIVOS_ADJUNTOS.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TBL_UNE_CANALIZACIONES.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TBL_UNE_COMISIONES.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TBL_UNE_CONVERSION_LLAMADAS.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TBL_UNE_PERMISOS_ADMIN.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TBL_UNE_PIVOTE_REPORTE.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TBL_UNE_REPORTE.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TBL_UNE_RESPUESTA_SATISFACTORIA.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TBL_UNE_TIPO_ARCHIVO.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TBL_UNE_USUARIOS_ASIGNADOS.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UNEDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UNEDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UNEDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UNEDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UNEDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UNEDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Banca\CMV.BancaAdmin.UTILS.dll.config" />
+    <Content Include="Banca\CMV.BancaAdmin.VISTAS.exe.config" />
+    <Content Include="bin\CMV_CALLCENTER.dll" />
+    <Content Include="bin\CMV_CALLCENTER.pdb" />
+    <Content Include="bin\UNECMV.dll.config" />
+    <Content Include="CMV8016\UNETEST\bin\App_global.asax.compiled" />
+    <Content Include="CMV8016\UNETEST\Connected Services\conectaServicioAutenticador\UNECMV.conectaServicioAutenticador.AutenticarResponse.datasource" />
+    <Content Include="CMV8016\UNETEST\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.ActualizarUsuarioResponse.datasource" />
+    <Content Include="CMV8016\UNETEST\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.AgregarAprovisionarUsuarioResponse.datasource" />
+    <Content Include="CMV8016\UNETEST\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.AgregarUsuarioResponse.datasource" />
+    <Content Include="CMV8016\UNETEST\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.AprovisionarUsuariosResponse.datasource" />
+    <Content Include="CMV8016\UNETEST\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.EliminarUsuarioResponse.datasource" />
+    <Content Include="CMV8016\UNETEST\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.ObtenerEstatusTokenResponse.datasource" />
+    <Content Include="CMV8016\UNETEST\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.ObtenerUsuarioResponse.datasource" />
+    <Content Include="CMV8016\UNETEST\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.ReasignacionResponse.datasource" />
+    <Content Include="CMV8016\UNETEST\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.RevocarTokenResponse.datasource" />
+    <Content Include="CMV8016\UNETEST\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.User.datasource" />
+    <Content Include="CMV8016\UNETEST\Estilos\css\bootstrap-theme.css.map" />
+    <Content Include="CMV8016\UNETEST\Estilos\css\bootstrap-theme.min.css.map" />
+    <Content Include="CMV8016\UNETEST\Estilos\css\bootstrap.css.map" />
+    <Content Include="CMV8016\UNETEST\Estilos\css\bootstrap.min.css.map" />
+    <Content Include="CMV8016\UNETEST\Estilos\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="CMV8016\UNETEST\Estilos\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="CMV8016\UNETEST\Estilos\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="CMV8016\UNETEST\Estilos\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="CMV8016\UNETEST\Models\BancaDB.edmx.diagram" />
+    <Content Include="CMV8016\UNETEST\Models\BD.edmx.diagram" />
+    <Content Include="CMV8016\UNETEST\Models\UNEDB.edmx.diagram" />
+    <None Include="CMV8016\UNETEST\packages.config" />
+    <Content Include="CMV8016\UNETEST\PrecompiledApp.config" />
+    <Content Include="CMV8016\UNETEST\Views\Banca\BloquearBanca.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Banca\GenerarFormatoReporte.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Banca\ModificarMonto.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Banca\ReposicionSoftoken.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\BloqueoBanca\BloqueoBanca.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\CanalizadosBanca\CanalizadosBanca.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\CanalizadosUNE\CanalizadosUNE.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Canalizar\Canalizar.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Cancelados\Cancelados.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Cancelar\Cancelar.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\CerrarReporte\CerrarReporte.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\CerrarReporte\pdf.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Condusef\Condusef.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Condusef\GeneraReporte.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Debito\Debito.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Dictaminar\Dictaminar.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Error\Error.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Error\Permiso.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Finalizados\Finalizados.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Finalizados\LlamadaSalida.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Inicio\Inicio.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Login\Index.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Notificados\Notificados.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Notificar\Notificar.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Notificar\pdf.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Notificar\RegistrarNotificacion.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Preview\Preview.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Registrar\pdf.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Registrar\Registrar.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Registros\Registros.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Responder\pdfAreaEsp.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Responder\Responder.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\ResueltoArea\ResueltoArea.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Shared\_Layout.cshtml" />
+    <Content Include="CMV8016\UNETEST\Views\Web.config" />
+    <Content Include="CMV8016\UNETEST\Views\_ViewStart.cshtml" />
+    <Content Include="CMV8016\UNETEST\Web.config" />
+    <Content Include="CMV8056\CallCenter\bin\App_global.asax.compiled" />
+    <Content Include="CMV8056\CallCenter\Connected Services\conectaServicioAutenticador\CMV_CALLCENTER.conectaServicioAutenticador.AutenticarResponse.datasource" />
+    <Content Include="CMV8056\CallCenter\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.ActualizarUsuarioResponse.datasource" />
+    <Content Include="CMV8056\CallCenter\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.AgregarAprovisionarUsuarioResponse.datasource" />
+    <Content Include="CMV8056\CallCenter\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.AgregarUsuarioResponse.datasource" />
+    <Content Include="CMV8056\CallCenter\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.AprovisionarUsuariosResponse.datasource" />
+    <Content Include="CMV8056\CallCenter\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.EliminarUsuarioResponse.datasource" />
+    <Content Include="CMV8056\CallCenter\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.ObtenerEstatusTokenResponse.datasource" />
+    <Content Include="CMV8056\CallCenter\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.ObtenerUsuarioResponse.datasource" />
+    <Content Include="CMV8056\CallCenter\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.ReasignacionResponse.datasource" />
+    <Content Include="CMV8056\CallCenter\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.RevocarTokenResponse.datasource" />
+    <Content Include="CMV8056\CallCenter\Connected Services\conectaServicioSAS\UNECMV.conectaServicioSAS.User.datasource" />
+    <Content Include="CMV8056\CallCenter\Estilos\css\bootstrap-theme.css.map" />
+    <Content Include="CMV8056\CallCenter\Estilos\css\bootstrap-theme.min.css.map" />
+    <Content Include="CMV8056\CallCenter\Estilos\css\bootstrap.css.map" />
+    <Content Include="CMV8056\CallCenter\Estilos\css\bootstrap.min.css.map" />
+    <Content Include="CMV8056\CallCenter\Estilos\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="CMV8056\CallCenter\Estilos\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="CMV8056\CallCenter\Estilos\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="CMV8056\CallCenter\Estilos\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="CMV8056\CallCenter\Models\BancaDB.edmx.diagram" />
+    <Content Include="CMV8056\CallCenter\Models\BD.edmx.diagram" />
+    <Content Include="CMV8056\CallCenter\Models\UNEDB.edmx.diagram" />
+    <None Include="CMV8056\CallCenter\packages.config" />
+    <Content Include="CMV8056\CallCenter\PrecompiledApp.config" />
+    <Content Include="CMV8056\CallCenter\Views\Banca\BloquearBanca.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Banca\GenerarFormatoReporte.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Banca\ModificarMonto.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Banca\ReposicionSoftoken.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\BloqueoBanca\BloqueoBanca.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\CanalizadosBanca\CanalizadosBanca.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\CanalizadosUNE\CanalizadosUNE.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Canalizar\Canalizar.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Cancelados\Cancelados.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Cancelar\Cancelar.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\CerrarReporte\CerrarReporte.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\CerrarReporte\pdf.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Condusef\Condusef.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Condusef\GeneraReporte.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Debito\Debito.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Dictaminar\Dictaminar.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Error\Error.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Error\Permiso.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Finalizados\Finalizados.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Finalizados\LlamadaSalida.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Inicio\Inicio.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Login\Index.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Notificados\Notificados.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Notificar\Notificar.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Notificar\pdf.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Notificar\RegistrarNotificacion.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Preview\Preview.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Registrar\pdf.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Registrar\Registrar.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Registros\Registros.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Responder\pdfAreaEsp.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Responder\Responder.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\ResueltoArea\ResueltoArea.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Shared\_Layout.cshtml" />
+    <Content Include="CMV8056\CallCenter\Views\Web.config" />
+    <Content Include="CMV8056\CallCenter\Views\_ViewStart.cshtml" />
+    <Content Include="CMV8056\CallCenter\Web.config" />
+    <Content Include="Connected Services\conectaServicioAutenticador\CMV_CALLCENTER.conectaServicioAutenticador.AutenticarResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\conectaServicioAutenticador\configuration91.svcinfo" />
+    <None Include="Connected Services\conectaServicioAutenticador\configuration.svcinfo" />
+    <None Include="Connected Services\conectaServicioAutenticador\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Connected Services\conectaServicioSAS\CMV_CALLCENTER.conectaServicioSAS.ActualizarUsuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\conectaServicioSAS\CMV_CALLCENTER.conectaServicioSAS.AgregarAprovisionarUsuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\conectaServicioSAS\CMV_CALLCENTER.conectaServicioSAS.AgregarUsuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\conectaServicioSAS\CMV_CALLCENTER.conectaServicioSAS.AprovisionarUsuariosResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\conectaServicioSAS\CMV_CALLCENTER.conectaServicioSAS.EliminarUsuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\conectaServicioSAS\CMV_CALLCENTER.conectaServicioSAS.ObtenerEstatusTokenResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\conectaServicioSAS\CMV_CALLCENTER.conectaServicioSAS.ObtenerUsuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\conectaServicioSAS\CMV_CALLCENTER.conectaServicioSAS.ReasignacionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\conectaServicioSAS\CMV_CALLCENTER.conectaServicioSAS.RevocarTokenResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\conectaServicioSAS\CMV_CALLCENTER.conectaServicioSAS.User.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\conectaServicioSAS\configuration91.svcinfo" />
+    <None Include="Connected Services\conectaServicioSAS\configuration.svcinfo" />
+    <None Include="Connected Services\conectaServicioSAS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Banca\AccesoDatos.dll" />
+    <Content Include="Banca\AxInterop.AcroPDFLib.dll" />
+    <Content Include="Banca\CMV.BancaAdmin.BLL.dll" />
+    <Content Include="Banca\CMV.BancaAdmin.BLL.pdb" />
+    <Content Include="Banca\CMV.BancaAdmin.DAL.dll" />
+    <Content Include="Banca\CMV.BancaAdmin.DAL.pdb" />
+    <Content Include="Banca\CMV.BancaAdmin.ENTIDADES.dll" />
+    <Content Include="Banca\CMV.BancaAdmin.ENTIDADES.pdb" />
+    <Content Include="Banca\CMV.BancaAdmin.UTILS.dll" />
+    <Content Include="Banca\CMV.BancaAdmin.UTILS.pdb" />
+    <Content Include="Banca\CMV.BancaAdmin.VISTAS.exe" />
+    <Content Include="Banca\CMV.BancaAdmin.VISTAS.pdb" />
+    <Content Include="Banca\Cmv.Core.Componentes.dll" />
+    <Content Include="Banca\Cyotek.GhostScript.dll" />
+    <Content Include="Banca\Cyotek.GhostScript.PdfConversion.dll" />
+    <Content Include="Banca\Cyotek.Windows.Forms.ImageBox.dll" />
+    <Content Include="Banca\Ghostscript.NET.dll" />
+    <Content Include="Banca\Interop.AcroPDFLib.dll" />
+    <Content Include="Banca\itextsharp.dll" />
+    <Content Include="Banca\itextsharp.xml" />
+    <Content Include="Banca\MaterialSkin.dll" />
+    <Content Include="bin\AccesoDatos.dll" />
+    <Content Include="bin\AgenteConectaWS.dll" />
+    <Content Include="bin\AWSSDK.Core.dll" />
+    <Content Include="bin\AWSSDK.SimpleEmail.dll" />
+    <Content Include="bin\ClosedXML.dll" />
+    <Content Include="bin\ClosedXML.pdb" />
+    <Content Include="bin\DocumentFormat.OpenXml.dll" />
+    <Content Include="bin\eMailSend.dll" />
+    <Content Include="bin\Entidades.dll" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.xml" />
+    <Content Include="bin\es\System.Net.Http.Formatting.resources.dll" />
+    <Content Include="bin\es\System.Web.Helpers.resources.dll" />
+    <Content Include="bin\es\System.Web.Http.resources.dll" />
+    <Content Include="bin\es\System.Web.Http.WebHost.resources.dll" />
+    <Content Include="bin\es\System.Web.Mvc.resources.dll" />
+    <Content Include="bin\es\System.Web.Razor.resources.dll" />
+    <Content Include="bin\es\System.Web.WebPages.Deployment.resources.dll" />
+    <Content Include="bin\es\System.Web.WebPages.Razor.resources.dll" />
+    <Content Include="bin\es\System.Web.WebPages.resources.dll" />
+    <Content Include="bin\itextsharp.dll" />
+    <Content Include="bin\itextsharp.pdfa.dll" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Microsoft.Web.Mvc.FixedDisplayModes.dll" />
+    <Content Include="bin\MimeKitLite.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\SmsMailUtils.dll" />
+    <Content Include="bin\SpreadsheetLight.dll" />
+    <Content Include="bin\SpreadsheetLight.xml" />
+    <Content Include="bin\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\System.Net.Http.Formatting.xml" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Helpers.xml" />
+    <Content Include="bin\System.Web.Http.dll" />
+    <Content Include="bin\System.Web.Http.WebHost.dll" />
+    <Content Include="bin\System.Web.Http.WebHost.xml" />
+    <Content Include="bin\System.Web.Http.xml" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Mvc.xml" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.xml" />
+    <Content Include="bin\UNECMV.dll" />
+    <Content Include="bin\UNECMV.pdb" />
+    <Content Include="CMV8016\UNETEST\bin\AccesoDatos.dll" />
+    <Content Include="CMV8016\UNETEST\bin\AgenteConectaWS.dll" />
+    <Content Include="CMV8016\UNETEST\bin\App_global.asax.dll" />
+    <Content Include="CMV8016\UNETEST\bin\AWSSDK.Core.dll" />
+    <Content Include="CMV8016\UNETEST\bin\AWSSDK.SimpleEmail.dll" />
+    <Content Include="CMV8016\UNETEST\bin\ClosedXML.dll" />
+    <Content Include="CMV8016\UNETEST\bin\ClosedXML.pdb" />
+    <Content Include="CMV8016\UNETEST\bin\DocumentFormat.OpenXml.dll" />
+    <Content Include="CMV8016\UNETEST\bin\eMailSend.dll" />
+    <Content Include="CMV8016\UNETEST\bin\Entidades.dll" />
+    <Content Include="CMV8016\UNETEST\bin\EntityFramework.dll" />
+    <Content Include="CMV8016\UNETEST\bin\es\System.Net.Http.Formatting.resources.dll" />
+    <Content Include="CMV8016\UNETEST\bin\es\System.Web.Helpers.resources.dll" />
+    <Content Include="CMV8016\UNETEST\bin\es\System.Web.Http.resources.dll" />
+    <Content Include="CMV8016\UNETEST\bin\es\System.Web.Http.WebHost.resources.dll" />
+    <Content Include="CMV8016\UNETEST\bin\es\System.Web.Mvc.resources.dll" />
+    <Content Include="CMV8016\UNETEST\bin\es\System.Web.Razor.resources.dll" />
+    <Content Include="CMV8016\UNETEST\bin\es\System.Web.WebPages.Deployment.resources.dll" />
+    <Content Include="CMV8016\UNETEST\bin\es\System.Web.WebPages.Razor.resources.dll" />
+    <Content Include="CMV8016\UNETEST\bin\es\System.Web.WebPages.resources.dll" />
+    <Content Include="CMV8016\UNETEST\bin\itextsharp.dll" />
+    <Content Include="CMV8016\UNETEST\bin\itextsharp.pdfa.dll" />
+    <Content Include="CMV8016\UNETEST\bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="CMV8016\UNETEST\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll" />
+    <Content Include="CMV8016\UNETEST\bin\MimeKitLite.dll" />
+    <Content Include="CMV8016\UNETEST\bin\Newtonsoft.Json.dll" />
+    <Content Include="CMV8016\UNETEST\bin\SmsMailUtils.dll" />
+    <Content Include="CMV8016\UNETEST\bin\SpreadsheetLight.dll" />
+    <Content Include="CMV8016\UNETEST\bin\System.Net.Http.Formatting.dll" />
+    <Content Include="CMV8016\UNETEST\bin\System.Web.Helpers.dll" />
+    <Content Include="CMV8016\UNETEST\bin\System.Web.Http.dll" />
+    <Content Include="CMV8016\UNETEST\bin\System.Web.Http.WebHost.dll" />
+    <Content Include="CMV8016\UNETEST\bin\System.Web.Mvc.dll" />
+    <Content Include="CMV8016\UNETEST\bin\System.Web.Razor.dll" />
+    <Content Include="CMV8016\UNETEST\bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="CMV8016\UNETEST\bin\System.Web.WebPages.dll" />
+    <Content Include="CMV8016\UNETEST\bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="CMV8016\UNETEST\bin\UNECMV.dll" />
+    <Content Include="CMV8016\UNETEST\bin\UNECMV.pdb" />
+    <Content Include="CMV8016\UNETEST\Entidad\Resources\footer.png" />
+    <Content Include="CMV8016\UNETEST\Estilos\Alertify\alertify.core.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\Alertify\alertify.default.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\Alertify\alertify.min.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\css\bootstrap-theme.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\css\bootstrap-theme.min.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\css\bootstrap.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\css\bootstrap.min.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\css\dashboard.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\css\dataTable.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\css\EstilosBanca.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\css\EstilosFormularios.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\css\login.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\css\select2-bootstrap.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\css\select2.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\css\Validaciones.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\Datepicker\css\datepicker.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\Datepicker\js\bootstrap-datepicker.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\Datepicker\js\locales\bootstrap-datepicker.es.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="CMV8016\UNETEST\Estilos\Imagenes\avatar_2x.png" />
+    <Content Include="CMV8016\UNETEST\Estilos\Imagenes\favicon.ico" />
+    <Content Include="CMV8016\UNETEST\Estilos\Imagenes\firmaUNE.jpg" />
+    <Content Include="CMV8016\UNETEST\Estilos\Imagenes\footer.png" />
+    <Content Include="CMV8016\UNETEST\Estilos\Imagenes\header.png" />
+    <Content Include="CMV8016\UNETEST\Estilos\Imagenes\loader.gif" />
+    <Content Include="CMV8016\UNETEST\Estilos\Imagenes\loader2.gif" />
+    <Content Include="CMV8016\UNETEST\Estilos\Imagenes\loader3.gif" />
+    <Content Include="CMV8016\UNETEST\Estilos\Imagenes\sort_asc.png" />
+    <Content Include="CMV8016\UNETEST\Estilos\Imagenes\sort_asc_disabled.png" />
+    <Content Include="CMV8016\UNETEST\Estilos\Imagenes\sort_both.png" />
+    <Content Include="CMV8016\UNETEST\Estilos\Imagenes\sort_desc.png" />
+    <Content Include="CMV8016\UNETEST\Estilos\Imagenes\sort_desc_disabled.png" />
+    <Content Include="CMV8016\UNETEST\Estilos\js\bootstrap.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\js\bootstrap.min.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\js\jquery.dataTables.min.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\js\jquery.idle.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\js\jquery.maskedinput.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\js\jquery.min.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\js\jQuery.unobtrusive-ajax.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\js\moment.min.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\js\npm.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\js\select2.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\Select2\select2.min.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\Select2\select2.min.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\WizardBootstrap\jquery-latest.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\WizardBootstrap\jquery.bootstrap.wizard.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\WizardBootstrap\jquery.bootstrap.wizard.min.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\WizardBootstrap\prettify.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\WizardBootstrap\prettify.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\Wizard\CSS\jquery.steps.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\Wizard\CSS\main.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\Wizard\CSS\normalize.css" />
+    <Content Include="CMV8016\UNETEST\Estilos\Wizard\js\jquery-1.9.1.min.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\Wizard\js\jquery.cookie-1.3.1.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\Wizard\js\jquery.steps.js" />
+    <Content Include="CMV8016\UNETEST\Estilos\Wizard\js\modernizr-2.6.2.min.js" />
+    <Content Include="CMV8016\UNETEST\Eventos\BancaFunciones.js" />
+    <Content Include="CMV8016\UNETEST\Eventos\Canalizar.js" />
+    <Content Include="CMV8016\UNETEST\Eventos\Cancelar.js" />
+    <Content Include="CMV8016\UNETEST\Eventos\CerrarReporte.js" />
+    <Content Include="CMV8016\UNETEST\Eventos\Condusef.js" />
+    <Content Include="CMV8016\UNETEST\Eventos\Debito.js" />
+    <Content Include="CMV8016\UNETEST\Eventos\Dictaminar.js" />
+    <Content Include="CMV8016\UNETEST\Eventos\Finalizados.js" />
+    <Content Include="CMV8016\UNETEST\Eventos\GeneraReporte.js" />
+    <Content Include="CMV8016\UNETEST\Eventos\Inicio.js" />
+    <Content Include="CMV8016\UNETEST\Eventos\LamadaSalida.js" />
+    <Content Include="CMV8016\UNETEST\Eventos\Notificados.js" />
+    <Content Include="CMV8016\UNETEST\Eventos\Notificar.js" />
+    <Content Include="CMV8016\UNETEST\Eventos\Preview.js" />
+    <Content Include="CMV8016\UNETEST\Eventos\registrar.js" />
+    <Content Include="CMV8016\UNETEST\Eventos\RegistrarNotificacion.js" />
+    <Content Include="CMV8016\UNETEST\Eventos\Responder.js" />
+    <Content Include="CMV8016\UNETEST\Scripts\jquery-1.8.0.js" />
+    <Content Include="CMV8016\UNETEST\Scripts\jquery-1.8.0.min.js" />
+    <Content Include="CMV8016\UNETEST\Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="CMV8016\UNETEST\Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="CMV8016\UNETEST\Scripts\moment.min.js" />
+    <Content Include="CMV8016\UNETEST\sox\sox.exe" />
+    <Content Include="CMV8016\UNETEST\sox\zlib1.dll" />
+    <Content Include="CMV8056\CallCenter\bin\AccesoDatos.dll" />
+    <Content Include="CMV8056\CallCenter\bin\AgenteConectaWS.dll" />
+    <Content Include="CMV8056\CallCenter\bin\App_global.asax.dll" />
+    <Content Include="CMV8056\CallCenter\bin\AWSSDK.Core.dll" />
+    <Content Include="CMV8056\CallCenter\bin\AWSSDK.SimpleEmail.dll" />
+    <Content Include="CMV8056\CallCenter\bin\ClosedXML.dll" />
+    <Content Include="CMV8056\CallCenter\bin\ClosedXML.pdb" />
+    <Content Include="CMV8056\CallCenter\bin\DocumentFormat.OpenXml.dll" />
+    <Content Include="CMV8056\CallCenter\bin\eMailSend.dll" />
+    <Content Include="CMV8056\CallCenter\bin\Entidades.dll" />
+    <Content Include="CMV8056\CallCenter\bin\EntityFramework.dll" />
+    <Content Include="CMV8056\CallCenter\bin\es\System.Net.Http.Formatting.resources.dll" />
+    <Content Include="CMV8056\CallCenter\bin\es\System.Web.Helpers.resources.dll" />
+    <Content Include="CMV8056\CallCenter\bin\es\System.Web.Http.resources.dll" />
+    <Content Include="CMV8056\CallCenter\bin\es\System.Web.Http.WebHost.resources.dll" />
+    <Content Include="CMV8056\CallCenter\bin\es\System.Web.Mvc.resources.dll" />
+    <Content Include="CMV8056\CallCenter\bin\es\System.Web.Razor.resources.dll" />
+    <Content Include="CMV8056\CallCenter\bin\es\System.Web.WebPages.Deployment.resources.dll" />
+    <Content Include="CMV8056\CallCenter\bin\es\System.Web.WebPages.Razor.resources.dll" />
+    <Content Include="CMV8056\CallCenter\bin\es\System.Web.WebPages.resources.dll" />
+    <Content Include="CMV8056\CallCenter\bin\itextsharp.dll" />
+    <Content Include="CMV8056\CallCenter\bin\itextsharp.pdfa.dll" />
+    <Content Include="CMV8056\CallCenter\bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="CMV8056\CallCenter\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll" />
+    <Content Include="CMV8056\CallCenter\bin\MimeKitLite.dll" />
+    <Content Include="CMV8056\CallCenter\bin\Newtonsoft.Json.dll" />
+    <Content Include="CMV8056\CallCenter\bin\SmsMailUtils.dll" />
+    <Content Include="CMV8056\CallCenter\bin\SpreadsheetLight.dll" />
+    <Content Include="CMV8056\CallCenter\bin\System.Net.Http.Formatting.dll" />
+    <Content Include="CMV8056\CallCenter\bin\System.Web.Helpers.dll" />
+    <Content Include="CMV8056\CallCenter\bin\System.Web.Http.dll" />
+    <Content Include="CMV8056\CallCenter\bin\System.Web.Http.WebHost.dll" />
+    <Content Include="CMV8056\CallCenter\bin\System.Web.Mvc.dll" />
+    <Content Include="CMV8056\CallCenter\bin\System.Web.Razor.dll" />
+    <Content Include="CMV8056\CallCenter\bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="CMV8056\CallCenter\bin\System.Web.WebPages.dll" />
+    <Content Include="CMV8056\CallCenter\bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="CMV8056\CallCenter\bin\CMV_CALLCENTER.dll" />
+    <Content Include="CMV8056\CallCenter\bin\CMV_CALLCENTER.pdb" />
+    <Content Include="CMV8056\CallCenter\Entidad\Resources\footer.png" />
+    <Content Include="CMV8056\CallCenter\Estilos\Alertify\alertify.core.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\Alertify\alertify.default.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\Alertify\alertify.min.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\css\bootstrap-theme.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\css\bootstrap-theme.min.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\css\bootstrap.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\css\bootstrap.min.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\css\dashboard.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\css\dataTable.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\css\EstilosBanca.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\css\EstilosFormularios.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\css\login.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\css\select2-bootstrap.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\css\select2.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\css\Validaciones.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\Datepicker\css\datepicker.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\Datepicker\js\bootstrap-datepicker.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\Datepicker\js\locales\bootstrap-datepicker.es.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="CMV8056\CallCenter\Estilos\Imagenes\avatar_2x.png" />
+    <Content Include="CMV8056\CallCenter\Estilos\Imagenes\favicon.ico" />
+    <Content Include="CMV8056\CallCenter\Estilos\Imagenes\firmaUNE.jpg" />
+    <Content Include="CMV8056\CallCenter\Estilos\Imagenes\footer.png" />
+    <Content Include="CMV8056\CallCenter\Estilos\Imagenes\header.png" />
+    <Content Include="CMV8056\CallCenter\Estilos\Imagenes\loader.gif" />
+    <Content Include="CMV8056\CallCenter\Estilos\Imagenes\loader2.gif" />
+    <Content Include="CMV8056\CallCenter\Estilos\Imagenes\loader3.gif" />
+    <Content Include="CMV8056\CallCenter\Estilos\Imagenes\sort_asc.png" />
+    <Content Include="CMV8056\CallCenter\Estilos\Imagenes\sort_asc_disabled.png" />
+    <Content Include="CMV8056\CallCenter\Estilos\Imagenes\sort_both.png" />
+    <Content Include="CMV8056\CallCenter\Estilos\Imagenes\sort_desc.png" />
+    <Content Include="CMV8056\CallCenter\Estilos\Imagenes\sort_desc_disabled.png" />
+    <Content Include="CMV8056\CallCenter\Estilos\js\bootstrap.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\js\bootstrap.min.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\js\jquery.dataTables.min.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\js\jquery.idle.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\js\jquery.maskedinput.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\js\jquery.min.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\js\jQuery.unobtrusive-ajax.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\js\moment.min.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\js\npm.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\js\select2.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\Select2\select2.min.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\Select2\select2.min.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\WizardBootstrap\jquery-latest.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\WizardBootstrap\jquery.bootstrap.wizard.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\WizardBootstrap\jquery.bootstrap.wizard.min.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\WizardBootstrap\prettify.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\WizardBootstrap\prettify.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\Wizard\CSS\jquery.steps.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\Wizard\CSS\main.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\Wizard\CSS\normalize.css" />
+    <Content Include="CMV8056\CallCenter\Estilos\Wizard\js\jquery-1.9.1.min.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\Wizard\js\jquery.cookie-1.3.1.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\Wizard\js\jquery.steps.js" />
+    <Content Include="CMV8056\CallCenter\Estilos\Wizard\js\modernizr-2.6.2.min.js" />
+    <Content Include="CMV8056\CallCenter\Eventos\BancaFunciones.js" />
+    <Content Include="CMV8056\CallCenter\Eventos\Canalizar.js" />
+    <Content Include="CMV8056\CallCenter\Eventos\Cancelar.js" />
+    <Content Include="CMV8056\CallCenter\Eventos\CerrarReporte.js" />
+    <Content Include="CMV8056\CallCenter\Eventos\Condusef.js" />
+    <Content Include="CMV8056\CallCenter\Eventos\Debito.js" />
+    <Content Include="CMV8056\CallCenter\Eventos\Dictaminar.js" />
+    <Content Include="CMV8056\CallCenter\Eventos\Finalizados.js" />
+    <Content Include="CMV8056\CallCenter\Eventos\GeneraReporte.js" />
+    <Content Include="CMV8056\CallCenter\Eventos\Inicio.js" />
+    <Content Include="CMV8056\CallCenter\Eventos\LamadaSalida.js" />
+    <Content Include="CMV8056\CallCenter\Eventos\Notificados.js" />
+    <Content Include="CMV8056\CallCenter\Eventos\Notificar.js" />
+    <Content Include="CMV8056\CallCenter\Eventos\Preview.js" />
+    <Content Include="CMV8056\CallCenter\Eventos\registrar.js" />
+    <Content Include="CMV8056\CallCenter\Eventos\RegistrarNotificacion.js" />
+    <Content Include="CMV8056\CallCenter\Eventos\Responder.js" />
+    <Content Include="CMV8056\CallCenter\Scripts\jquery-1.8.0.js" />
+    <Content Include="CMV8056\CallCenter\Scripts\jquery-1.8.0.min.js" />
+    <Content Include="CMV8056\CallCenter\Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="CMV8056\CallCenter\Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="CMV8056\CallCenter\Scripts\moment.min.js" />
+    <Content Include="CMV8056\CallCenter\sox\sox.exe" />
+    <Content Include="CMV8056\CallCenter\sox\zlib1.dll" />
+    <Content Include="Entidad\Resources\firma_banca.png" />
+    <Content Include="Entidad\Resources\fondoCorreo.png" />
+    <Content Include="Entidad\Resources\fondoCorreo1.PNG" />
+    <Content Include="Entidad\Resources\footer.png" />
+    <Content Include="Entidad\Resources\logo_caja_revolvente_correos.jpg" />
+    <Content Include="Entidad\Resources\logo_con_letras.png" />
+    <Content Include="Entidad\Resources\marcaAgua.png" />
+    <Content Include="Estilos\Alertify\alertify.core.css" />
+    <Content Include="Estilos\Alertify\alertify.default.css" />
+    <Content Include="Estilos\Alertify\alertify.min.js" />
+    <Content Include="Estilos\css\bootstrap-theme.css" />
+    <Content Include="Estilos\css\bootstrap-theme.min.css" />
+    <Content Include="Estilos\css\bootstrap.css" />
+    <Content Include="Estilos\css\bootstrap.min.css" />
+    <Content Include="Estilos\css\dashboard.css" />
+    <Content Include="Estilos\css\dataTable.css" />
+    <Content Include="Estilos\css\EstilosBanca.css" />
+    <Content Include="Estilos\css\EstilosFormularios.css" />
+    <Content Include="Estilos\css\login.css" />
+    <Content Include="Estilos\css\select2-bootstrap.css" />
+    <Content Include="Estilos\css\select2.css" />
+    <Content Include="Estilos\css\Validaciones.css" />
+    <Content Include="Estilos\Datepicker\css\datepicker.css" />
+    <Content Include="Estilos\Datepicker\js\bootstrap-datepicker.js" />
+    <Content Include="Estilos\Datepicker\js\locales\bootstrap-datepicker.es.js" />
+    <Content Include="Estilos\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Estilos\Imagenes\avatar.png" />
+    <Content Include="Estilos\Imagenes\firmaUNE.jpg" />
+    <Content Include="Estilos\Imagenes\loader.gif" />
+    <Content Include="Estilos\Imagenes\avatar_2x.png" />
+    <Content Include="Estilos\Imagenes\favicon.ico" />
+    <Content Include="Estilos\Imagenes\footer.png" />
+    <Content Include="Estilos\Imagenes\header.png" />
+    <Content Include="Estilos\Imagenes\loader2.gif" />
+    <Content Include="Estilos\Imagenes\loader3.gif" />
+    <Content Include="Estilos\Imagenes\logo_blanco.png" />
+    <Content Include="Estilos\Imagenes\sort_asc.png" />
+    <Content Include="Estilos\Imagenes\sort_asc_disabled.png" />
+    <Content Include="Estilos\Imagenes\sort_both.png" />
+    <Content Include="Estilos\Imagenes\sort_desc.png" />
+    <Content Include="Estilos\Imagenes\sort_desc_disabled.png" />
+    <Content Include="Estilos\js\bootstrap.js" />
+    <Content Include="Estilos\js\bootstrap.min.js" />
+    <Content Include="Estilos\js\dateFormat.js" />
+    <Content Include="Estilos\js\jquery.dataTables.min.js" />
+    <Content Include="Estilos\js\jquery.dateFormat.js" />
+    <Content Include="Estilos\js\jquery.idle.js" />
+    <Content Include="Estilos\js\jquery.maskedinput.js" />
+    <Content Include="Estilos\js\jquery.min.js" />
+    <Content Include="Estilos\js\jQuery.unobtrusive-ajax.js" />
+    <Content Include="Estilos\js\moment.min.js" />
+    <Content Include="Estilos\js\npm.js" />
+    <Content Include="Estilos\js\select2.js" />
+    <Content Include="Estilos\Select2\select2.min.css" />
+    <Content Include="Estilos\Select2\select2.min.js" />
+    <Content Include="Estilos\WizardBootstrap\jquery-latest.js" />
+    <Content Include="Estilos\WizardBootstrap\jquery.bootstrap.wizard.js" />
+    <Content Include="Estilos\WizardBootstrap\jquery.bootstrap.wizard.min.js" />
+    <Content Include="Estilos\WizardBootstrap\prettify.css" />
+    <Content Include="Estilos\WizardBootstrap\prettify.js" />
+    <Content Include="Estilos\Wizard\CSS\jquery.steps.css" />
+    <Content Include="Estilos\Wizard\CSS\main.css" />
+    <Content Include="Estilos\Wizard\CSS\normalize.css" />
+    <Content Include="Estilos\Wizard\js\jquery-1.9.1.min.js" />
+    <Content Include="Estilos\Wizard\js\jquery.cookie-1.3.1.js" />
+    <Content Include="Estilos\Wizard\js\jquery.steps.js" />
+    <Content Include="Estilos\Wizard\js\modernizr-2.6.2.min.js" />
+    <Content Include="Eventos\BancaFunciones.js" />
+    <Content Include="Eventos\Canalizar.js" />
+    <Content Include="Eventos\Cancelar.js" />
+    <Content Include="Eventos\CerrarReporte.js" />
+    <Content Include="Eventos\Condusef.js" />
+    <Content Include="Eventos\Debito.js" />
+    <Content Include="Eventos\Dictaminar.js" />
+    <Content Include="Eventos\Finalizados.js" />
+    <Content Include="Eventos\GeneraReporte.js" />
+    <Content Include="Eventos\Inicio.js" />
+    <Content Include="Eventos\LamadaSalida.js" />
+    <Content Include="Eventos\Notificados.js" />
+    <Content Include="Eventos\Notificar.js" />
+    <Content Include="Eventos\Preview.js" />
+    <Content Include="Eventos\RegistrarCallCenter.js" />
+    <Content Include="Eventos\registrar.js" />
+    <Content Include="Eventos\RegistrarNotificacion.js" />
+    <Content Include="Eventos\Responder.js" />
+    <Content Include="Global.asax" />
+    <EntityDeploy Include="Models\BancaDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BancaDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <EntityDeploy Include="Models\UNEDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>UNEDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\BancaDB.Context.tt">
+      <DependentUpon>BancaDB.edmx</DependentUpon>
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BancaDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\BancaDB.edmx.diagram">
+      <DependentUpon>BancaDB.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\BancaDB.tt">
+      <DependentUpon>BancaDB.edmx</DependentUpon>
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BancaDB.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\UNEDB.edmx.diagram">
+      <DependentUpon>UNEDB.edmx</DependentUpon>
+    </Content>
+    <None Include="Connected Services\conectaServicioAutenticador\CRYPTOCardImpl.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\conectaServicioAutenticador\CRYPTOCardImplService.wsdl" />
+    <None Include="Connected Services\conectaServicioSAS\ConectaServicesImpl.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\conectaServicioSAS\ConectaServicesImpl1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\conectaServicioSAS\ConectaServicesImplService.wsdl" />
+    <Content Include="libman.json" />
+    <None Include="Scripts\jquery-1.8.0.intellisense.js" />
+    <Content Include="Models\UNEDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UNEDB.edmx</DependentUpon>
+      <LastGenOutput>UNEDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\UNEDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UNEDB.edmx</DependentUpon>
+      <LastGenOutput>UNEDB.cs</LastGenOutput>
+    </Content>
+    <None Include="Resources\firma_banca.png" />
+    <None Include="Resources\fondoCorreo.png" />
+    <None Include="Resources\fondoCorreo1.PNG" />
+    <None Include="Resources\logo_caja_revolvente_correos.jpg" />
+    <None Include="Resources\logo_con_letras.png" />
+    <None Include="Resources\marcaAgua.png" />
+    <Content Include="Scripts\jquery-1.8.0.js" />
+    <Content Include="Scripts\jquery-1.8.0.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="sox\sox.exe" />
+    <Content Include="sox\zlib1.dll" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Notificar\Notificar.cshtml" />
+    <Content Include="Views\Notificados\Notificados.cshtml" />
+    <Content Include="Views\Condusef\Condusef.cshtml" />
+    <Content Include="Views\Cancelar\Cancelar.cshtml" />
+    <Content Include="Views\Registrar\pdf.cshtml" />
+    <Content Include="Views\Responder\pdfAreaEsp.cshtml" />
+    <Content Include="Views\Notificar\RegistrarNotificacion.cshtml" />
+    <Content Include="Views\CerrarReporte\pdf.cshtml" />
+    <Content Include="Views\CanalizadosUNE\CanalizadosUNE.cshtml" />
+    <Content Include="Views\ResueltoArea\ResueltoArea.cshtml" />
+    <Content Include="Views\Notificar\pdf.cshtml" />
+    <Content Include="Views\Cancelados\Cancelados.cshtml" />
+    <Content Include="Views\Debito\Debito.cshtml" />
+    <Content Include="Views\Condusef\GeneraReporte.cshtml" />
+    <Content Include="Views\Error\Error.cshtml" />
+    <Content Include="Views\Error\Permiso.cshtml" />
+    <Content Include="Views\Finalizados\LlamadaSalida.cshtml" />
+    <Content Include="Views\BloqueoBanca\BloqueoBanca.cshtml" />
+    <Content Include="Views\Banca\ModificarMonto.cshtml" />
+    <Content Include="Views\Banca\BloquearBanca.cshtml" />
+    <Content Include="Views\Banca\ReposicionSoftoken.cshtml" />
+    <Content Include="Views\CanalizadosBanca\CanalizadosBanca.cshtml" />
+    <Content Include="Views\Banca\GenerarFormatoReporte.cshtml" />
+    <Content Include="Views\RegistrarCallCenter\RegistrarCallCenter.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Audio\" />
+    <Folder Include="Formatos\Banca\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Models\BD.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BD2.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\BD.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BD.edmx</DependentUpon>
+      <LastGenOutput>BD.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\BD.edmx.diagram">
+      <DependentUpon>BD.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\BD.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BD.edmx</DependentUpon>
+      <LastGenOutput>BD.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Login\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Estilos\css\bootstrap-theme.css.map" />
+    <Content Include="Estilos\css\bootstrap-theme.min.css.map" />
+    <Content Include="Estilos\css\bootstrap.css.map" />
+    <Content Include="Estilos\css\bootstrap.min.css.map" />
+    <Content Include="Estilos\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Estilos\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Estilos\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Estilos\fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Inicio\Inicio.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Registrar\Registrar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Preview\Preview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\CerrarReporte\CerrarReporte.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Canalizar\Canalizar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Registros\Registros.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Responder\Responder.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Dictaminar\Dictaminar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Finalizados\Finalizados.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\UNE.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\conectaServicioAutenticador\" />
+    <WCFMetadataStorage Include="Connected Services\conectaServicioSAS\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:49369/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

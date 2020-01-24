@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://www.cryptocard.com/blackshield/" elementFormDefault="qualified" targetNamespace="http://www.cryptocard.com/blackshield/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="User">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:TimeRestrictedUser">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Groups" type="tns:ArrayOfGroup" />
+          <xs:element name="PreferredLanguage" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="PasswordSetDate" type="xs:string" />
+          <xs:element minOccurs="0" name="PasswordExpiryDate" type="xs:string" />
+          <xs:element name="PasswordAttemptCount" type="xs:int" />
+          <xs:element minOccurs="0" name="UserName" type="xs:string" />
+          <xs:element minOccurs="0" name="FirstName" type="xs:string" />
+          <xs:element minOccurs="0" name="Lastname" type="xs:string" />
+          <xs:element minOccurs="0" name="Address1" type="xs:string" />
+          <xs:element minOccurs="0" name="City" type="xs:string" />
+          <xs:element minOccurs="0" name="State" type="xs:string" />
+          <xs:element minOccurs="0" name="Country" type="xs:string" />
+          <xs:element minOccurs="0" name="Zip" type="xs:string" />
+          <xs:element minOccurs="0" name="Email" type="xs:string" />
+          <xs:element minOccurs="0" name="Telephone" type="xs:string" />
+          <xs:element minOccurs="0" name="Countrycode" type="xs:string" />
+          <xs:element minOccurs="0" name="Extension" type="xs:string" />
+          <xs:element minOccurs="0" name="Mobile" type="xs:string" />
+          <xs:element minOccurs="0" name="Fax" type="xs:string" />
+          <xs:element name="Locked" type="xs:boolean" />
+          <xs:element minOccurs="0" name="CustomAttributes" type="tns:ArrayOfString" />
+          <xs:element minOccurs="0" name="UnlockAt" type="xs:string" />
+          <xs:element minOccurs="0" name="Message" type="xs:string" />
+          <xs:element name="TempPasswordEnabled" type="xs:boolean" />
+          <xs:element name="TempPasswordChangeReq" type="xs:boolean" />
+          <xs:element minOccurs="0" name="ContainerName" type="xs:string" />
+          <xs:element name="UseExternalCredentials" type="xs:boolean" />
+          <xs:element name="IsAccountDormant" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="TimeRestrictedUser" abstract="true">
+    <xs:sequence>
+      <xs:element name="RestrictionsEnabled" type="xs:boolean" />
+      <xs:element minOccurs="0" name="StartDate" type="xs:string" />
+      <xs:element minOccurs="0" name="EndDate" type="xs:string" />
+      <xs:element minOccurs="0" name="StartTime" type="xs:string" />
+      <xs:element minOccurs="0" name="EndTime" type="xs:string" />
+      <xs:element minOccurs="0" name="RestrictedDays" type="tns:WeekRestrictions" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfGroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Group" nillable="true" type="tns:Group" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Group">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="GroupName" type="xs:string" />
+      <xs:element minOccurs="0" name="Description" type="xs:string" />
+      <xs:element name="ReadOnly" type="xs:boolean" />
+      <xs:element name="Empty" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfString">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="WeekRestrictions">
+    <xs:sequence />
+  </xs:complexType>
+</xs:schema>

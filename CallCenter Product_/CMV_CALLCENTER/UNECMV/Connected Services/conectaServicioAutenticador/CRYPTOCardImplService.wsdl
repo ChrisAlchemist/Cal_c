@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://www.conecta.mx" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="CRYPTOCardImplService" targetNamespace="http://www.conecta.mx" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://192.168.98.55:8080/Autenticador/CRYPTOCardImpl?xsd=1" namespace="http://www.conecta.mx" />
+    </xsd:schema>
+  </types>
+  <message name="Autenticar">
+    <part name="parameters" element="tns:Autenticar" />
+  </message>
+  <message name="AutenticarResponse">
+    <part name="parameters" element="tns:AutenticarResponse" />
+  </message>
+  <message name="CustomException">
+    <part name="fault" element="tns:CustomException" />
+  </message>
+  <portType name="CRYPTOCardImpl">
+    <operation name="Autenticar">
+      <input wsam:Action="http://www.conecta.mx/CRYPTOCardImpl/AutenticarRequest" message="tns:Autenticar" />
+      <output wsam:Action="http://www.conecta.mx/CRYPTOCardImpl/AutenticarResponse" message="tns:AutenticarResponse" />
+      <fault wsam:Action="http://www.conecta.mx/CRYPTOCardImpl/Autenticar/Fault/CustomException" name="CustomException" message="tns:CustomException" />
+    </operation>
+  </portType>
+  <binding name="CRYPTOCardImplPortBinding" type="tns:CRYPTOCardImpl">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="Autenticar">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="CustomException">
+        <soap:fault use="literal" name="CustomException" namespace="" />
+      </fault>
+    </operation>
+  </binding>
+  <service name="CRYPTOCardImplService">
+    <port name="CRYPTOCardImplPort" binding="tns:CRYPTOCardImplPortBinding">
+      <soap:address location="http://192.168.98.55:8080/Autenticador/CRYPTOCardImpl" />
+    </port>
+  </service>
+</definitions>

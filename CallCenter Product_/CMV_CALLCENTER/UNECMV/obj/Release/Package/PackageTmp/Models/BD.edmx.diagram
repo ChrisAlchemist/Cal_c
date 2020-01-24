@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f1cd3fea2fa74e45aa2212373d21d5a4" Name="Diagrama1">
+        <EntityTypeShape EntityType="HAPEModel.CAT_UNE_ESTATUS_REPORTE" Width="2.125" PointX="3.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HAPEModel.CAT_UNE_MEDIO_CONTACTO" Width="2" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HAPEModel.CAT_UNE_SUPUESTOS_REPORTE" Width="2.875" PointX="4.125" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HAPEModel.CAT_UNE_TIPO_REPORTE" Width="2.25" PointX="1.125" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HAPEModel.TBL_UNE_CANALIZACIONES" Width="2.125" PointX="9.125" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HAPEModel.TBL_UNE_REPORTE" Width="1.5" PointX="7.25" PointY="2.125" IsExpanded="true" />
+        <AssociationConnector Association="HAPEModel.FK_CAT_UNE_ESTATUS_REPORTE_TBL_UNE_REPORTE" ManuallyRouted="false" />
+        <AssociationConnector Association="HAPEModel.FK_CAT_UNE_MEDIO_CONTACTO_TBL_UNE_REPORTE" ManuallyRouted="false" />
+        <AssociationConnector Association="HAPEModel.FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_SUPUESTOS_REPORTE" ManuallyRouted="false" />
+        <AssociationConnector Association="HAPEModel.FK_CAT_UNE_TIPO_REPORTE_TBL_UNE_REPORTE" ManuallyRouted="false" />
+        <AssociationConnector Association="HAPEModel.FK_TBL_UNE_REPORTE_TBL_UNE_CANALIZACIONES" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HAPEModel.CLAVES" Width="2.25" PointX="11.5" PointY="2.375" />
+        <EntityTypeShape EntityType="HAPEModel.TBL_PRESENCE_LLAMADAS" Width="2.125" PointX="2.125" PointY="7.375" />
+        <EntityTypeShape EntityType="HAPEModel.TBL_UNE_USUARIOS_ASIGNADOS" Width="2" PointX="9" PointY="8" />
+        <AssociationConnector Association="HAPEModel.FK_TBL_UNE_REPORTE_TBL_UNE_USUARIOS_ASIGNADOS" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

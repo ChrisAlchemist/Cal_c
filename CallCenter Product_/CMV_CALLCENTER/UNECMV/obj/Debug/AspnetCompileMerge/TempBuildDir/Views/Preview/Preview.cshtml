@@ -1,0 +1,1665 @@
+﻿@using System.Web.Script.Serialization;
+@using UNECMV.Models
+@model TBL_UNE_REPORTE
+
+@{
+    UNECMV.Models.CLAVES SesionUsuario = Session["SesionUsuario"] as UNECMV.Models.CLAVES;
+    UNECMV.Models.TBL_UNE_PERMISOS_ADMIN permisoUsuario = Session["permiso"] as UNECMV.Models.TBL_UNE_PERMISOS_ADMIN;
+    string urlAnterior = Session["urlAnterior"] as string;
+    string controller = Session["segmento1"] as string;
+    String ultimoComentario = "", comentarioRechazo = "", comentarioCan = "", comentarioAprueba = "", comentarioCancela = "", comentarioFinalizacion = "", comentarioNotificacion = "";
+    int esResp = 0;
+    int? numEvidenciasDebito = ViewData["numEvidenciasDebito"] as int?;
+    if (Model.ID_ESTATUS_REPORTE == 3 || Model.ID_ESTATUS_REPORTE == 10)
+    {
+        esResp = new UNECMV.Controllers.InicioController().EsResponsable(SesionUsuario.Numusuario, Model.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena);
+    }
+
+    if (Model.ID_ESTATUS_REPORTE == 4)
+    {
+        ultimoComentario = new UNECMV.Controllers.PreviewController().obtenerComentarioArea(Model.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena);
+    }
+    else if (Model.ID_ESTATUS_REPORTE == 5)
+    {
+        ultimoComentario = new UNECMV.Controllers.PreviewController().obtenerComentarioArea(Model.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena);
+        comentarioCan = new UNECMV.Controllers.PreviewController().obtenerComentario(Model.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena, 3);
+        comentarioAprueba = new UNECMV.Controllers.PreviewController().obtenerComentario(Model.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena, 6);
+        comentarioNotificacion = new UNECMV.Controllers.PreviewController().obtenerComentario(Model.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena, 12);
+    }
+    else if (Model.ID_ESTATUS_REPORTE == 3 || Model.ID_ESTATUS_REPORTE == 10)
+    {
+        ultimoComentario = new UNECMV.Controllers.PreviewController().obtenerComentario(Model.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena, 3);
+    }
+    else if (Model.ID_ESTATUS_REPORTE == 6 || Model.ID_ESTATUS_REPORTE == 7 || Model.ID_ESTATUS_REPORTE == 8)
+    {
+        ultimoComentario = new UNECMV.Controllers.PreviewController().obtenerComentario(Model.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena, 9);
+        if (ultimoComentario == "")
+        {
+            ultimoComentario = new UNECMV.Controllers.PreviewController().obtenerComentario(Model.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena, 11);
+        }
+        comentarioCan = new UNECMV.Controllers.PreviewController().obtenerComentario(Model.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena, 3);
+        comentarioAprueba = new UNECMV.Controllers.PreviewController().obtenerComentario(Model.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena, 6);
+        comentarioRechazo = new UNECMV.Controllers.PreviewController().obtenerComentario(Model.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena, 7);
+        comentarioFinalizacion = new UNECMV.Controllers.PreviewController().obtenerComentario(Model.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena, 10);
+        comentarioNotificacion = new UNECMV.Controllers.PreviewController().obtenerComentario(Model.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena, 12);
+    }
+    else if (Model.ID_ESTATUS_REPORTE == 9)
+    {
+        comentarioCancela = new UNECMV.Controllers.PreviewController().obtenerComentario(Model.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena, 8);
+    }
+
+    if (Model.ID_ESTATUS_REPORTE == 10)
+    {
+        comentarioRechazo = new UNECMV.Controllers.PreviewController().obtenerComentario(Model.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena, 5);
+    }
+
+    int? conteo = 0, numAudios = 0;
+    conteo = ViewData["conteoArchivosAdjuntos"] as int?;
+    if (Model.ID_ESTATUS_REPORTE == 6 || Model.ID_ESTATUS_REPORTE == 7 || Model.ID_ESTATUS_REPORTE == 8)
+    {
+        numAudios = ViewData["ConteoListaLlamadas"] as int?;
+    }
+
+}
+
+@{
+    ViewBag.Title = "Preview";
+}
+<script>
+
+    function ReporteBanca() {
+        this.folioBanca = folioBanca;
+        this.telefonoCelular = telefonoCelular;
+        this.idSupuestoReporte = idSupuestoReporte;
+        this.idEstatusReporte = idEstatusReporte;
+        this.idTipoCuenta = idTipoCuenta;
+        this.canalizado = canalizado;
+        this.idCuenta = idCuenta;
+    }
+
+    var folioBanca;
+    var telefonoCelular;
+    var idSupuestoReporte;
+    var idEstatusReporte;
+    var idTipoCuenta;
+    var canalizado;
+    var idCuenta;
+
+    var reporteBanca = new ReporteBanca();
+    reporteBanca.folioBanca = @Model.folio_banca;
+    reporteBanca.telefonoCelular = @Html.Raw(string.IsNullOrEmpty(Model.TEL_CELULAR) ? "''": Model.TEL_CELULAR);
+    reporteBanca.idSupuestoReporte = @Model.ID_SUPUESTOS_REPORTE;
+    reporteBanca.idEstatusReporte = @Model.ID_ESTATUS_REPORTE;
+    reporteBanca.idTipoCuenta = @Model.ID_TIPO_CUENTA;
+    ReporteBanca.idCuenta = @Model.ID_CUENTA;
+    var  tipoTransferenciaFolio= @Html.Raw(new JavaScriptSerializer().Serialize(ViewData["listaCuentasNoAfectadas"])); // ViewData["listaCuentasNoAfectadas"] 
+
+</script>
+
+<script src="~/Estilos/Wizard/js/jquery-1.9.1.min.js"></script>
+<script src="~/Estilos/js/jquery.maskedinput.js"></script>
+<link href="~/Estilos/css/Validaciones.css" rel="stylesheet" />
+<link href="~/Estilos/Datepicker/css/datepicker.css" rel="stylesheet" />
+<script src="~/Estilos/Datepicker/js/bootstrap-datepicker.js"></script>
+<script src="~/Estilos/js/moment.min.js"></script>
+<script src="~/Estilos/js/jquery.dataTables.min.js"></script>
+<link href="~/Estilos/css/dataTable.css" rel="stylesheet" />
+<script src="~/Eventos/Preview.js"></script>
+
+<div id="dvLoading" hidden><img src="~/Estilos/Imagenes/loader.gif" style="top:40%; left:50%; position:relative" /></div>
+
+<div class="row">
+    <div class="col-md-12">
+        @if (Model.NUM_FOLIO > 0)
+        {
+            if (Model.ID_TIPO_CUENTA == 6 || Model.ID_CUENTA == 33)
+            {
+                <left><h3>Detalle Folio Número <kbd id="kbd-folioUNE">@Model.NUM_FOLIO</kbd></h3></left><center style="margin-left:-81%">(UNE)</center>
+
+                <center style="margin-top:-6.5%"><h3>Detalle Folio Número <kbd>@Model.folio_banca</kbd></h3>(CMV Finanzas)</center>
+            }
+            else
+            {
+                <center><h3>Detalle Folio Número <kbd>@Model.NUM_FOLIO</kbd></h3></center>
+            }
+
+        }
+        else
+        {
+            <center><h3>Detalle Folio Número <kbd>@Model.folio_banca</kbd></h3>(CMV Finanzas)</center>
+        }
+    </div>
+</div>
+<hr style="border-color: dimgray;" />
+@using (Html.BeginForm("ModificarReporte", "Preview", FormMethod.Post, new { enctype = "multipart/form-data", @id = "frmModificar" }))
+{
+    @Html.HiddenFor(x => x.FOLIO, new { @id = "inputFolio_" })
+    @Html.HiddenFor(x => x.ID_DE_SUCURSAL)
+    @Html.HiddenFor(x => x.ENTIDAD, new { @id = "selectEntidad_" })
+    <input id="numEvidencias" value="@numEvidenciasDebito" hidden />
+    if (Model.ID_ESTATUS_REPORTE == 2)
+    {
+        @Html.HiddenFor(x => x.ID_MEDIO_CONTACTO, new { @id = "medioContacto_" })
+        @Html.HiddenFor(x => x.ID_TIPO_REPORTE, new { @id = "tipoReporte_" })
+    }
+
+    <div class="row">
+        <div class="col-md-3">
+            @Html.LabelFor(x => x.CAT_UNE_ESTATUS_REPORTE.DESCRIPCION, "Estatus del reporte:")
+            @Html.TextBoxFor(x => x.CAT_UNE_ESTATUS_REPORTE.DESCRIPCION, new { @Value = Model.CAT_UNE_ESTATUS_REPORTE.DESCRIPCION, @class = "form-control", @id = "inputEstatus", @readOnly = "" })
+        </div>
+        <div class="col-md-4">
+            @if ((Model.ID_ESTATUS_REPORTE == 6 || Model.ID_ESTATUS_REPORTE == 7 || Model.ID_ESTATUS_REPORTE == 8) && permisoUsuario.USUARIO_UNE == 1)
+            {
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Historial de llamadas</div>
+                    @if (numAudios == 0)
+                    {
+                        <div class="panel-body">
+                            Expediente sin llamadas realizadas
+                        </div>
+                    }
+                    <table class="table">
+                        <tbody>
+                            @foreach (var llamada in ViewData["listaLlamadas"] as List<UNECMV.Models.CMV_REC_DATA>)
+                            {
+                                <tr id="@llamada.INB_OUT_ID">
+                                    <td>@llamada.INB_OUT_ID</td>
+                                    <td>@String.Format("{0:dd/MM/yyyy}", llamada.RDATE)</td>
+                                    @if (llamada.CALLTYPE == 0)
+                                    {
+                                        <td>Llamada de salida</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Llamada de entrada</td>
+                                    }
+                                    <td><a class="btn btn-success btn-xs" onclick="ValidaArchivoAudio(@llamada.INB_OUT_ID)">Escuchar</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+        <div class="col-md-5">
+            <div class="panel panel-primary">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Expediente del reporte</div>
+                @if (conteo == 0)
+                {
+                    <div class="panel-body">
+                        Expediente sin archivos adjuntos
+                    </div>
+                }
+                <!-- Table -->
+                <table class="table">
+                    <tbody>
+                        @foreach (var archivo in ViewData["archivosAdjuntos"] as List<TBL_UNE_ARCHIVOS_ADJUNTOS>)
+                        {
+                            <tr id="@archivo.ID_ARCHIVO_ADJUNTAR">
+                                <td><a href="@archivo.RUTA_ARCHIVO" target="_blank">@archivo.NOMBRE_ARCHIVO </a></td>
+                                @if (archivo.NUMUSUARIO == SesionUsuario.Numusuario)
+                                {
+                                    <td><button class="btn btn-warning btn-xs" onclick="EliminarArchivo(@archivo.FOLIO, @archivo.ID_ARCHIVO_ADJUNTAR)" id="btnEliminaDoc">Eliminar</button></td>
+                                }
+                                else
+                                {
+                                    <td><button class="btn btn-warning btn-xs" disabled>Eliminar</button></td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <hr style="border-color: dimgray;" />
+    if (Model.folio_banca != null)
+    {
+        <div class="row">
+            <div class="col-md-3">
+                @Html.LabelFor(x => x.folio_banca, "Folio CMV Finanzas:")
+                @Html.TextBoxFor(x => x.folio_banca, new { @class = "form-control", @id = "inputFolioBanca", @readOnly = "" })
+            </div>
+        </div>
+        <br />
+    }
+
+    <div class="row">
+        <div class="col-md-3">
+            <label for="inputEsSocio">Tipo de persona:</label>
+            @{
+                List<SelectListItem> itemsSocio = new List<SelectListItem>();
+                itemsSocio.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+                itemsSocio.Add(new SelectListItem
+                {
+                    Text = "Es Socio",
+                    Value = "1"
+                });
+
+                itemsSocio.Add(new SelectListItem
+                {
+                    Text = "Usuario",
+                    Value = "2"
+                });
+
+                itemsSocio.Add(new SelectListItem
+                {
+                    Text = "Persona Moral",
+                    Value = "3"
+                });
+
+                @Html.DropDownListFor(x => x.ES_SOCIO, itemsSocio, new { @class = "form-control select2", @id = "inputEsSocio", @onchange = "", @disabled = "" })
+            }
+        </div>
+        <div class="col-md-3">
+            @Html.LabelFor(x => x.NUMERO, "Número:")
+            @Html.TextBoxFor(x => x.NUMERO, new { @class = "form-control", @id = "inputNumSocio", @readOnly = "" })
+        </div>
+        <div class="col-md-4" id="div-representante-leg">
+            <label for="inputEsSocio">Representante legal:</label>
+            <select class="form-control select2" id="selectPersonaLegal" disabled>
+                @{
+                    if (Model.ES_SOCIO == 3)
+                    {
+                        <option value="3">@Model.NOMBRE_S @Model.APELLIDO_PATERNO @Model.APELLIDO_MATERNO</option>
+                    }
+                    else
+                    {
+                        <option value="0">N/A</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            @Html.LabelFor(x => x.FECHA_ALTA, "Fecha de alta:")
+            @{
+                DateTime dt;
+                dt = Convert.ToDateTime(Model.FECHA_ALTA);
+                @Html.TextBoxFor(x => x.FECHA_ALTA, new { @Value = dt.ToShortDateString(), @class = "form-control", @id = "inputFecha", @readOnly = "" })
+            }
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            @Html.LabelFor(x => x.NOMBRE_S, "Nombre(s):")
+            @Html.TextBoxFor(x => x.NOMBRE_S, new { @Value = Model.NOMBRE_S, @class = "form-control", @placeholder = "Ej: 667231", @id = "inputSocio", @readOnly = "" })
+        </div>
+        <div class="col-md-3">
+            @Html.LabelFor(x => x.APELLIDO_PATERNO, "Apellido Paterno:")
+            @Html.TextBoxFor(x => x.APELLIDO_PATERNO, new { @Value = Model.APELLIDO_PATERNO, @class = "form-control", @id = "inputAP", @readOnly = "" })
+        </div>
+        <div class="col-md-3">
+            @Html.LabelFor(x => x.APELLIDO_MATERNO, "Apellido Materno:")
+            @Html.TextBoxFor(x => x.APELLIDO_MATERNO, new { @Value = Model.APELLIDO_MATERNO, @class = "form-control", @id = "inputAM", @readOnly = "" })
+        </div>
+        <div class="col-md-3" id="div-Tel">
+            @Html.LabelFor(x => x.TELEFONO, "Teléfono:")
+            @if (((Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario) || (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_UNE == 1)) && permisoUsuario.PERMISO_OPERAR_DETALLE == 1)
+            {
+                @Html.TextBoxFor(x => x.TELEFONO, new { @Value = Model.TELEFONO, @class = "form-control", @placeholder = "Tel.", @id = "inputTel", @onchange = "habilitarGuardar()" })
+            }
+            else
+            {
+                @Html.TextBoxFor(x => x.TELEFONO, new { @Value = Model.TELEFONO, @class = "form-control", @placeholder = "Tel.", @id = "inputTel", @readOnly = "" })
+            }
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3" id="div-celular">
+            @Html.LabelFor(x => x.TEL_CELULAR, "Teléfono Celular:")
+            @if (((Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario) || (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_UNE == 1)) && permisoUsuario.PERMISO_OPERAR_DETALLE == 1)
+            {
+                @Html.TextBoxFor(x => x.TEL_CELULAR, new { @Value = Model.TEL_CELULAR, @class = "form-control", @placeholder = "Cel.", @id = "inputTelCel", @onchange = "habilitarGuardar()" })
+            }
+            else
+            {
+                @Html.TextBoxFor(x => x.TEL_CELULAR, new { @Value = Model.TEL_CELULAR, @class = "form-control", @placeholder = "Cel.", @id = "inputTelCel", @readOnly = "" })
+            }
+        </div>
+        <div class="col-md-9" id="div-domicilio">
+            @Html.LabelFor(x => x.DOMICILIO, "Domicilio:")
+            @Html.TextBoxFor(x => x.DOMICILIO, new { @class = "form-control", @placeholder = "Domicilio", @id = "inputCalle", @maxlength = "200", @readonly = "", @oninput = "validaDomicilio()" })
+        </div>
+    </div>
+    <hr style="border-color: dimgray;" />
+    <div class="row">
+        <div class="col-md-3">
+            @Html.LabelFor(x => x.REPORTE_CORRESPONSALIAS, "Aplica Corresponsal:")
+            @if (((Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario) || (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_UNE == 1)) && permisoUsuario.PERMISO_OPERAR_DETALLE == 1)
+            {
+                @Html.CheckBoxFor(x => x.REPORTE_CORRESPONSALIAS, new { @type = "checkbox", @id = "checkCorresponsalias", @name = "checkCorr", @Value = true, @onClick = "cambioEstadoCheckbox()", @disabled = "" })
+            }
+            else if (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_CALL_CENTER == true)
+            {
+                @Html.CheckBoxFor(x => x.REPORTE_CORRESPONSALIAS, new { @type = "checkbox", @id = "checkCorresponsalias", @name = "checkCorr", @Value = true, @onClick = "cambioEstadoCheckbox()", @disabled = "" })
+            }
+            else
+            {
+                @Html.CheckBoxFor(x => x.REPORTE_CORRESPONSALIAS, new { @type = "checkbox", @id = "checkCorresponsalias", @name = "checkCorr", @Value = true, @disabled = "" })
+            }
+
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3" id="div-suc-causa">
+            <label for="selectSucursal">Sucursal de la causa:</label>
+            @{
+                List<SelectListItem> itemsSucRegistro = new List<SelectListItem>();
+                itemsSucRegistro.Add(new SelectListItem { Text = "NINGUNA", Value = "0" });
+                foreach (var item in ViewData["sucursales"] as List<UNECMV.Models.SUCURSALES>)
+                {
+                    itemsSucRegistro.Add(new SelectListItem
+                    {
+                        Text = item.Descripcion,
+                        Value = item.Id_de_Sucursal.ToString()
+                    });
+                }
+                itemsSucRegistro.Add(new SelectListItem
+                {
+                    Text = "OXXO",
+                    Value = "1000"
+                });
+
+                if ((Model.REPORTE_CORRESPONSALIAS) == true)
+                {
+                    @Html.DropDownListFor(x => x.ID_SUCURSAL_REGISTRO, itemsSucRegistro, new { @class = "form-control select2", @id = "selectSucursalRegistro", @onchange = "CambioSucursalRegistro()", @readOnly = "", @disabled = "disabled" })
+                }
+                else
+                {
+                    @Html.DropDownListFor(x => x.ID_SUCURSAL_REGISTRO, itemsSucRegistro, new { @class = "form-control select2", @id = "selectSucursalRegistro", @onchange = "CambioSucursalRegistro()", @readOnly = "", @disabled = "disabled" })
+                }
+            }
+        </div>
+        <div class="col-md-3" id="div-EntFed">
+            <label for="selectEntidad" class="control-label">Entidad Federativa:</label>
+            @{
+                List<SelectListItem> itemsEntidades = new List<SelectListItem>();
+                itemsEntidades.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+                foreach (var lista in ViewData["listaEntidades"] as List<UNECMV.Models.ENTIDAD_FEDERATIVA>)
+                {
+                    itemsEntidades.Add(new SelectListItem
+                    {
+                        Text = lista.DESCRIPCION,
+                        Value = lista.ID_ENTIDAD_FEDERATIVA.ToString()
+                    });
+                }
+                @Html.DropDownListFor(x => x.ENTIDAD, itemsEntidades, new { @class = "form-control select2", @id = "selectEntidad", @onchange = "selectEntFed()", @disabled = "" })
+            }
+        </div>
+        <div class="col-md-3">
+            <label for="inputMedioContacto">Medio de contacto:</label>
+            @{
+                List<SelectListItem> itemsMedio = new List<SelectListItem>();
+                if (permisoUsuario.USUARIO_SUCURSAL != true)
+                {
+                    itemsMedio.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+                }
+
+                foreach (var lista in ViewData["listaMediosContacto"] as List<UNECMV.Models.CAT_UNE_MEDIO_CONTACTO>)
+                {
+                    if (Model.ID_DE_SUCURSAL == 1)
+                    {
+                        if (lista.ID_MEDIO_CONTACTO != 1)
+                        {
+                            itemsMedio.Add(new SelectListItem
+                            {
+                                Text = lista.DESCRIPCION,
+                                Value = lista.ID_MEDIO_CONTACTO.ToString()
+                            });
+                        }
+                    }
+                    else
+                    {
+                        if (lista.ID_MEDIO_CONTACTO == 1 || lista.ID_MEDIO_CONTACTO == 2)
+                        {
+                            itemsMedio.Add(new SelectListItem
+                            {
+                                Text = lista.DESCRIPCION,
+                                Value = lista.ID_MEDIO_CONTACTO.ToString()
+                            });
+                        }
+                    }
+                }
+                if ((Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario) && permisoUsuario.PERMISO_OPERAR_DETALLE == 1)
+                {
+                    @Html.DropDownListFor(x => x.ID_MEDIO_CONTACTO, itemsMedio, new { @class = "form-control select2", @id = "inputMedioContacto", @onchange = "habilitarGuardar()" })
+                }
+                else
+                {
+                    @Html.DropDownListFor(x => x.ID_MEDIO_CONTACTO, itemsMedio, new { @class = "form-control select2", @id = "inputMedioContacto", @onchange = "", @disabled = "" })
+                }
+
+            }
+        </div>
+        <div class="col-md-3">
+            <label for="selectReporte" class="control-label">Tipo de reporte:</label>
+            @{
+                List<SelectListItem> items = new List<SelectListItem>();
+                items.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+                foreach (var lista in ViewData["listaTipoReportes"] as List<UNECMV.Models.CAT_UNE_TIPO_REPORTE>)
+                {
+                    items.Add(new SelectListItem
+                    {
+                        Text = lista.DESCRIPCION,
+                        Value = lista.ID_TIPO_REPORTE.ToString()
+                    });
+                }
+                if (((Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario) /*|| (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_UNE == 1)*/) && permisoUsuario.PERMISO_OPERAR_DETALLE == 1)
+                {
+                    @Html.DropDownListFor(x => x.ID_TIPO_REPORTE, items, new { @class = "form-control select2", @id = "selectReporte", @onchange = "cargarSupuestos(value)" })
+                }
+                else
+                {
+                    @Html.DropDownListFor(x => x.ID_TIPO_REPORTE, items, new { @class = "form-control select2", @id = "selectReporte", @onchange = "cargarSupuestos(value)", @disabled = "" })
+                }
+            }
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            <label for="selectPtmoCapt" class="control-label">Tipo de operación:</label>
+            @{
+                List<SelectListItem> itemsCuentas = new List<SelectListItem>();
+                itemsCuentas.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+
+                foreach (var item in (ViewData["tipoCuentas"] as List<UNECMV.Models.CAT_UNE_TIPO_CUENTA>))
+                {
+                    itemsCuentas.Add(new SelectListItem
+                    {
+                        Text = item.DESCRIPCION,
+                        Value = item.ID_TIPO_CUENTA.ToString()
+                    });
+                }
+                if (((Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario) || (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_UNE == 1)) && permisoUsuario.PERMISO_OPERAR_DETALLE == 1 && Model.ID_TIPO_REPORTE != 4)
+                {
+                    @Html.DropDownListFor(x => x.ID_TIPO_CUENTA, itemsCuentas, new { @class = "form-control select2", @id = "selectPtmoCapt", @onchange = "selectCuenta(value)" })
+                }
+                else
+                {
+                    @Html.DropDownListFor(x => x.ID_TIPO_CUENTA, itemsCuentas, new { @class = "form-control select2", @id = "selectPtmoCapt", @onchange = "selectCuenta()", @disabled = "disabled" })
+                }
+            }
+        </div>
+        <div class="col-md-3">
+            <label for="selectTipoCuenta" class="control-label"> Operación:</label>
+            @{
+                List<SelectListItem> itemsC = new List<SelectListItem>();
+                itemsC.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+
+                foreach (var item in (ViewData["cuentas"] as List<UNECMV.Models.CAT_UNE_CUENTAS>))
+                {
+                    itemsC.Add(new SelectListItem
+                    {
+                        Text = item.DESCRIPCION,
+                        Value = item.ID_CUENTA.ToString()
+                    });
+                }
+                if (((Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario) || (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_UNE == 1)) && permisoUsuario.PERMISO_OPERAR_DETALLE == 1)
+                {
+                    @Html.DropDownListFor(x => x.ID_CUENTA, itemsC, new { @class = "form-control select2", @id = "selectTipoCuenta", @onchange = "tipoCuenta(value)" })
+                }
+                else
+                {
+                    @Html.DropDownListFor(x => x.ID_CUENTA, itemsC, new { @class = "form-control select2", @id = "selectTipoCuenta", @onchange = "tipoCuenta()", @disabled = "" })
+                }
+            }
+        </div>
+        <div class="col-md-3" id="div-tarjeta-cred">
+            @Html.LabelFor(x => x.Num_Tarjeta, "Número de tarjeta(Débito):")
+            @Html.TextBoxFor(x => x.Num_Tarjeta, new { @class = "form-control", @id = "inputNumTarjeta", @readonly = "" })
+        </div>
+        <div class="col-md-3" id="div-no-referencia">
+            @Html.LabelFor(x => x.NUMERO_DE_REFERENCIA, "Número de referencia:")
+            @Html.TextBoxFor(x => x.NUMERO_DE_REFERENCIA, new { @class = "form-control", @id = "inputNumReferencia", @readonly = "" })
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <label for="selectSupuesto" class="control-label">Causa del reporte:</label>
+            @{
+                List<SelectListItem> items2 = new List<SelectListItem>();
+                items2.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+                foreach (var lista in ViewData["listaSupuestos"] as List<CAT_UNE_SUPUESTOS_REPORTE>)
+                {
+                    items2.Add(new SelectListItem
+                    {
+                        Text = lista.DESCRIPCION,
+                        Value = lista.ID_SUPUESTOS_REPORTE.ToString()
+                    });
+                }
+                if (((Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario) || (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_UNE == 1)) && permisoUsuario.PERMISO_OPERAR_DETALLE == 1)
+                {
+                    @Html.DropDownListFor(x => x.ID_SUPUESTOS_REPORTE, items2, new { @class = "form-control select2", @id = "selectSupuesto", @onchange = "supuestos(value)" })
+                }
+                else
+                {
+                    @Html.DropDownListFor(x => x.ID_SUPUESTOS_REPORTE, items2, new { @class = "form-control select2", @id = "selectSupuesto", @onchange = "supuestos()", @disabled = "" })
+                }
+            }
+        </div>
+        <div class="col-md-3" id="div-importeReclamacion">
+            @if (((Model.IMPORTE_RECLAMACION > 0 || Model.ID_TIPO_REPORTE == 3) && ((Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario) || (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_UNE == 1))) && permisoUsuario.PERMISO_OPERAR_DETALLE == 1)
+            {
+                <label for="inputImporteReclamacion">Importe reclamado:</label>
+                <input class="form-control" id="inputImporteReclamacion" value="@Model.IMPORTE_RECLAMACION" oninput="validaInputImporte(value)" onchange="habilitarGuardar()" onblur="this.value=formatCurrency(this.value);" onkeypress="this.value = validaNumeros(this.value)" />
+                @Html.HiddenFor(x => x.IMPORTE_RECLAMACION, new { @class = "form-control", @id = "inputImporteReclamacionHidden" });
+            }
+            else if (Model.IMPORTE_RECLAMACION > 0 || Model.ID_TIPO_REPORTE == 3)
+            {
+                @Html.LabelFor(x => x.IMPORTE_RECLAMACION, "Importe reclamado:")
+                @Html.TextBoxFor(x => x.IMPORTE_RECLAMACION, new { @class = "form-control", @id = "inputImporteReclamacion", @readonly = "", @oninput = "validaInputImporte()", @onblur = "this.value=formatCurrency(this.value);", onkeypress = "this.value = validaNumeros(this.value)" })
+                @Html.HiddenFor(x => x.IMPORTE_RECLAMACION, new { @class = "form-control", @id = "inputImporteReclamacionHidden" });
+            }
+            else
+            {
+                @Html.LabelFor(x => x.IMPORTE_RECLAMACION, "Importe reclamado:")
+                @Html.TextBoxFor(x => x.IMPORTE_RECLAMACION, new { @class = "form-control", @id = "inputImporteReclamacion", @readonly = "", @oninput = "validaInputImporte()", @Value = "$0.00", @onblur = "this.value=formatCurrency(this.value);", onkeypress = "this.value = validaNumeros(this.value)" })
+            }
+        </div>
+
+        @if (Model.IMPORTE_SOLUCION != null && Model.IMPORTE_RECLAMACION > 0)
+        {
+            <div class="col-md-3" id="div-montoautorizacion">
+                <label for="inputSolucion">Monto autorizado:</label>
+                <input class="form-control" id="inputSolucion" value="@Model.IMPORTE_SOLUCION" readonly="" />
+                @Html.HiddenFor(x => x.IMPORTE_SOLUCION, new { @class = "form-control", @id = "inputSolucionHidden", @readonly = "" })
+            </div>
+        }
+
+    </div>
+    <br />
+    if (Model.ID_TIPO_CUENTA == 6 && Model.ID_ESTATUS_REPORTE > 2)
+    {
+        <br />
+        <div id="div-multifolio" class="col-md-12">
+            @*<div class="col-md-1">
+                </div>
+                <div class="col-md-6">*@
+
+            <table id="tbl-reportesBanca" class="display nowrap dataTable dtr-inline"
+                   cellspacing="0" width="100%" style="font-size:12px;">
+                <thead>
+                    <tr>
+                        <th>Folio de Autorización</th>
+                        <th>Importe Reclamado</th>
+                        <th>Medio de detección de movimiento</th>
+                        <th>Tipo de cuenta (CMV Finanzas)</th>
+                        <th>Fecha de transación</th>
+                        @if (Model.ID_ESTATUS_REPORTE == 5 || Model.ID_ESTATUS_REPORTE == 6)
+                        {
+                            <th>Estatus del folio</th>
+                            <th>Respuesta</th>
+                        }
+
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            @*</div>*@
+            <br />
+
+        </div>
+
+    }
+
+    if (Model.ID_TIPO_REPORTE == 3)
+    {
+        <br />
+        <div class="row" id="div-formato27">
+            <div class="col-md-3">
+                @Html.LabelFor(x => x.NUMERO_CUENTA_PTMO, "Número de cuenta/préstamo/DPF:", new { @id = "labelinputNumeroCuentaPtmo" })
+                @Html.TextBoxFor(x => x.NUMERO_CUENTA_PTMO, new { @class = "form-control", @id = "inputNumeroCuentaPtmo", @readonly = "", @oninput = "cambioinputNumeroCuentaPtmo()" })
+            </div>
+            <div class="col-md-3">
+                <label for="selectProducto" class="control-label">Producto:</label>
+                @{
+                    List<SelectListItem> itemsProducto = new List<SelectListItem>();
+                    itemsProducto.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+                    foreach (var item in (ViewData["listaProductos"] as List<UNECMV.Models.CAT_UNE_PRODUCTO>))
+                    {
+                        itemsProducto.Add(new SelectListItem
+                        {
+                            Text = item.NOMBRE,
+                            Value = item.ID_PRODUCTO.ToString()
+                        });
+                    }
+                    if (((Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario) || (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_UNE == 1)) && permisoUsuario.PERMISO_OPERAR_DETALLE == 1)
+                    {
+                        @Html.DropDownListFor(x => x.ID_PRODUCTO, itemsProducto, new { @class = "form-control select2", @id = "selectProducto", @onchange = "Productos(value)", @disabled = "" })
+                    }
+                    else
+                    {
+                        @Html.DropDownListFor(x => x.ID_PRODUCTO, itemsProducto, new { @class = "form-control select2", @id = "selectProducto", @onchange = "Productos(value)", @disabled = "" })
+                    }
+
+                }
+            </div>
+            <div class="col-md-3">
+                <label for="selectCanal" class="control-label">Canal de transacción:</label>
+                @{
+                    List<SelectListItem> itemsCanales = new List<SelectListItem>();
+                    itemsCanales.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+
+                    foreach (var item in (ViewData["listaCanales"] as List<UNECMV.Models.CAT_UNE_CANAL>))
+                    {
+                        itemsCanales.Add(new SelectListItem
+                        {
+                            Text = item.NOMBRE,
+                            Value = item.ID_CANAL.ToString()
+                        });
+                    }
+                    if (((Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario) || (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_UNE == 1)) && permisoUsuario.PERMISO_OPERAR_DETALLE == 1)
+                    {
+                        @Html.DropDownListFor(x => x.ID_CANAL, itemsCanales, new { @class = "form-control select2", @id = "selectCanal", @onchange = "Canales(value)", @disabled = "" })
+                    }
+                    else
+                    {
+                        @Html.DropDownListFor(x => x.ID_CANAL, itemsCanales, new { @class = "form-control select2", @id = "selectCanal", @onchange = "Canales(value)", @disabled = "" })
+                    }
+
+                }
+            </div>
+            <div class="col-md-3">
+                <label for="selectMotivoCancelacion" class="control-label">Motivo de reclamación:</label>
+                @{
+                    List<SelectListItem> itemsReclamacion = new List<SelectListItem>();
+                    itemsReclamacion.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+
+                    foreach (var item in (ViewData["listaMotivoCancelacion"] as List<UNECMV.Models.CAT_UNE_MOTIVO_CANCELACION>))
+                    {
+                        itemsReclamacion.Add(new SelectListItem
+                        {
+                            Text = item.NOMBRE,
+                            Value = item.ID_MOTIVO_CANCELACION.ToString()
+                        });
+                    }
+                    if (((Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario) || (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_UNE == 1)) && permisoUsuario.PERMISO_OPERAR_DETALLE == 1)
+                    {
+                        @Html.DropDownListFor(x => x.ID_MOTIVO_CANCELACION, itemsReclamacion, new { @class = "form-control select2", @id = "selectMotivoCancelacion", @onchange = "Motivos(value)", @disabled = "" })
+                    }
+                    else
+                    {
+                        @Html.DropDownListFor(x => x.ID_MOTIVO_CANCELACION, itemsReclamacion, new { @class = "form-control select2", @id = "selectMotivoCancelacion", @onchange = "Motivos(value)", @disabled = "" })
+                    }
+                }
+            </div>
+        </div>
+    }
+
+    if (Model.ID_PROCEDE_DEBITO == 2)
+    {
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-warning" role="alert" id="divAlertaCargoDebito"><strong>Se generara un cargo al socio por concepto de reclamación no procedente</strong></div>
+            </div>
+        </div>
+    }
+    <br />
+    <div class="row">
+        <div class="col-md-3" id="div-fech-aclaracion">
+            @Html.LabelFor(x => x.FECHA_SOLICITUD_ACLARACION, "Fecha solicitud de aclaración:")
+            @Html.TextBoxFor(x => x.FECHA_SOLICITUD_ACLARACION, new { @class = "form-control", @id = "fechaAclaracion", @onchange = "cambioFecha(id)", @disabled = "", @readonly = "", @Value = Convert.ToDateTime(Model.FECHA_SOLICITUD_ACLARACION).ToString("dd/MM/yyyy") })
+        </div>
+        <div class="col-md-3" id="div-fech-transaccion">
+            @Html.LabelFor(x => x.FECHA_TRANSACCION, "Fecha de la transacción:")
+            @Html.TextBoxFor(x => x.FECHA_TRANSACCION, new { @class = "form-control", @id = "fechaTransaccion", @onchange = "cambioFecha(id)", @readonly = "", @Value = Convert.ToDateTime(Model.FECHA_TRANSACCION).ToString("dd/MM/yyyy") })
+        </div>
+        @if (Model.ID_TIPO_REPORTE == 4)
+        {
+            <div class="col-md-3" id="div-select-medDetMov">
+                <label for="selectMedioMov" class="control-label">Medio de detección de movimiento:</label>
+                @{
+                    List<SelectListItem> itemsMedioDetMov = new List<SelectListItem>();
+                    itemsMedioDetMov.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+
+                    foreach (var item in (ViewData["listaMedioMovimiento"] as List<UNECMV.Models.CAT_CALLCENTER_MEDIO_MOVIMIENTO>))
+                    {
+                        itemsMedioDetMov.Add(new SelectListItem
+                        {
+                            Text = item.descripcion_medio,
+                            Value = item.id_medio_movimiento.ToString()
+                        });
+                    }
+                    @Html.DropDownListFor(x => x.id_medio_deteccion_movimiento, itemsMedioDetMov, new { @class = "form-control select2", @id = "selectMedioMov", @onchange = "", @disabled = "" })
+                }
+            </div>
+            <div class="col-md-3" id="div-folio-autorizacion">
+                @Html.LabelFor(x => x.folio_autorizacion_banca, "Folio de autorización: ")
+                @Html.TextBoxFor(x => x.folio_autorizacion_banca, new { @class = "form-control", @id = "inputFolioAutorizacion", @disabled = "", @type = "text", @maxlength = "12", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })
+            </div>
+        }
+
+    </div>
+    <br />
+
+    <div class="row">
+        @if (Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario && permisoUsuario.PERMISO_OPERAR_DETALLE == 1)
+        {
+            if (Model.ID_CUENTA == 5 && (Model.ID_TIPO_REPORTE == 1 || Model.ID_TIPO_REPORTE == 3) && numEvidenciasDebito < 2)
+            {
+                <div class="col-md-6">
+                    <label for="exampleInputFile" id="labelAdjuntar">Adjuntar evidencias de debito(formato de solicitud y copia de identificación):</label>
+                    <input type="file" name="files" id="file" class="form-control" accept="application/pdf" onchange="habilitarGuardar()" multiple />
+                    <label style="font-size:8px;" id="labelNoObli" hidden>*No obligatorio.</label>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-6">
+                    <label for="exampleInputFile" id="labelAdjuntar">Adjuntar Archivo*:</label>
+                    <input type="file" name="files" id="file" class="form-control" accept="application/pdf" onchange="habilitarGuardar()" multiple />
+                    <label style="font-size:8px;" id="labelNoObli" hidden>*No obligatorio</label>
+                </div>
+            }
+        }
+        else if (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_UNE == 1 && permisoUsuario.PERMISO_OPERAR_DETALLE == 1)
+        {
+            if (Model.ID_CUENTA == 5 && (Model.ID_TIPO_REPORTE == 1 || Model.ID_TIPO_REPORTE == 3) && numEvidenciasDebito < 2)
+            {
+                <div class="col-md-6">
+                    <label for="exampleInputFile" id="labelAdjuntar">Adjuntar evidencias de debito(formato de solicitud y copia de identificación):</label>
+                    <input type="file" name="files" id="file" class="form-control" accept="application/pdf" onchange="habilitarGuardar()" multiple />
+                    <label style="font-size:8px;" id="labelNoObli" hidden>*No obligatorio.</label>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-6">
+                    <label for="exampleInputFile" id="labelAdjuntar">Adjuntar Archivo*:</label>
+                    <input type="file" name="files" id="file" class="form-control" accept="application/pdf" onchange="habilitarGuardar()" multiple />
+                    <label style="font-size:8px;" id="labelNoObli" hidden>*No obligatorio</label>
+                </div>
+            }
+        }
+
+        @if (Model.id_tipo_cuenta_banca > 0)
+        {
+            <div class="col-md-3" id="div-selectTipoCuentaBanca">
+                <label for="selectTipoCuentaBanca" class="control-label">Tipo de cuenta(CMV Finanzas):</label>
+                @{
+                    List<SelectListItem> itemstipoCuentaBanca = new List<SelectListItem>();
+                    itemstipoCuentaBanca.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+
+                    foreach (var item in (ViewData["listaTipoCuentaBanca"] as List<UNECMV.Models.CAT_UNE_TIPO_CUENTA_BANCA>))
+                    {
+                        itemstipoCuentaBanca.Add(new SelectListItem
+                        {
+                            Text = item.DESCRIPCION,
+                            Value = item.ID_TIPO_CUENTA_BANCA.ToString()
+                        });
+                    }
+                    @Html.DropDownListFor(x => x.id_tipo_cuenta_banca, itemstipoCuentaBanca, new { @class = "form-control select2", @id = "selectTipoCuentaBanca", @onchange = "", @disabled = "" })
+                }
+            </div>
+        }
+
+    </div>
+
+    if (Model.ID_TIPO_REPORTE == 3)
+    {
+        <br />
+        <div class="row">
+            <div class="col-md-3" id="div-dictaminar">
+                <label for="selectSucursal">Dictamen:</label>
+                @{
+                    List<SelectListItem> itemsResolucion = new List<SelectListItem>();
+                    itemsResolucion.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+                    foreach (var item in ViewData["listaResolucion"] as List<UNECMV.Models.CAT_UNE_RESOLUCION>)
+                    {
+                        itemsResolucion.Add(new SelectListItem
+                        {
+                            Text = item.NOMBRE,
+                            Value = item.ID_RESOLUCION.ToString()
+                        });
+                    }
+                    @Html.DropDownListFor(x => x.ID_RESOLUCION, itemsResolucion, new { @class = "form-control select2", @id = "selectResolucion", @onChange = "", @disabled = "" })
+                }
+            </div>
+            <div class="col-md-5" id="div-causaResol">
+                <label for="selectCausaResolucion">Causa resolución:</label>
+                @{
+                    List<SelectListItem> itemsResolucionCausa = new List<SelectListItem>();
+                    itemsResolucionCausa.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+                    foreach (var item in ViewData["ListaCausaResolucion"] as List<UNECMV.Models.CAT_UNE_CAUSA_RESOLUCION>)
+                    {
+                        itemsResolucionCausa.Add(new SelectListItem
+                        {
+                            Text = item.NOMBRE,
+                            Value = item.ID_CAUSA_RESOLUCION.ToString()
+                        });
+                    }
+                    @Html.DropDownListFor(x => x.ID_CAUSA_RESOLUCION, itemsResolucionCausa, new { @class = "form-control select2", @id = "selectCausaResolucion", @disabled = "" })
+                }
+            </div>
+            <div class="col-md-3" id="div-fech-abonoCliente">
+                @if (Model.ID_ESTATUS_REPORTE >= 5)
+                {
+                    @Html.Label("Fecha de abono al cliente:")
+                    @Html.TextBox("FECHA_ABONO", Model.FECHA_ABONO, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "fechaAbono", @disabled = "", @Value = dt.ToShortDateString() })
+                }
+            </div>
+        </div>
+    }
+
+    <hr style="border-color: dimgray;" />
+
+    if (Model.ID_ESTATUS_REPORTE < 3)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                @Html.LabelFor(x => x.DESCRIPCION_REPORTE, "Descripción del reporte:")
+                @if (((Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario) || (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_UNE == 1)) && permisoUsuario.PERMISO_OPERAR_DETALLE == 1)
+                {
+                    @Html.TextAreaFor(x => x.DESCRIPCION_REPORTE, new { @class = "form-control", @placeholder = "Descripción", @id = "inputDescripcion", @maxlength = "1000", @rows = "5", @onkeypress = "descripcionReporte()", @onkeyup = "habilitarGuardar()" })
+                }
+                else
+                {
+                    @Html.TextAreaFor(x => x.DESCRIPCION_REPORTE, new { @class = "form-control", @placeholder = "Descripción", @id = "inputDescripcion", @maxlength = "1000", @rows = "5", @onkeypress = "descripcionReporte()", @readOnly = "" })
+                }
+            </div>
+        </div>
+    }
+    else if (Model.ID_ESTATUS_REPORTE == 3)
+    {
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(x => x.DESCRIPCION_REPORTE, "Descripción del reporte:")
+                @if (((Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario) || (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_UNE == 1)) && permisoUsuario.PERMISO_OPERAR_DETALLE == 1)
+                {
+                    @Html.TextAreaFor(x => x.DESCRIPCION_REPORTE, new { @class = "form-control", @placeholder = "Descripción", @id = "inputDescripcion", @maxlength = "1000", @rows = "5", @onkeypress = "descripcionReporte()", @onkeyup = "habilitarGuardar()" })
+                }
+                else
+                {
+                    @Html.TextAreaFor(x => x.DESCRIPCION_REPORTE, new { @class = "form-control", @placeholder = "Descripción", @id = "inputDescripcion", @maxlength = "1000", @rows = "5", @onkeypress = "descripcionReporte()", @readOnly = "" })
+                }
+            </div>
+            <div class="col-md-6" id="divComentAreaEsp">
+                <label>Comentario del área especializada:</label>
+<textarea class="form-control" value="@ultimoComentario" id="ultimoComentario" rows="5" readonly>@ultimoComentario</textarea>
+            </div>
+            @if (permisoUsuario.USUARIO_CALL_CENTER == true)
+            {
+                <div class="col-md-6">
+                    <label>Comentario del área especializada:</label>
+<textarea class="form-control" value="@ultimoComentario" id="ultimoComentario" rows="5" readonly>@ultimoComentario</textarea>
+                </div>
+            }
+        </div>
+    }
+    else if (Model.ID_ESTATUS_REPORTE == 10)
+    {
+        <div class="row">
+            <div class="col-md-4">
+                @Html.LabelFor(x => x.DESCRIPCION_REPORTE, "Descripción del reporte:")
+                @if (((Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario) || (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_UNE == 1)) && permisoUsuario.PERMISO_OPERAR_DETALLE == 1)
+                {
+                    @Html.TextAreaFor(x => x.DESCRIPCION_REPORTE, new { @class = "form-control", @placeholder = "Descripción", @id = "inputDescripcion", @maxlength = "1000", @rows = "5", @onkeypress = "descripcionReporte()", @onkeyup = "habilitarGuardar()" })
+                }
+                else
+                {
+                    @Html.TextAreaFor(x => x.DESCRIPCION_REPORTE, new { @class = "form-control", @placeholder = "Descripción", @id = "inputDescripcion", @maxlength = "1000", @rows = "5", @onkeypress = "descripcionReporte()", @readOnly = "" })
+                }
+            </div>
+            <div class="col-md-4">
+                <label>Comentario del área especializada:</label>
+<textarea class="form-control" value="@ultimoComentario" id="ultimoComentario" rows="5" readonly>@ultimoComentario</textarea>
+            </div>
+            <div class="col-md-4">
+                <label>Comentario de rechazo del área especializada:</label>
+<textarea class="form-control" value="@comentarioRechazo" id="comentarioRechazo" rows="5" readonly>@comentarioRechazo</textarea>
+            </div>
+        </div>
+    }
+    else if (Model.ID_ESTATUS_REPORTE == 4)
+    {
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(x => x.DESCRIPCION_REPORTE, "Descripción del reporte:")
+                @if (((Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario) || (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_UNE == 1)) && permisoUsuario.PERMISO_OPERAR_DETALLE == 1)
+                {
+                    @Html.TextAreaFor(x => x.DESCRIPCION_REPORTE, new { @class = "form-control", @placeholder = "Descripción", @id = "inputDescripcion", @maxlength = "1000", @rows = "5", @onkeypress = "descripcionReporte()", @onkeyup = "habilitarGuardar()" })
+                }
+                else
+                {
+                    @Html.TextAreaFor(x => x.DESCRIPCION_REPORTE, new { @class = "form-control", @placeholder = "Descripción", @id = "inputDescripcion", @maxlength = "1000", @rows = "5", @onkeypress = "descripcionReporte()", @readOnly = "" })
+                }
+            </div>
+            <div class="col-md-4">
+                <label>Comentario del área especializada:</label>
+<textarea class="form-control" value="@ultimoComentario" id="ultimoComentario" rows="5" readonly>@ultimoComentario</textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4" id="div-cometarioRechazo">
+                <label>Comentario de rechazo del área especializada:</label>
+<textarea class="form-control" value="@comentarioRechazo" id="comentarioRechazo" rows="5" readonly>@comentarioRechazo</textarea>
+            </div>
+            <div class="col-md-6">
+                <label>Respuesta del área especializada:</label>
+<textarea class="form-control" value="@ultimoComentario" id="ultimoComentario" rows="5" readonly>@ultimoComentario</textarea>
+            </div>
+        </div>
+    }
+    else if (Model.ID_ESTATUS_REPORTE == 5)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                @Html.LabelFor(x => x.DESCRIPCION_REPORTE, "Descripción del reporte:")
+                @if (((Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario) || (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_UNE == 1)) && permisoUsuario.PERMISO_OPERAR_DETALLE == 1)
+                {
+                    @Html.TextAreaFor(x => x.DESCRIPCION_REPORTE, new { @class = "form-control", @placeholder = "Descripción", @id = "inputDescripcion", @maxlength = "1000", @rows = "5", @onkeypress = "descripcionReporte()", @onkeyup = "habilitarGuardar()" })
+                }
+                else
+                {
+                    @Html.TextAreaFor(x => x.DESCRIPCION_REPORTE, new { @class = "form-control", @placeholder = "Descripción", @id = "inputDescripcion", @maxlength = "1000", @rows = "5", @onkeypress = "descripcionReporte()", @readOnly = "" })
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4" id="div-comenCanalizacion">
+                <label>Comentario de canalización:</label>
+<textarea class="form-control" value="@comentarioCan" id="ComentarioCan" rows="5" readonly>@comentarioCan</textarea>
+            </div>
+            <div class="col-md-4">
+                <label>Respuesta del área especializada:</label>
+<textarea class="form-control" value="@ultimoComentario" id="ultimoComentario" rows="5" readonly>@ultimoComentario</textarea>
+            </div>
+            <div class="col-md-4" id="div-ComenAprueba">
+                <label>Comentario de aprobación:</label>
+<textarea class="form-control" value="@comentarioAprueba" id="ComentarioAprueba" rows="5" readonly>@comentarioAprueba</textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Comentario de notificación:</label>
+<textarea class="form-control" value="@comentarioNotificacion" id="ComentarioNotifica" rows="5" readonly>@comentarioNotificacion</textarea>
+            </div>
+        </div>
+    }
+    else if (Model.ID_ESTATUS_REPORTE == 6 || Model.ID_ESTATUS_REPORTE == 7 || Model.ID_ESTATUS_REPORTE == 8)
+    {
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(x => x.DESCRIPCION_REPORTE, "Descripción del reporte:")
+                @Html.TextAreaFor(x => x.DESCRIPCION_REPORTE, new { @class = "form-control", @placeholder = "Descripción", @id = "inputDescripcion", @maxlength = "1000", @rows = "5", @onkeypress = "descripcionReporte()", @readOnly = "" })
+            </div>
+            <div class="col-md-6" id="div-ComenCanalizacion">
+                <label>Comentario de canalización:</label>
+<textarea class="form-control" value="@comentarioCan" id="ComentarioCan" rows="5" readonly>@comentarioCan</textarea>
+            </div>
+        </div>
+        if (comentarioRechazo != "")
+        {
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Respuesta de rechazo del área especializada:</label>
+<textarea class="form-control" value="@comentarioRechazo" id="ultimoComentario" rows="5" readonly>@comentarioRechazo</textarea>
+                </div>
+                <div class="col-md-4">
+                    <label>Respuesta del área especializada:</label>
+<textarea class="form-control" value="@ultimoComentario" id="ultimoComentario" rows="5" readonly>@ultimoComentario</textarea>
+                </div>
+                <div class="col-md-4">
+                    <label>Comentario de aprobación:</label>
+<textarea class="form-control" value="@comentarioAprueba" id="ComentarioAprueba" rows="5" readonly>@comentarioAprueba</textarea>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Comentario de Notifiación:</label>
+<textarea class="form-control" value="@comentarioNotificacion" id="ComentarioNotificacion" rows="5" readonly>@comentarioNotificacion</textarea>
+                </div>
+                <div class="col-md-6">
+                    <label>Comentario de Finalización:</label>
+<textarea class="form-control" value="@comentarioFinalizacion" id="ComentarioFinalizacion" rows="5" readonly>@comentarioFinalizacion</textarea>
+                </div>
+            </div>
+        }
+        else
+        {
+            <br />
+            <div class="row">
+                <div class="col-md-6" id="div-ComenAreaEspe">
+                    <label>Respuesta del área especializada:</label>
+<textarea class="form-control" value="@ultimoComentario" id="ultimoComentario" rows="5" readonly>@ultimoComentario</textarea>
+                </div>
+                <div class="col-md-6" id="div-ComenAprueba">
+                    <label>Comentario de aprobación:</label>
+<textarea class="form-control" value="@comentarioAprueba" id="ComentarioAprueba" rows="5" readonly>@comentarioAprueba</textarea>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-6" id="div-ComenNotificacion">
+                    <label>Comentario de Notificación:</label>
+<textarea class="form-control" value="@comentarioNotificacion" id="ComentarioNotificacion" rows="5" readonly>@comentarioNotificacion</textarea>
+                </div>
+                <div class="col-md-6" id="div-ComentarioFinalizacion">
+                    <label>Comentario de Finalización:</label>
+<textarea class="form-control" value="@comentarioFinalizacion" id="ComentarioFinalizacion" rows="5" readonly>@comentarioFinalizacion</textarea>
+                </div>
+            </div>
+        }
+    }
+    else if (Model.ID_ESTATUS_REPORTE == 9)
+    {
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(x => x.DESCRIPCION_REPORTE, "Descripción del reporte:")
+                @Html.TextAreaFor(x => x.DESCRIPCION_REPORTE, new { @class = "form-control", @placeholder = "Descripción", @id = "inputDescripcion", @maxlength = "1000", @rows = "5", @onkeypress = "descripcionReporte()", @readOnly = "" })
+            </div>
+            <div class="col-md-6">
+                <label>Comentario de cancelación:</label>
+<textarea class="form-control" value="@comentarioCancela" id="ComentarioCancelacion" rows="5" readonly>@comentarioCancela</textarea>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                @Html.LabelFor(x => x.DESCRIPCION_REPORTE, "Descripción del reporte:")
+                @if (((Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario) || (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_UNE == 1)) && permisoUsuario.PERMISO_OPERAR_DETALLE == 1)
+                {
+                    @Html.TextAreaFor(x => x.DESCRIPCION_REPORTE, new { @class = "form-control", @placeholder = "Descripción", @id = "inputDescripcion", @maxlength = "1000", @rows = "5", @onkeypress = "descripcionReporte()", @onkeyup = "habilitarGuardar()" })
+                }
+                else
+                {
+                    @Html.TextAreaFor(x => x.DESCRIPCION_REPORTE, new { @class = "form-control", @placeholder = "Descripción", @id = "inputDescripcion", @maxlength = "1000", @rows = "5", @onkeypress = "descripcionReporte()", @readOnly = "" })
+                }
+            </div>
+        </div>
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-success" role="alert" id="divAlertaExito" hidden><strong>Accion realizada correctamente</strong></div>
+        <div class="alert alert-danger" role="alert" id="divAlertaFracaso" hidden><strong>Error en la respuesta del reporte</strong></div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <center>
+
+            @if (permisoUsuario.PERMISO_OPERAR_DETALLE == 1 || permisoUsuario.USUARIO_CALL_CENTER == true)
+            {
+                if (Model.ID_ESTATUS_REPORTE == 1 && Model.USUARIO_REGISTRA == SesionUsuario.Numusuario)
+                {
+                    <div class="btn-group" role="group" aria-label="...">
+                        <a class="btn btn-primary" href="@Url.Action(controller,controller)"><span class="glyphicon glyphicon-home"></span> Regresar</a>
+                        <button class="btn btn-success" onclick="generaSubmit()" id="btnGuardar" disabled><span class="glyphicon glyphicon-save"></span> Guardar cambios</button>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#myModal" data-controls-modal="#myModal" data-backdrop="static" data-keyboard="false" onclick="modalValor(@Model.FOLIO,@Model.NUM_FOLIO)" id="btnCanalizar"><span class="glyphicon glyphicon-share"></span> Canalizar UNE</button>
+                        <!--<a disabled class="btn btn-primary" href="@Url.Action("CerrarReporte", "CerrarReporte", @Model)"><span class="glyphicon glyphicon-folder-close"></span> Finalizar Reporte</a>-->
+                        <a disabled class="btn btn-primary"><span class="glyphicon glyphicon-folder-close"></span> Finalizar Reporte</a>
+                        @if ((permisoUsuario.PERMISO_OPERAR_DETALLE == 1 && permisoUsuario.USUARIO_CALL_CENTER == false) || permisoUsuario.ADMINISTRADOR_CALL_CENTER == true)
+                        {
+                            <a class="btn btn-danger" href="@Url.Action("Cancelar", "Cancelar", @Model)"><span class="glyphicon glyphicon-remove-circle"></span> Cancelar Reporte</a>
+                        }
+
+                    </div>
+                }
+                else if (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_CALL_CENTER == true && (Model.ID_SUPUESTOS_REPORTE == 2172 || Model.ID_SUPUESTOS_REPORTE == 2171))
+                {
+                    <div class="btn-group" role="group" aria-label="...">
+                        <a class="btn btn-primary" href="@Url.Action(controller,controller)"><span class="glyphicon glyphicon-home"></span> Regresar</a>
+                        <button class="btn btn-success" onclick="generaSubmit()" id="btnGuardar" disabled><span class="glyphicon glyphicon-save"></span> Guardar cambios</button>
+                        @if (Model.ID_SUPUESTOS_REPORTE == 2171)
+                        {
+                            <a class="btn btn-primary" data-toggle="modal" data-target="#myModalEnlacePassword" data-controls-modal="#myModalEnlacePassword" data-backdrop="static" data-keyboard="false"><span class="glyphicon glyphicon-link"></span> Reactivación del servicio</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-primary" data-toggle="modal" data-target="#myModalEnlacePassword" data-controls-modal="#myModalEnlacePassword" data-backdrop="static" data-keyboard="false"><span class="glyphicon glyphicon-link"></span> Enviar enlace de contraseña</a>
+                        }
+                        @if ((permisoUsuario.PERMISO_OPERAR_DETALLE == 1 && permisoUsuario.USUARIO_CALL_CENTER == false) || permisoUsuario.ADMINISTRADOR_CALL_CENTER == true)
+                        {
+                            <a class="btn btn-danger" href="@Url.Action("Cancelar", "Cancelar", @Model)"><span class="glyphicon glyphicon-remove-circle"></span> Cancelar Reporte</a>
+                        }
+
+                    </div>
+                }
+                else if (Model.ID_ESTATUS_REPORTE == 2 && (permisoUsuario.USUARIO_CALL_CENTER == true && Model.ID_TIPO_CUENTA != 4))
+                {
+
+                    <div class="btn-group" role="group" aria-label="...">
+                        <a class="btn btn-primary" href="@Url.Action(controller, controller)"><span class="glyphicon glyphicon-home"></span> Regresar</a>
+                        @*<button class="btn btn-success" onclick="generaSubmit()" id="btnGuardar" disabled><span class="glyphicon glyphicon-save"></span> Guardar cambios</button>*@
+                        <a id="enlaceCanalizar" href="@Url.Action("Canalizar", "Canalizar", @Model)" class="btn btn-warning"><span class="glyphicon glyphicon-share"></span> Canalizar área especializada</a>
+                        @*<a class="btn btn-primary" href="@Url.Action("CerrarReporte", "CerrarReporte", @Model)"><span class="glyphicon glyphicon-folder-close"></span> Finalizar Reporte</a>*@
+                        @if ((permisoUsuario.PERMISO_OPERAR_DETALLE == 1 && permisoUsuario.USUARIO_CALL_CENTER == false) || permisoUsuario.ADMINISTRADOR_CALL_CENTER == true)
+                        {
+                            <a class="btn btn-danger" href="@Url.Action("Cancelar", "Cancelar", @Model)"><span class="glyphicon glyphicon-remove-circle"></span> Cancelar Reporte</a>
+                        }
+
+                    </div>
+                }
+                else if (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_CALL_CENTER == true)
+                {
+                    <div class="btn-group" role="group" aria-label="...">
+                        <a class="btn btn-primary" href="@Url.Action(controller, controller)"><span class="glyphicon glyphicon-home"></span> Regresar</a>
+                        @*<button class="btn btn-success" onclick="generaSubmit()" id="btnGuardar" disabled><span class="glyphicon glyphicon-save"></span> Guardar cambios</button>
+                            <a id="enlaceCanalizar" href="@Url.Action("Canalizar", "Canalizar", @Model)" class="btn btn-warning"><span class="glyphicon glyphicon-share"></span> Canalizar área especializada</a>*@
+                        <a class="btn btn-primary" href="@Url.Action("CerrarReporte", "CerrarReporte", @Model)"><span class="glyphicon glyphicon-folder-close"></span> Finalizar Reporte</a>
+                        @if ((permisoUsuario.PERMISO_OPERAR_DETALLE == 1 && permisoUsuario.USUARIO_CALL_CENTER == false) || permisoUsuario.ADMINISTRADOR_CALL_CENTER == true)
+                        {
+                            <a class="btn btn-danger" href="@Url.Action("Cancelar", "Cancelar", @Model)"><span class="glyphicon glyphicon-remove-circle"></span> Cancelar Reporte</a>
+                        }
+                    </div>
+                }
+                else if (Model.ID_ESTATUS_REPORTE == 2 && permisoUsuario.USUARIO_UNE == 1)
+                {
+                    <div class="btn-group" role="group" aria-label="...">
+                        <a class="btn btn-primary" href="@Url.Action(controller,controller)"><span class="glyphicon glyphicon-home"></span> Regresar</a>
+                        <button class="btn btn-success" onclick="generaSubmit()" id="btnGuardar" disabled><span class="glyphicon glyphicon-save"></span> Guardar cambios</button>
+                        @if (Model.ID_CUENTA == 5 && (Model.ID_TIPO_REPORTE == 1 || Model.ID_TIPO_REPORTE == 3) && numEvidenciasDebito < 2)
+                        {
+                            <a id="enlaceCanalizar" class="btn btn-warning" onclick="alertaEvidenciasDebito()"><span class="glyphicon glyphicon-share"></span> Canalizar área especializada</a>
+                        }
+                        else
+                        {
+                            <a id="enlaceCanalizar" href="@Url.Action("Canalizar", "Canalizar", @Model)" class="btn btn-warning"><span class="glyphicon glyphicon-share"></span> Canalizar área especializada</a>
+                        }
+                        <a class="btn btn-primary" href="@Url.Action("CerrarReporte", "CerrarReporte", @Model)"><span class="glyphicon glyphicon-folder-close"></span> Finalizar Reporte</a>
+                        @if ((permisoUsuario.PERMISO_OPERAR_DETALLE == 1 && permisoUsuario.USUARIO_CALL_CENTER == false) || permisoUsuario.ADMINISTRADOR_CALL_CENTER == true)
+                        {
+                            <a class="btn btn-danger" href="@Url.Action("Cancelar", "Cancelar", @Model)"><span class="glyphicon glyphicon-remove-circle"></span> Cancelar Reporte</a>
+                        }
+                    </div>
+                }
+                else if ((Model.ID_ESTATUS_REPORTE == 3 || Model.ID_ESTATUS_REPORTE == 10) && esResp == 1)
+                {
+                    <div class="btn-group" role="group" aria-label="...">
+                        @if (permisoUsuario.ADMINISTRADOR_CALL_CENTER == true)
+                        {
+                            <a class="btn btn-primary" href="@Url.Action(controller,"Inicio")"><span class="glyphicon glyphicon-home"></span> Regresar</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-primary" href="@Url.Action(controller,controller)"><span class="glyphicon glyphicon-home"></span> Regresar</a>
+                        }
+                        <a class="btn btn-primary" href="@Url.Action("Responder","Responder",@Model)"><span class="glyphicon glyphicon-pencil"></span> Responder</a>
+                        <a class="btn btn-danger" href="@Url.Action("Cancelar", "Cancelar", @Model)"><span class="glyphicon glyphicon-remove-circle"></span> Cancelar Reporte</a>
+                    </div>
+                }
+                else if (Model.ID_ESTATUS_REPORTE == 4 && permisoUsuario.USUARIO_UNE == 1 && Model.VoBo == 0)
+                {
+                    <div class="btn-group" role="group" aria-label="...">
+                        <a class="btn btn-primary" href="@Url.Action(controller,controller)"><span class="glyphicon glyphicon-home"></span> Regresar</a>
+                        <a class="btn btn-primary" href="@Url.Action("Dictaminar","Dictaminar",@Model)"><span class="glyphicon glyphicon-question-sign"></span> Evaluar Respuesta</a>
+                    </div>
+                }
+                else if (Model.ID_ESTATUS_REPORTE == 4 && Model.VoBo == 1 && (SesionUsuario.Numusuario == Model.USUARIO_REGISTRA || permisoUsuario.USUARIO_CALL_CENTER == true))
+                {
+                    <div class="btn-group" role="group" aria-label="...">
+                        <a class="btn btn-primary" href="@Url.Action(controller,controller)"><span class="glyphicon glyphicon-home"></span> Regresar</a>
+                        <a class="btn btn-primary" href="@Url.Action("RegistrarNotificacion","Notificar",@Model)"><span class="glyphicon glyphicon-info-sign"></span> Registrar Notificación</a>
+                    </div>
+                }
+                else if (Model.ID_ESTATUS_REPORTE == 4 && permisoUsuario.USUARIO_CALL_CENTER == true && Model.VoBo == 0 && permisoUsuario.ADMINISTRADOR_CALL_CENTER == true)
+                {
+                    <div class="btn-group" role="group" aria-label="...">
+                        <a class="btn btn-primary" href="@Url.Action(controller,controller)"><span class="glyphicon glyphicon-home"></span> Regresar</a>
+                        <a class="btn btn-primary" href="@Url.Action("Dictaminar","Dictaminar",@Model)"><span class="glyphicon glyphicon-question-sign"></span> Evaluar Respuesta</a>
+                    </div>
+                }
+                else if (Model.ID_ESTATUS_REPORTE == 5 && (permisoUsuario.USUARIO_UNE == 1 || permisoUsuario.USUARIO_CALL_CENTER == true))
+                {
+                    <div class="btn-group" role="group" aria-label="...">
+                        <a class="btn btn-primary" href="@Url.Action(controller,controller)"><span class="glyphicon glyphicon-home"></span> Regresar</a>
+                        <a class="btn btn-success" href="#" onclick="finalizar(@Model.FOLIO,@Model.NUM_FOLIO)" data-backdrop="static" data-keyboard="false"><span class="glyphicon glyphicon-check"></span> Finalizar Reporte</a>
+                    </div>
+                }
+                else if (Model.ID_TIPO_CUENTA == 4 && permisoUsuario.USUARIO_CALL_CENTER == true)
+                {
+                    if (Model.ID_TIPO_CUENTA == 4 && Model.ID_ESTATUS_REPORTE == 6)
+                    {
+                        <div class="btn-group" role="group" aria-label="...">
+                            <a class="btn btn-primary" href="@Url.Action(controller,controller)"><span class="glyphicon glyphicon-home"></span> Regresar</a>
+
+                        </div>
+                    }
+                    else
+                    {
+
+                        if (Model.ID_ESTATUS_REPORTE == 9 && permisoUsuario.USUARIO_CALL_CENTER == true)
+                        {
+                            <a class="btn btn-primary" href="@Url.Action(controller, controller)"><span class="glyphicon glyphicon-home"></span> Regresar</a>
+                        }
+                        else
+                        {
+
+                            <div class="btn-group" role="group" aria-label="...">
+                                <a class="btn btn-primary" href="@Url.Action(controller, controller)"><span class="glyphicon glyphicon-home"></span> Regresar</a>
+                                <button class="btn btn-success" onclick="generaSubmit()" id="btnGuardar" disabled><span class="glyphicon glyphicon-save"></span> Guardar cambios</button>
+                                <!--<a id="enlaceCanalizar" href="@Url.Action("Canalizar", "Canalizar", @Model)" disabled class="btn btn-warning"><span class="glyphicon glyphicon-share"></span> Canalizar área especializada</a>-->
+                                <a id="enlaceCanalizar" href="javascript:;" disabled class="btn btn-warning"><span class="glyphicon glyphicon-share"></span> Canalizar área especializada</a>
+                                <a class="btn btn-primary" href="@Url.Action("CerrarReporte", "CerrarReporte", @Model)"><span class="glyphicon glyphicon-folder-close"></span> Finalizar Reporte</a>
+                                @if ((permisoUsuario.PERMISO_OPERAR_DETALLE == 1 && permisoUsuario.USUARIO_CALL_CENTER == false) || permisoUsuario.ADMINISTRADOR_CALL_CENTER == true)
+                                {
+                                    <a class="btn btn-danger" href="@Url.Action("Cancelar", "Cancelar", @Model)"><span class="glyphicon glyphicon-remove-circle"></span> Cancelar Reporte</a>
+                                }
+                            </div>
+                        }
+                    }
+                }
+
+                else
+                {
+                    if (permisoUsuario.USUARIO_CALL_CENTER == true && permisoUsuario.ADMINISTRADOR_CALL_CENTER == false && Model.ID_ESTATUS_REPORTE == 3)
+                    {
+                        <a class="btn btn-primary" href="@Url.Action(controller,"Inicio")"><span class="glyphicon glyphicon-home"></span> Regresar</a>
+                    }
+                    else
+                    {
+                        if (controller.Equals("InicioCallcenter"))
+                        {
+
+                            <a class="btn btn-primary" href="@Url.Action(controller,"Inicio")"><span class="glyphicon glyphicon-home"></span> Regresar</a>
+                            if (permisoUsuario.ADMINISTRADOR_CALL_CENTER == true && Model.ID_ESTATUS_REPORTE == 3)
+                            {
+                                <a class="btn btn-danger" href="@Url.Action("Cancelar", "Cancelar", @Model)"><span class="glyphicon glyphicon-remove-circle"></span> Cancelar Reporte</a>
+                            }
+                        }
+                        else
+                        {
+                            <a class="btn btn-primary" href="@Url.Action(controller,controller)"><span class="glyphicon glyphicon-home"></span> Regresar</a>
+                        }
+
+                    }
+
+                }
+            }
+            else
+            {
+                <a class="btn btn-primary" href="@Url.Action(controller,controller)"><span class="glyphicon glyphicon-home"></span> Regresar</a>
+            }
+        </center>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Reporte número: <kbd><span id="uneFolio">1</span></kbd></h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Deseas canalizar el Reporte con número de folio <kbd><span id="uneFolio2">1</span></kbd> al área correspondiente?</p>
+                <input id="inputUNE" hidden />
+                <div class="alert alert-success" role="alert" id="divAlertaExitoCanalizar" hidden=""><strong>Canalización realizada correctamente</strong></div>
+                <div class="alert alert-danger" role="alert" id="divAlertaFracasoCanalizar" hidden=""><strong>Error en la canalización del reporte</strong></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal" id="btnCancelarCanalizar">Cancelar</button>
+                <button type="button" class="btn btn-warning" id="btnCanalizarModal" onclick="canalizar($('#inputUNE').val())"><span class="glyphicon glyphicon-share"></span> Canalizar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModalNotificados" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                @if (Model.ID_ESTATUS_REPORTE == 2)
+                {
+                    <h4 class="modal-title" id="myModalLabelNotificados">
+                        ¿Desea finalizar el reporte CMV Finanzas número
+                        <kbd>
+                            <span id="spanFolioBancaNotificados">@Model.folio_banca</span>
+                        </kbd>?
+                    </h4>
+                }
+                else
+                {
+                    <h4 class="modal-title" id="myModalLabelNotificados">
+                        ¿Desea finalizar el reporte número
+                        <kbd>
+                            <span id="spanFolioNotificados">1</span>
+                        </kbd>?
+                    </h4>
+                }
+
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("agregarDocumentoFinalizar", "Preview", FormMethod.Post, new { enctype = "multipart/form-data", @id = "frmAgregarDocFinalizar" }))
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.HiddenFor(x => x.FOLIO, new { @id = "inputFolioDoc" })
+                            <label for="exampleInputFile">Adjuntar Archivo*:</label>
+                            <input type="file" name="file" id="file" class="form-control" accept="application/pdf" onchange="bloquearInputMonto()" />
+                            @if (permisoUsuario.USUARIO_CALL_CENTER == true)
+                            {
+                                <label style="font-size:8px;">*Obligatorio</label>
+                                @*if (Model.ID_TIPO_CUENTA == 6 && Model.ID_ESTATUS_REPORTE == 5)
+                                    {
+                                        <div id="div-folioCorrespondienteBanca">
+
+                                            <label>Ingresa el folio de autorización correspondiente:</label>
+                                            <input type="number" name="folioBanca" id="folioCorrespondienteBanca" class="form-control" onkeypress="keyfolioCorrespondienteBanca()" />
+                                        </div>
+
+                                        <div id="div-select-cuentaNoAfectada">
+                                            <label for="selectCuentaNoAfectada" class="control-label">Tipo de cuenta que no fue afectada:</label>
+                                            @{
+                                                List<SelectListItem> itemsCuentaNoAfectada = new List<SelectListItem>();
+                                                itemsCuentaNoAfectada.Add(new SelectListItem { Text = "Seleccionar", Value = "0" });
+
+                                                foreach (var item in (ViewData["listaCuentasNoAfectadas"] as List<UNECMV.Models.CAT_CALLCENTER_TIPO_CUENTA_NO_AFECTADA>))
+                                                {
+                                                    itemsCuentaNoAfectada.Add(new SelectListItem
+                                                    {
+                                                        Text = item.DESCRIPCION,
+                                                        Value = item.ID_CUENTA_NO_AFECTADA.ToString()
+                                                    });
+                                                }
+                                                @Html.DropDownList("cuentaNoAfectada", itemsCuentaNoAfectada, new { @class = "form-control select2", @id = "selectCuentaNoAfect", @onchange = "onChangeSelectCuentaNoAfect()", })
+                                            }
+                                        </div>
+
+                                        <div id="div-montoDepositarBanca">
+                                            <label for="inputConfirmarImporte">Monto a depositar:</label>
+                                            <input class="form-control" id="inputConfirmarImporte" value="@Model.IMPORTE_SOLUCION" oninput="validaInputImporteDeposito(this.value)" onblur="this.value=formatCurrency(this.value);" onkeypress="this.value = validaNumeros(this.value)" />
+                                            @Html.HiddenFor(x => x.IMPORTE_SOLUCION, new { @class = "form-control", @id = "inputConfirmarImporteHidden" })
+                                        </div>
+                                    }*@
+                            }
+                            else
+                            {
+                                <label style="font-size:8px;">*No obligatorio</label>
+                            }
+                        </div>
+                    </div>
+                }
+
+
+                <div class="row">
+                    <div class="col-md-12" id="div-selectSatisfaccion">
+                        <label for="selectSatisfaccion">La respuesta para el socio fue:</label>
+                        <select class="form-control" id="selectSatisfaccion">
+                            <option value="0">Seleccionar</option>
+                            <option value="1">Satisfactoria</option>
+                            <option value="2">No satisfactoria</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="areaComentariosNotificados">Comentarios:</label>
+                        <textarea id="areaComentariosNotificados" class="form-control" rows="6" maxlength="1000" onkeypress="keyAreaComentariosNotificados()"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <input hidden id="inputFolioNotificados" />
+                        <div class="alert alert-success" role="alert" id="divAlertaExitoNotificados" hidden><strong>Acción realizada correctamente</strong></div>
+                        <div class="alert alert-danger" role="alert" id="divAlertaFracasoNotificados" hidden><strong>Error en la notificación del reporte</strong></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                @if (permisoUsuario.USUARIO_CALL_CENTER == true && Model.ID_TIPO_CUENTA == 6)
+                {
+                    <button type="button" class="btn btn-info" onclick="mostrarFormato()"><span class="glyphicon glyphicon-print"></span> Imprimir Formato</button>
+                }
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" onclick="onFinalizarReporte()" id="btnGuardarNotificados"><span class="glyphicon glyphicon-saved"></span> Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModalAudio" tabindex="-1" role="dialog" aria-labelledby="myModalLabelAudio" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Llamada con identificador: <kbd><span id="uneFolioAudio">1</span></kbd></h4>
+            </div>
+            <div class="modal-body centrarContenido">
+                <div class="row">
+                    <div class="col-md-5 contenidoIzquierda">
+                        <p>Llamada enlazada al folio: <span id="spanFolioLlamada">1</span></p>
+                    </div>
+                    <div class="col-md-7 contenidoIzquierda">
+                        <p>Número de teléfono: <span id="spanTelefonoLlamada">4432646302</span></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 contenidoIzquierda">
+                        <p>Tipo de llamada: <span id="spanTipoLlamada">Entrada</span></p>
+                    </div>
+                    <div class="col-md-7 contenidoIzquierda">
+                        <p>Fecha de la llamada: <span id="spanFechaLlamada">2017-12-12</span></p>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-12" id="bodyAudio">
+
+                    </div>
+                </div>
+                @*<div class="row">
+                        <div class="col-md-12">
+                            <a class="btn btn-link" href="" id="audioOriginal" download="">Descargar Archivo Original</a>
+                        </div>
+                    </div>*@
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal" id="btnCerrarAudio" onclick="detenerReproduccion()"><span class="glyphicon glyphicon-remove-circle"> </span> Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModalEnlacePassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabelEnlacePassword" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                @if (Model.ID_SUPUESTOS_REPORTE == 2172)
+                {
+                    <h4 class="modal-title" id="myModalLabelPassword">Enviar Enlace de reestablecer contraseña</h4>
+                }
+                else
+                {
+                    <h4 class="modal-title" id="myModalLabelPassword">Reactivación del servicio de CMV Finanzas</h4>
+                }
+
+            </div>
+            <div class="modal-body">
+                <label for="inputComentariosFinalizar">Comentarios de finalización:</label>
+                <textarea class="form-control" id="inputComentariosFinalizar" rows="5" maxlength="1000"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal" id="btnCerrarModalEnlace" onclick=""><span class="glyphicon glyphicon-remove-circle"> </span> Cerrar</button>
+                @if (Model.ID_SUPUESTOS_REPORTE == 2172)
+                {
+                    <button type="button" class="btn btn-success" id="btnEnviarEnlace" onclick="EnviarEnlacePassword(@Model.NUMERO, @Model.FOLIO)"><span class="glyphicon glyphicon-link"> </span> Enviar enlace</button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-success" id="btnEnviarEnlace" onclick="EnviarEnlacePassword(@Model.NUMERO, @Model.FOLIO)"><span class="glyphicon glyphicon-link"> </span> Reactivar servicio</button>
+                }
+                <button type="button" class="btn btn-success" id="btnFinalizarReporteEnlace" onclick="FinalizarReporteEnlacePassword(@Model.NUMERO,@Model.FOLIO)"><span class="glyphicon glyphicon-folder-close"> </span> Finalizar Reporte</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalDPFs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Seleccionar Plazo Fijo(DPFs)</h4>
+            </div>
+            <div class="modal-body">
+                <table id="tblDPFs" class="display nowrap dataTable dtr-inline" cellspacing="0" width="100%" style="font-size:12px;">
+                    <thead>
+                        <tr>
+                            <th>Seleccionar</th>
+                            <th>Fecha Apertura</th>
+                            <th>Número de contrato</th>
+                            <th>Monto</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoDPFs"></tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal para generar reporte de call center-->
+<div class="modal fade" id="myModalFormatoBanca" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Formato de CMV Finanzas</h4>
+            </div>
+            <div class="modal-body" id="content-formato">
+
+            </div>
+            @*<object data="your_url_to_pdf" type="application/pdf">
+                    <iframe id="contenedorPDF" src="file:\\CMVGTILTANL09\Users\pegc837648\Desktop\ruta\cumple.pdf" height="450" width="100%"></iframe>
+                </object>*@
+            <div class="modal-footer">
+                <button onclick="confirmarImpresion()" type="button" class="btn btn-info"><span class="glyphicon glyphicon-check"></span> Aceptar</button>
+                <!--<button type="button" class="btn btn-info" data-dismiss="modal"> Aceptar</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+<!--MODAL DE CONFIRMACIÓN DE IMPRESIÓN DE REPORTE-->
+<div class="modal fade" id="myModalConfirmarImpresion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Confirmar esta acción</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Seguro de que se imprimio el formato correspondiente?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove-sign"></span> No</button>
+                <button onclick="confirmacionVerificada()" type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign"></span> Si</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL DE EDICION DE UN FOLIO PARA EL REPORTE DEL SOCIO-->
+<div class="modal fade" id="myModalEditarMiltifolioBanca" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Agregar reporte de CMV Finanzas</h4>
+            </div>
+            <div class="modal-body" id="content-reporte">
+                @if (Model.ID_TIPO_CUENTA == 6 && Model.ID_ESTATUS_REPORTE == 5)
+                {
+                <label id="label-IdIncidenciaReporte">#</label>
+                <div id="div-folioCorrespondienteBanca">
+
+                    <label>Ingresa el folio de autorización correspondiente:</label>
+                    <input type="number" name="folioBanca" id="folioCorrespondienteBanca" class="form-control" onkeypress="keyfolioCorrespondienteBanca()" />
+                </div>
+
+                @*<div class="row">
+            <div class="col-md-12">
+                <label for="selectFolioSatisfaccion">La respuesta para el folio fue:</label>
+                <select class="form-control" id="selectFolioSatisfaccion" onchange="cambioSatisfaccion()">
+                    <option value="0">Seleccionar</option>
+                    <option value="1">Satisfactoria</option>
+                    <option value="2">No satisfactoria</option>
+                </select>
+            </div>
+        </div>*@
+
+                <div id="div-select-cuentaNoAfectada">
+                    <label for="selectCuentaNoAfectada" class="control-label">Tipo de cuenta que no fue afectada:</label>
+                    @{
+                        List<SelectListItem> itemsCuentaNoAfectada = new List<SelectListItem>();
+                        itemsCuentaNoAfectada.Add(new SelectListItem { Text = "Seleccionar", Value = "0" });
+
+                        foreach (var item in (ViewData["listaCuentasNoAfectadas"] as List<UNECMV.Models.CAT_CALLCENTER_TIPO_CUENTA_NO_AFECTADA>))
+                        {
+                            itemsCuentaNoAfectada.Add(new SelectListItem
+                            {
+                                Text = item.DESCRIPCION,
+                                Value = item.ID_CUENTA_NO_AFECTADA.ToString()
+                            });
+                        }
+                        @Html.DropDownList("cuentaNoAfectada", itemsCuentaNoAfectada, new { @class = "form-control select2", @id = "selectCuentaNoAfect", @onchange = "onChangeSelectCuentaNoAfect()", })
+                    }
+                </div>
+
+                <div id="div-montoDepositarBanca">
+                    <label for="inputConfirmarImporte">Monto a depositar:</label>
+                    <input class="form-control" id="inputConfirmarImporte" oninput="validaInputImporteDeposito(this.value)" onblur="this.value=formatCurrency(this.value);" onkeypress="this.value = validaNumeros(this.value)" onfocus="limpiarInputReporte();" />
+                    @Html.HiddenFor(x => x.IMPORTE_SOLUCION, new { @class = "form-control", @id = "inputConfirmarImporteHidden" })
+                </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal"> <span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+                <button onclick="EditarFolio(2)" type="button" class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--MODAL DE CONFIRMACIÓN DE REPORTE IMPROCEDENTE-->
+<div class="modal fade" id="myModalConfirmarImprocedente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Confirmar esta acción</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Seguro que desea marcar como improcedente este folio ?</p>
+            </div>
+            <label id="label-IdIncidenciaReporteImprocedente">#</label>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove-sign"></span> No</button>
+                <button onclick="EditarFolio(1)" type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign"></span> Si</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL DE MULTIFOLIOS PENDIENTES-->
+<div class="modal fade" id="myModalMultifoliosPendientes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Confirmar esta acción</h4>
+            </div>
+            <div class="modal-body">
+                <p id="p-mensajeMultifoliosPendientes">##</p>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal"><span class="glyphicon glyphicon-info-sign"></span> Aceptar</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+

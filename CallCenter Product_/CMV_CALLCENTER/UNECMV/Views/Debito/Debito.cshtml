@@ -1,0 +1,131 @@
+﻿@using CMV_CALLCENTER.Models
+@{
+    ViewBag.Title = "Debito";
+}
+
+@{
+    CMV_CALLCENTER.Models.CLAVES SesionUsuario = Session["SesionUsuario"] as CMV_CALLCENTER.Models.CLAVES;
+    CMV_CALLCENTER.Models.TBL_UNE_PERMISOS_ADMIN permisoUsuario = Session["permiso"] as CMV_CALLCENTER.Models.TBL_UNE_PERMISOS_ADMIN;
+}
+
+<script src="~/Estilos/js/jquery.min.js"></script>
+<script src="~/Estilos/js/jquery.dataTables.min.js"></script>
+<link href="~/Estilos/css/dataTable.css" rel="stylesheet" />
+<link href="~/Estilos/css/Validaciones.css" rel="stylesheet" />
+<script src="~/Eventos/Debito.js"></script>
+
+<center><h3 class="page-header" id="dashboardID">Reportes Debito</h3></center>
+<table id="example" class="display nowrap dataTable dtr-inline" cellspacing="0" width="100%" style="font-size:12px;">
+    <thead>
+        <tr>
+            <th>Folio</th>
+            <th>Nombre</th>
+            <th>Número</th>
+            <th>Usuario alta</th>
+            <th>Fecha alta</th>
+            <th>Días restantes</th>
+            <th>Causa</th>
+
+            @{
+                if (permisoUsuario.USUARIO_UNE == 1)
+                {
+                    <th>Usuario registro</th>
+                }
+            }
+            <th>Acciones Disp.</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            DateTime dt;
+            String fechaAlta;
+            foreach (var obj in ViewData["listaReportes"] as List<TBL_UNE_REPORTE>)
+            {
+                dt = Convert.ToDateTime(@obj.FECHA_ALTA);
+                fechaAlta = String.Format("{0:dd/MM/yyyy}", dt);
+                <tr>
+                    <td>@obj.NUM_FOLIO</td>
+                    <td>@obj.NOMBRE_S @obj.APELLIDO_PATERNO @obj.APELLIDO_MATERNO</td>
+                    @if (obj.NUMERO.ToString() == "")
+                    {
+                        <td>N/A</td>
+                    }
+                    else
+                    {
+                        <td>@obj.NUMERO</td>
+                    }
+                    <td>@obj.USUARIO_REGISTRA</td>
+                    <td>@dt.ToShortDateString()</td>
+
+                    <td>@obj.DIAS_RESTANTES_AREA_ESPECIALIZADA</td>
+
+                    @{
+                        String descripcion = "";
+                        foreach (var item in ViewData["causas"] as List<CAT_UNE_SUPUESTOS_REPORTE>)
+                        {
+                            if (item.ID_SUPUESTOS_REPORTE == obj.ID_SUPUESTOS_REPORTE)
+                            {
+                                descripcion = item.DESCRIPCION;
+                                break;
+                            }
+                        }
+                        <td>@descripcion</td>
+                    }
+
+                    @{
+                        if (permisoUsuario.USUARIO_UNE == 1)
+                        {
+                            <td>@obj.USUARIO_REGISTRA</td>
+                        }
+                    }
+
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Acciones <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("Preview","Preview", @obj)"><span class="glyphicon glyphicon-th-list"> </span> Ver Detalle</a></li>
+                                @if (obj.ID_FINALIZADO_DEBITO == 1)
+                                {
+                                    <li><a href="#" data-toggle="modal" data-target="#myModal" onclick="crearFolio(@obj.FOLIO, @obj.NUM_FOLIO)" data-controls-modal="#myModal" data-backdrop="static" data-keyboard="false"><span class="glyphicon glyphicon-saved"> </span> Finalizar</a></li>
+                                }
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                        }
+        }
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Finalizar reporte <kbd><span id="spanModalEncabezado"></span></kbd></h4>
+            </div>
+            <form id="frmAdjuntar">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="txtAreaDebito">Comentarios:</label>
+                                    <textarea placeholder="Descripción" class="form-control" id="txtAreaDebito" rows="6" cols="6" maxlength="1000" onkeypress="" onkeyup="AreaDebito()"></textarea>
+                                </div>
+                            </div>
+                            <input id="inputFolio" hidden />
+                            <div class="alert alert-success" role="alert" id="divAlertaExito" hidden><strong>Reporte finalizado correctamente</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCerrar">Cancelar</button>
+                    <button type="button" class="btn btn-success" id="btnFinalizar" onclick="finalizarReporte()"><span class="glyphicon glyphicon-saved"></span> Finalizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

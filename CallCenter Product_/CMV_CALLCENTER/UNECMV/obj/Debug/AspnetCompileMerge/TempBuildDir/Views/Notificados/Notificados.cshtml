@@ -1,0 +1,103 @@
+﻿@using UNECMV.Models
+@{
+    ViewBag.Title = "Notificados";
+}
+
+@{
+    UNECMV.Models.CLAVES SesionUsuario = Session["SesionUsuario"] as UNECMV.Models.CLAVES;
+}
+
+<script src="~/Estilos/Wizard/js/jquery-1.9.1.min.js"></script>
+<script src="~/Estilos/js/jquery.dataTables.min.js"></script>
+<link href="~/Estilos/css/dataTable.css" rel="stylesheet" />
+<script src="~/Eventos/Notificados.js"></script>
+<link href="~/Estilos/css/Validaciones.css" rel="stylesheet" />
+
+<div class="row">
+    <div class="col-md-12">
+        <center><h3>Reportes notificados</h3></center>
+    </div>
+</div>
+
+<table id="example" class="display nowrap dataTable dtr-inline" cellspacing="0" width="100%" style="font-size:12px;">
+    <thead>
+        <tr>
+            <th>Folio</th>
+            <th>Nombre</th>
+            <th>Número</th>
+            <th>Fec. Registro</th>
+            <th>T. Restante</th>
+            <th>Causa</th>
+            <th>Usuario alta</th>
+            <th>Nom. Usuario alta</th>
+            <th>Acciones Disp.</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            DateTime dt;
+            String fechaAlta;
+            foreach (var item in (ViewData["listaNotificados"] as List<UNECMV.Models.TBL_UNE_REPORTE>))
+            {
+                dt = Convert.ToDateTime(@item.FECHA_ALTA);
+                fechaAlta = String.Format("{0:dd/MM/yyyy}", dt);
+                String nombre = new UNECMV.Controllers.RegistrosController().ObtenerNombreUsuarioAlta(item.USUARIO_REGISTRA);
+                <tr>
+                    @if (item.reporte_banca == false)
+                    {
+                        <td>@item.NUM_FOLIO</td>
+                    }
+                    else
+                    {
+                        <td>@item.folio_banca</td>
+                    }
+                    <td>@item.NOMBRE_S @item.APELLIDO_PATERNO @item.APELLIDO_MATERNO</td>
+                    @if (item.NUMERO != null)
+                    {
+                        <td>@item.NUMERO</td>
+                    }
+                    else
+                    {
+                        <td>N/A</td>
+                    }
+                    <td>@fechaAlta</td>
+
+
+                    @{
+                        if (item.DIAS_RESTANTES_GENERAL != null)
+                        {
+                            <td>@item.DIAS_RESTANTES_GENERAL días</td>
+                        }
+                        else
+                        {
+                            <td>N/A</td>
+                        }
+                    }
+
+                    @{
+                        String descripcion = "";
+                        foreach (var item2 in ViewData["causas"] as List<CAT_UNE_SUPUESTOS_REPORTE>)
+                        {
+                            if (item2.ID_SUPUESTOS_REPORTE == item.ID_SUPUESTOS_REPORTE)
+                            {
+                                descripcion = item2.DESCRIPCION;
+                                break;
+                            }
+                        }
+                        if (descripcion.Length <= 45)
+                        {
+                            <td>@descripcion</td>
+                        }
+                        else
+                        {
+                            <td>@descripcion.Substring(0, 44)...</td>
+                        }
+                    }
+                    <td>@item.USUARIO_REGISTRA</td>
+                    <td>@nombre</td>
+                    <td><a href="@Url.Action("Preview","Preview", @item)" class="btn btn-info btn-xs">Ver detalle</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

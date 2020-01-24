@@ -1,0 +1,158 @@
+﻿@using CMV_CALLCENTER.Models
+@{
+    ViewBag.Title = "Registros";
+}
+
+@{
+    CMV_CALLCENTER.Models.CLAVES SesionUsuario = Session["SesionUsuario"] as CMV_CALLCENTER.Models.CLAVES;
+    CMV_CALLCENTER.Models.TBL_UNE_PERMISOS_ADMIN permisoUsuario = Session["permiso"] as CMV_CALLCENTER.Models.TBL_UNE_PERMISOS_ADMIN;
+    int? tipoJefe = Session["tipoJefe"] as int?;
+    var listaTipoReportes = new CMV_CALLCENTER.Controllers.RegistrosController().obtenerReportes(SesionUsuario.Numusuario, SesionUsuario.Usuario, Convert.ToInt32(SesionUsuario.Id_Rol), SesionUsuario.Contrasena, Convert.ToInt32(tipoJefe), SesionUsuario.Id_de_sucursal, permisoUsuario);
+}
+
+<script src="~/Estilos/js/jquery.min.js"></script>
+<script src="~/Estilos/js/jquery.dataTables.min.js"></script>
+<link href="~/Estilos/css/dataTable.css" rel="stylesheet" />
+<link href="~/Estilos/css/Validaciones.css" rel="stylesheet" />
+<script src="~/Eventos/Inicio.js"></script>
+<center><h3 class="page-header" id="dashboardID">Reportes Registrados</h3></center>
+
+<table id="example" class="display nowrap dataTable dtr-inline" cellspacing="0" width="100%" style="font-size:12px;">
+    <thead>
+        <tr>
+            <th>Folio</th>
+            <th>Nombre</th>
+            <th>Número</th>
+            <th>Usuario Alta</th>
+            <th>Nom. Usuario Alta</th>
+            <th>Fec. Alta</th>
+            <th>T. Restante</th>
+            <th>Causa</th>
+            <th>Acciones Disp.</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            DateTime dt;
+            String fechaAlta;
+            foreach (var obj in listaTipoReportes)
+            {
+                dt = Convert.ToDateTime(@obj.FECHA_ALTA);
+                fechaAlta = String.Format("{0:dd/MM/yyyy}", dt);
+                String nombre = new CMV_CALLCENTER.Controllers.RegistrosController().ObtenerNombreUsuarioAlta(obj.USUARIO_REGISTRA);
+                String filaEstilo = "";
+                //if ((obj.DIAS_RESTANTES_GENERAL == 0 || obj.DIAS_RESTANTES_GENERAL == 1) && (obj.ID_CUENTA == 33 || obj.ID_CUENTA == 38 || obj.ID_CUENTA == 39))
+                //{
+                //    filaEstilo = "background-color:#FBF6CF";
+                //}
+
+        <tr style=@filaEstilo>
+            @if (obj.reporte_banca == false)
+            {
+                <td>@obj.NUM_FOLIO</td>
+            }
+            else
+            {
+                <td>@obj.folio_banca</td>
+            }
+
+            <td>@obj.NOMBRE_S @obj.APELLIDO_PATERNO @obj.APELLIDO_MATERNO</td>
+            @if (obj.NUMERO.ToString() == "")
+            {
+                <td>N/A</td>
+            }
+            else
+            {
+                <td>@obj.NUMERO</td>
+            }
+            <td>@obj.USUARIO_REGISTRA</td>
+            <td>@nombre</td>
+            <td>@fechaAlta</td>
+
+            @if (permisoUsuario.USUARIO_CALL_CENTER == true)
+            {
+                if ((obj.DIAS_RESTANTES_GENERAL != null && obj.DIAS_RESTANTES_GENERAL != 0) || (obj.ID_CUENTA == 33 || obj.ID_CUENTA == 38 || obj.ID_CUENTA == 39))
+                {
+                    <td>@obj.DIAS_RESTANTES_GENERAL</td>
+                }
+                else
+                {
+                    <td>N/A</td>
+                }
+            }
+
+            else
+            {
+                if (obj.DIAS_RESTANTES_GENERAL != null)
+                {
+                    <td>@obj.DIAS_RESTANTES_GENERAL</td>
+                }
+                else
+                {
+                    <td>N/A</td>
+                }
+            }
+
+
+
+            @{
+                String descripcion = "";
+                foreach (var item in ViewData["causas"] as List<CAT_UNE_SUPUESTOS_REPORTE>)
+                {
+                    if (item.ID_SUPUESTOS_REPORTE == obj.ID_SUPUESTOS_REPORTE)
+                    {
+                        descripcion = item.DESCRIPCION;
+                        break;
+                    }
+                }
+                if (descripcion.Length <= 45)
+                {
+                    <td>@descripcion</td>
+                }
+                else
+                {
+                    <td>@descripcion.Substring(0, 44)...</td>
+                }
+
+            }
+
+            <td>
+                @if (obj.ID_CUENTA == 33 && obj.ID_ESTATUS_REPORTE == 2)
+                {
+                    <a href="@Url.Action("RedirectPreview","Preview",new { folio = @obj.FOLIO })" class="btn btn-info btn-xs">Ver Detalle</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Preview","Preview", @obj)" class="btn btn-info btn-xs">Ver Detalle</a>
+                }
+
+            </td>
+        </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Reporte número: <kbd><span id="uneFolio">1</span></kbd></h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Deseas canalizar el Reporte con número de folio <kbd><span id="uneFolio2">1</span></kbd> al area correspondiente?</p>
+                <input id="inputUNE" hidden />
+                <div id="dvLoading" hidden><img src="~/Estilos/Imagenes/loader.gif" style="top:40%; left:50%; position:relative" /></div>
+                <div class="alert alert-success" role="alert" id="divAlertaExito" hidden=""><strong>Canalización realizada correctamente</strong></div>
+                <div class="alert alert-danger" role="alert" id="divAlertaFracaso" hidden=""><strong>Error en la canalización del reporte</strong></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-warning" id="btnCanalizar" onclick="canalizar($('#inputUNE').val())"><span class="glyphicon glyphicon-share"></span> Canalizar</button>
+            </div>
+        </div>
+    </div>
+</div>

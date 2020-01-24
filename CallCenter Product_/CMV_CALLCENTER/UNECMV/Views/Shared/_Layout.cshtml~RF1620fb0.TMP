@@ -1,0 +1,75 @@
+﻿@using UNECMV;
+@model UNECMV.Models.CLAVES
+
+
+@{
+    UNECMV.Models.CLAVES SesionUsuario = Session["SesionUsuario"] as UNECMV.Models.CLAVES;
+    if (SesionUsuario == null && ViewBag.Title != "Login")
+    {
+        Response.Redirect("~/Login/Index");
+    }
+}
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Estilos/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Estilos/css/dashboard.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">UNE</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">@SesionUsuario.Nombre_s @SesionUsuario.Apellido_paterno @SesionUsuario.Apellido_materno</a></li>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Perfil</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Cerrar Sesion</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="active"><a href="@Url.Action("Registrar", "Registrar")">Registrar <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Reportes</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <!--<div class="row placeholders">
+                    <div class="col-xs-6 col-sm-offset-3 col-sm-3 placeholder">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail" />
+                        <h4>Registrar</h4>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 placeholder">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail" />
+                        <h4>Reportes</h4>
+                    </div>
+                </div>-->
+
+                @RenderBody()
+                
+            </div>
+        </div>
+    </div>
+
+    <!--<script src="~/Estilos/js/jquery.min.js"></script>-->
+    <script src="~/Estilos/js/bootstrap.min.js"></script>
+
+</body>
+</html>

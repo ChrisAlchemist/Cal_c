@@ -1,0 +1,63 @@
+﻿@using UNECMV;
+
+@{
+    UNECMV.Models.CLAVES SesionUsuario = Session["SesionUsuario"] as UNECMV.Models.CLAVES;
+    if (SesionUsuario == null && ViewBag.Title != "Login")
+    {
+        Response.Redirect("~/Login/Index");
+    }
+}
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Estilos/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Estilos/css/dashboard.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" style="font-size:13px;" href="@Url.Action("Inicio", "Inicio")">UNE - CMV</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">@SesionUsuario.Nombre_s @SesionUsuario.Apellido_paterno @SesionUsuario.Apellido_materno</a></li>
+                    <li><a href="@Url.Action("Inicio", "Inicio")">Pagina Principal</a></li>
+                    <li><a href="@Url.Action("CerrarSesion", "Inicio")"><span class="glyphicon glyphicon-log-out" aria-hidden="true"> </span> Cerrar Sesion</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li><a href="@Url.Action("Registrar", "Registrar")"><span class="glyphicon glyphicon-cloud-upload"> </span> Registrar reporte</a></li>
+                    <li><a href="@Url.Action("Inicio", "Inicio")"><span class="glyphicon glyphicon-share"> </span> Reportes canalizados al area</a></li>
+                    <li><a href="@Url.Action("Registros", "Registros")"><span class="glyphicon glyphicon-edit"> </span> Reportes registrados</a></li>
+                    <li><a href="@Url.Action("Finalizados", "Finalizados")"><span class="glyphicon glyphicon-check"> </span> Reportes Finalizados</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+                @RenderBody()
+                
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Estilos/js/bootstrap.min.js"></script>
+
+</body>
+</html>

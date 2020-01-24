@@ -1,0 +1,48 @@
+﻿@using UNECMV;
+@model UNECMV.Models.CLAVES
+
+@{
+    Layout = null;
+}
+
+<head>
+    <title>UNE - CMV</title>
+    <link href="~/Estilos/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                @using (Html.BeginForm("ValidaLogin", "Login"))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <h3 class="form-signin-heading text-center">Ingresar Credenciales</h3>
+                    <label for="inputNumUsuario" class="sr-only">Numero de usuario:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                        @Html.TextBoxFor(Model => Model.Numusuario, new{@class="form-control", @placeholder="Numero de usuario: Ejemplo 1194", @id="inputNumUsuario"})
+                        @Html.ValidationMessageFor(Model => Model.Numusuario,"", new { @class = "text-danger" })
+                    </div>
+                    
+                    <label for="inputUsuario" class="sr-only">Usuario:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                        @Html.TextBoxFor(Model => Model.Usuario, new{@class="form-control", @placeholder="Usuario: Ejemplo ti_prog11", @id="inputUsuario"})
+                        @Html.ValidationMessageFor(Model => Model.Usuario, "", new { @class = "text-danger" })
+                    </div>
+                    
+                    <label for="inputPassword" class="sr-only">Password:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-edit"></span></div>
+                         @Html.PasswordFor(Model => Model.Contrasena, new{@class="form-control", @placeholder="Password", @id="inputPassword"})
+                        @Html.ValidationMessageFor(Model => Model.Contrasena, "", new { @class = "text-danger" })
+                    </div>
+                    <input type="submit" value="Ingresar" class="btn btn-lg btn-success btn-block"/>
+                }
+            </div>
+    </div>
+
+    <script src="~/Estilos/js/jquery.min.js"></script>
+    <script src="~/Estilos/js/bootstrap.min.js"></script>
+</body>

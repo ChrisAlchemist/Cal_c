@@ -1,0 +1,425 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BANCAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CAT_CALLCENTER_ACCIONES_CAUSA">
+          <Key>
+            <PropertyRef Name="id_accion_causa" />
+          </Key>
+          <Property Name="id_accion_causa" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="accion" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="CAT_CALLCENTER_MEDIO_MOVIMIENTO">
+          <Key>
+            <PropertyRef Name="id_medio_movimiento" />
+          </Key>
+          <Property Name="id_medio_movimiento" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion_medio" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="CAT_CALLCENTER_TIPO_CUENTA_NO_AFECTADA">
+          <Key>
+            <PropertyRef Name="ID_CUENTA_NO_AFECTADA" />
+          </Key>
+          <Property Name="ID_CUENTA_NO_AFECTADA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TBL_BANCA_SOCIOS">
+          <Key>
+            <PropertyRef Name="id_socio" />
+          </Key>
+          <Property Name="id_socio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_persona" Type="int" />
+          <Property Name="numero_socio" Type="int" />
+          <Property Name="contrasena" Type="varchar" MaxLength="1000" />
+          <Property Name="fecha_alta_contrasena" Type="datetime" />
+          <Property Name="contrasena_temp" Type="varchar" MaxLength="1000" />
+          <Property Name="fecha_contrasena_temporal" Type="datetime" />
+          <Property Name="fecha_alta_persona" Type="datetime" />
+          <Property Name="id_estatus_banca" Type="int" />
+          <Property Name="id_pregunta_secreta" Type="int" />
+          <Property Name="respuesta" Type="varchar(max)" />
+          <Property Name="id_motivo_bloqueo" Type="int" />
+          <Property Name="banca_activa" Type="bit" />
+          <Property Name="fecha_motivo_bloqueo" Type="datetime" />
+          <Property Name="id_imagen_antiphishing" Type="int" />
+          <Property Name="vigencia_contrasena_temporal" Type="bit" />
+          <Property Name="viene_de_bloqueo" Type="bit" />
+          <Property Name="id_ultima_sesion" Type="int" />
+          <Property Name="fecha_ultima_sesion" Type="datetime" />
+          <Property Name="intentos_sesion" Type="int" />
+          <Property Name="intentos_respuesta" Type="int" />
+          <Property Name="fecha_alta_solicitud" Type="datetime" />
+          <Property Name="fecha_de_desbloqueo" Type="datetime" />
+          <Property Name="contrasena_estado_cuenta" Type="varchar(max)" />
+          <Property Name="descripcion_bloqueo" Type="varchar(max)" />
+          <Property Name="descripcion_cancelacion" Type="varchar(max)" />
+          <Property Name="fecha_bloqueo_OTP" Type="datetime" />
+          <Property Name="fecha_cancelacion" Type="datetime" />
+          <Property Name="codigo_contrasena" Type="bigint" />
+          <Property Name="fecha_codigo_contrasena" Type="datetime" />
+          <Property Name="recuperar_contrasena" Type="bit" />
+          <Property Name="fecha_alta_recuperar_contrasena" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TBL_CALLCENTER_REGISTRO_REPORTE">
+          <Key>
+            <PropertyRef Name="id_registro_reporte" />
+          </Key>
+          <Property Name="id_registro_reporte" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numero_socio" Type="bigint" />
+          <Property Name="detalles_llamada" Type="varchar(max)" />
+          <Property Name="fecha_registro_reporte" Type="datetime" />
+          <Property Name="ID_SUPUESTOS_REPORTE" Type="bigint" />
+        </EntityType>
+        <Function Name="SP_BANCA_BLOQUEAR_SOCIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="numero_Socio" Type="int" Mode="In" />
+          <Parameter Name="tipo_origen" Type="int" Mode="In" />
+          <Parameter Name="numero_usuario" Type="varchar" Mode="In" />
+          <Parameter Name="descripcion_bloqueo" Type="varchar(max)" Mode="In" />
+          <Parameter Name="id_tipo_bitacora" Type="int" Mode="In" />
+          <Parameter Name="id_motivo_bloqueo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_BANCA_MODIFICAR_MONTO_MAXIMO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="numero_Socio" Type="int" Mode="In" />
+          <Parameter Name="tipo_origen" Type="int" Mode="In" />
+          <Parameter Name="numero_usuario" Type="varchar" Mode="In" />
+          <Parameter Name="monto_maximo_transferencia" Type="money" Mode="In" />
+        </Function>
+        <Function Name="SP_BANCA_OBTENER_MONTO_MAXIMO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idLimiteTransferencia" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_BANCA_OBTENER_NOTIFICACION_CORREO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_notificacion_correo" Type="int" Mode="In" />
+          <Parameter Name="numero" Type="int" Mode="In" />
+          <Parameter Name="num_usuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_CALLCENTER_INSERTAR_REGISTRO_REPORTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="numero_Socio" Type="bigint" Mode="In" />
+          <Parameter Name="ID_SUPUESTOS_REPORTE" Type="bigint" Mode="In" />
+          <Parameter Name="detalles_llamada" Type="varchar(max)" Mode="In" />
+          <Parameter Name="numero_usuario" Type="varchar" Mode="In" />
+          <Parameter Name="id_tipo_bitacora" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_CALLCENTER_OBTENER_MEDIO_MOVIMIENTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_CALLCENTER_REPORTES_OBTENER_ULTIMO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="BANCAModelStoreContainer">
+          <EntitySet Name="CAT_CALLCENTER_ACCIONES_CAUSA" EntityType="Self.CAT_CALLCENTER_ACCIONES_CAUSA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CAT_CALLCENTER_MEDIO_MOVIMIENTO" EntityType="Self.CAT_CALLCENTER_MEDIO_MOVIMIENTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CAT_CALLCENTER_TIPO_CUENTA_NO_AFECTADA" EntityType="Self.CAT_CALLCENTER_TIPO_CUENTA_NO_AFECTADA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_BANCA_SOCIOS" EntityType="Self.TBL_BANCA_SOCIOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_CALLCENTER_REGISTRO_REPORTE" EntityType="Self.TBL_CALLCENTER_REGISTRO_REPORTE" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BANCAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBL_CALLCENTER_REGISTRO_REPORTE">
+          <Key>
+            <PropertyRef Name="id_registro_reporte" />
+          </Key>
+          <Property Name="id_registro_reporte" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numero_socio" Type="Int64" />
+          <Property Name="detalles_llamada" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_registro_reporte" Type="DateTime" Precision="3" />
+          <Property Name="ID_SUPUESTOS_REPORTE" Type="Int64" />
+        </EntityType>
+        <EntityContainer Name="ContextBanca" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBL_CALLCENTER_REGISTRO_REPORTE" EntityType="Self.TBL_CALLCENTER_REGISTRO_REPORTE" />
+          <FunctionImport Name="SP_CALLCENTER_INSERTAR_REGISTRO_REPORTE" ReturnType="Collection(BANCAModel.SP_CALLCENTER_INSERTAR_REGISTRO_REPORTE_Result)">
+            <Parameter Name="numero_Socio" Mode="In" Type="Int64" />
+            <Parameter Name="ID_SUPUESTOS_REPORTE" Mode="In" Type="Int64" />
+            <Parameter Name="detalles_llamada" Mode="In" Type="String" />
+            <Parameter Name="numero_usuario" Mode="In" Type="String" />
+            <Parameter Name="id_tipo_bitacora" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_BANCA_OBTENER_NOTIFICACION_CORREO">
+            <Parameter Name="id_notificacion_correo" Mode="In" Type="Int32" />
+            <Parameter Name="numero" Mode="In" Type="Int32" />
+            <Parameter Name="num_usuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="CAT_CALLCENTER_ACCIONES_CAUSA" EntityType="BANCAModel.CAT_CALLCENTER_ACCIONES_CAUSA" />
+          <EntitySet Name="CAT_CALLCENTER_MEDIO_MOVIMIENTO" EntityType="BANCAModel.CAT_CALLCENTER_MEDIO_MOVIMIENTO" />
+          <FunctionImport Name="SP_CALLCENTER_OBTENER_MEDIO_MOVIMIENTO" ReturnType="Collection(BANCAModel.SP_CALLCENTER_OBTENER_MEDIO_MOVIMIENTO_Result)" />
+          <EntitySet Name="TBL_BANCA_SOCIOS" EntityType="BANCAModel.TBL_BANCA_SOCIOS" />
+          <FunctionImport Name="SP_BANCA_OBTENER_MONTO_MAXIMO" ReturnType="Collection(BANCAModel.SP_BANCA_OBTENER_MONTO_MAXIMO_Result)">
+          <Parameter Name="idLimiteTransferencia" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_BANCA_BLOQUEAR_SOCIO" ReturnType="Collection(BANCAModel.SP_BANCA_BLOQUEAR_SOCIO_Result)">
+            <Parameter Name="numero_Socio" Mode="In" Type="Int32" />
+            <Parameter Name="tipo_origen" Mode="In" Type="Int32" />
+            <Parameter Name="numero_usuario" Mode="In" Type="String" />
+            <Parameter Name="descripcion_bloqueo" Mode="In" Type="String" />
+            <Parameter Name="id_tipo_bitacora" Mode="In" Type="Int32" />
+            <Parameter Name="id_motivo_bloqueo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_BANCA_MODIFICAR_MONTO_MAXIMO" ReturnType="Collection(BANCAModel.SP_BANCA_MODIFICAR_MONTO_MAXIMO_Result)">
+            <Parameter Name="numero_Socio" Mode="In" Type="Int32" />
+            <Parameter Name="tipo_origen" Mode="In" Type="Int32" />
+            <Parameter Name="numero_usuario" Mode="In" Type="String" />
+            <Parameter Name="monto_maximo_transferencia" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <EntitySet Name="CAT_CALLCENTER_TIPO_CUENTA_NO_AFECTADA" EntityType="BANCAModel.CAT_CALLCENTER_TIPO_CUENTA_NO_AFECTADA" />
+        </EntityContainer>
+        <ComplexType Name="SP_CALLCENTER_INSERTAR_REGISTRO_REPORTE_Result">
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="String" Name="error_procedure" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="error_line" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="error_severity" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="error_message" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="id_reporte" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="CAT_CALLCENTER_ACCIONES_CAUSA">
+          <Key>
+            <PropertyRef Name="id_accion_causa" />
+          </Key>
+          <Property Name="id_accion_causa" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="accion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CAT_CALLCENTER_MEDIO_MOVIMIENTO">
+          <Key>
+            <PropertyRef Name="id_medio_movimiento" />
+          </Key>
+          <Property Name="id_medio_movimiento" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion_medio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="SP_CALLCENTER_OBTENER_MEDIO_MOVIMIENTO_Result">
+          <Property Type="Int64" Name="id_medio_movimiento" Nullable="false" />
+          <Property Type="String" Name="descripcion_medio" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="TBL_BANCA_SOCIOS">
+          <Key>
+            <PropertyRef Name="id_socio" />
+          </Key>
+          <Property Name="id_socio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_persona" Type="Int32" />
+          <Property Name="numero_socio" Type="Int32" />
+          <Property Name="contrasena" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_alta_contrasena" Type="DateTime" Precision="3" />
+          <Property Name="contrasena_temp" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_contrasena_temporal" Type="DateTime" Precision="3" />
+          <Property Name="fecha_alta_persona" Type="DateTime" Precision="3" />
+          <Property Name="id_estatus_banca" Type="Int32" />
+          <Property Name="id_pregunta_secreta" Type="Int32" />
+          <Property Name="respuesta" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="id_motivo_bloqueo" Type="Int32" />
+          <Property Name="banca_activa" Type="Boolean" />
+          <Property Name="fecha_motivo_bloqueo" Type="DateTime" Precision="3" />
+          <Property Name="id_imagen_antiphishing" Type="Int32" />
+          <Property Name="vigencia_contrasena_temporal" Type="Boolean" />
+          <Property Name="viene_de_bloqueo" Type="Boolean" />
+          <Property Name="id_ultima_sesion" Type="Int32" />
+          <Property Name="fecha_ultima_sesion" Type="DateTime" Precision="3" />
+          <Property Name="intentos_sesion" Type="Int32" />
+          <Property Name="intentos_respuesta" Type="Int32" />
+          <Property Name="fecha_alta_solicitud" Type="DateTime" Precision="3" />
+          <Property Name="fecha_de_desbloqueo" Type="DateTime" Precision="3" />
+          <Property Name="contrasena_estado_cuenta" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion_bloqueo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion_cancelacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_bloqueo_OTP" Type="DateTime" Precision="3" />
+          <Property Name="fecha_cancelacion" Type="DateTime" Precision="3" />
+          <Property Name="codigo_contrasena" Type="Int64" />
+          <Property Name="fecha_codigo_contrasena" Type="DateTime" Precision="3" />
+          <Property Name="recuperar_contrasena" Type="Boolean" />
+          <Property Name="fecha_alta_recuperar_contrasena" Type="DateTime" Precision="3" />
+        </EntityType>
+        <ComplexType Name="ComplexType1" />
+        <ComplexType Name="SP_BANCA_OBTENER_MONTO_MAXIMO_Result">
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="String" Name="error_procedure" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="error_line" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="error_severity" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="error_message" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="id_limite" Nullable="false" />
+          <Property Type="Int32" Name="id_limite_transferencia" Nullable="true" />
+          <Property Type="String" Name="minimo" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="maximo" Nullable="true" MaxLength="200" />
+          <Property Type="Boolean" Name="activo" Nullable="true" />
+          <Property Type="DateTime" Name="fecha_alta" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="SP_BANCA_BLOQUEAR_SOCIO_Result">
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="String" Name="error_procedure" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="error_line" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="error_severity" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="error_message" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="SP_BANCA_MODIFICAR_MONTO_MAXIMO_Result">
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="String" Name="error_procedure" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="error_line" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="error_severity" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="error_message" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <EntityType Name="CAT_CALLCENTER_TIPO_CUENTA_NO_AFECTADA">
+          <Key>
+            <PropertyRef Name="ID_CUENTA_NO_AFECTADA" />
+          </Key>
+          <Property Name="ID_CUENTA_NO_AFECTADA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BANCAModelStoreContainer" CdmEntityContainer="ContextBanca">
+          <EntitySetMapping Name="TBL_CALLCENTER_REGISTRO_REPORTE">
+            <EntityTypeMapping TypeName="BANCAModel.TBL_CALLCENTER_REGISTRO_REPORTE">
+              <MappingFragment StoreEntitySet="TBL_CALLCENTER_REGISTRO_REPORTE">
+                <ScalarProperty Name="ID_SUPUESTOS_REPORTE" ColumnName="ID_SUPUESTOS_REPORTE" />
+                <ScalarProperty Name="id_registro_reporte" ColumnName="id_registro_reporte" />
+                <ScalarProperty Name="numero_socio" ColumnName="numero_socio" />
+                <ScalarProperty Name="detalles_llamada" ColumnName="detalles_llamada" />
+                <ScalarProperty Name="fecha_registro_reporte" ColumnName="fecha_registro_reporte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_CALLCENTER_INSERTAR_REGISTRO_REPORTE" FunctionName="BANCAModel.Store.SP_CALLCENTER_INSERTAR_REGISTRO_REPORTE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BANCAModel.SP_CALLCENTER_INSERTAR_REGISTRO_REPORTE_Result">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="error_procedure" ColumnName="error_procedure" />
+                <ScalarProperty Name="error_line" ColumnName="error_line" />
+                <ScalarProperty Name="error_severity" ColumnName="error_severity" />
+                <ScalarProperty Name="error_message" ColumnName="error_message" />
+                <ScalarProperty Name="id_reporte" ColumnName="id_reporte" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_BANCA_OBTENER_NOTIFICACION_CORREO" FunctionName="BANCAModel.Store.SP_BANCA_OBTENER_NOTIFICACION_CORREO" />
+          <EntitySetMapping Name="CAT_CALLCENTER_ACCIONES_CAUSA">
+            <EntityTypeMapping TypeName="BANCAModel.CAT_CALLCENTER_ACCIONES_CAUSA">
+              <MappingFragment StoreEntitySet="CAT_CALLCENTER_ACCIONES_CAUSA">
+                <ScalarProperty Name="accion" ColumnName="accion" />
+                <ScalarProperty Name="id_accion_causa" ColumnName="id_accion_causa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAT_CALLCENTER_MEDIO_MOVIMIENTO">
+            <EntityTypeMapping TypeName="BANCAModel.CAT_CALLCENTER_MEDIO_MOVIMIENTO">
+              <MappingFragment StoreEntitySet="CAT_CALLCENTER_MEDIO_MOVIMIENTO">
+                <ScalarProperty Name="descripcion_medio" ColumnName="descripcion_medio" />
+                <ScalarProperty Name="id_medio_movimiento" ColumnName="id_medio_movimiento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_CALLCENTER_OBTENER_MEDIO_MOVIMIENTO" FunctionName="BANCAModel.Store.SP_CALLCENTER_OBTENER_MEDIO_MOVIMIENTO">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BANCAModel.SP_CALLCENTER_OBTENER_MEDIO_MOVIMIENTO_Result">
+                <ScalarProperty Name="id_medio_movimiento" ColumnName="id_medio_movimiento" />
+                <ScalarProperty Name="descripcion_medio" ColumnName="descripcion_medio" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="TBL_BANCA_SOCIOS">
+            <EntityTypeMapping TypeName="BANCAModel.TBL_BANCA_SOCIOS">
+              <MappingFragment StoreEntitySet="TBL_BANCA_SOCIOS">
+                <ScalarProperty Name="fecha_alta_recuperar_contrasena" ColumnName="fecha_alta_recuperar_contrasena" />
+                <ScalarProperty Name="recuperar_contrasena" ColumnName="recuperar_contrasena" />
+                <ScalarProperty Name="fecha_codigo_contrasena" ColumnName="fecha_codigo_contrasena" />
+                <ScalarProperty Name="codigo_contrasena" ColumnName="codigo_contrasena" />
+                <ScalarProperty Name="fecha_cancelacion" ColumnName="fecha_cancelacion" />
+                <ScalarProperty Name="fecha_bloqueo_OTP" ColumnName="fecha_bloqueo_OTP" />
+                <ScalarProperty Name="descripcion_cancelacion" ColumnName="descripcion_cancelacion" />
+                <ScalarProperty Name="descripcion_bloqueo" ColumnName="descripcion_bloqueo" />
+                <ScalarProperty Name="contrasena_estado_cuenta" ColumnName="contrasena_estado_cuenta" />
+                <ScalarProperty Name="fecha_de_desbloqueo" ColumnName="fecha_de_desbloqueo" />
+                <ScalarProperty Name="fecha_alta_solicitud" ColumnName="fecha_alta_solicitud" />
+                <ScalarProperty Name="intentos_respuesta" ColumnName="intentos_respuesta" />
+                <ScalarProperty Name="intentos_sesion" ColumnName="intentos_sesion" />
+                <ScalarProperty Name="fecha_ultima_sesion" ColumnName="fecha_ultima_sesion" />
+                <ScalarProperty Name="id_ultima_sesion" ColumnName="id_ultima_sesion" />
+                <ScalarProperty Name="viene_de_bloqueo" ColumnName="viene_de_bloqueo" />
+                <ScalarProperty Name="vigencia_contrasena_temporal" ColumnName="vigencia_contrasena_temporal" />
+                <ScalarProperty Name="id_imagen_antiphishing" ColumnName="id_imagen_antiphishing" />
+                <ScalarProperty Name="fecha_motivo_bloqueo" ColumnName="fecha_motivo_bloqueo" />
+                <ScalarProperty Name="banca_activa" ColumnName="banca_activa" />
+                <ScalarProperty Name="id_motivo_bloqueo" ColumnName="id_motivo_bloqueo" />
+                <ScalarProperty Name="respuesta" ColumnName="respuesta" />
+                <ScalarProperty Name="id_pregunta_secreta" ColumnName="id_pregunta_secreta" />
+                <ScalarProperty Name="id_estatus_banca" ColumnName="id_estatus_banca" />
+                <ScalarProperty Name="fecha_alta_persona" ColumnName="fecha_alta_persona" />
+                <ScalarProperty Name="fecha_contrasena_temporal" ColumnName="fecha_contrasena_temporal" />
+                <ScalarProperty Name="contrasena_temp" ColumnName="contrasena_temp" />
+                <ScalarProperty Name="fecha_alta_contrasena" ColumnName="fecha_alta_contrasena" />
+                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+                <ScalarProperty Name="numero_socio" ColumnName="numero_socio" />
+                <ScalarProperty Name="id_persona" ColumnName="id_persona" />
+                <ScalarProperty Name="id_socio" ColumnName="id_socio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_BANCA_OBTENER_MONTO_MAXIMO" FunctionName="BANCAModel.Store.SP_BANCA_OBTENER_MONTO_MAXIMO">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BANCAModel.SP_BANCA_OBTENER_MONTO_MAXIMO_Result">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="error_procedure" ColumnName="error_procedure" />
+                <ScalarProperty Name="error_line" ColumnName="error_line" />
+                <ScalarProperty Name="error_severity" ColumnName="error_severity" />
+                <ScalarProperty Name="error_message" ColumnName="error_message" />
+                <ScalarProperty Name="id_limite" ColumnName="id_limite" />
+                <ScalarProperty Name="id_limite_transferencia" ColumnName="id_limite_transferencia" />
+                <ScalarProperty Name="minimo" ColumnName="minimo" />
+                <ScalarProperty Name="maximo" ColumnName="maximo" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_BANCA_BLOQUEAR_SOCIO" FunctionName="BANCAModel.Store.SP_BANCA_BLOQUEAR_SOCIO">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BANCAModel.SP_BANCA_BLOQUEAR_SOCIO_Result">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="error_procedure" ColumnName="error_procedure" />
+                <ScalarProperty Name="error_line" ColumnName="error_line" />
+                <ScalarProperty Name="error_severity" ColumnName="error_severity" />
+                <ScalarProperty Name="error_message" ColumnName="error_message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_BANCA_MODIFICAR_MONTO_MAXIMO" FunctionName="BANCAModel.Store.SP_BANCA_MODIFICAR_MONTO_MAXIMO">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BANCAModel.SP_BANCA_MODIFICAR_MONTO_MAXIMO_Result">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="error_procedure" ColumnName="error_procedure" />
+                <ScalarProperty Name="error_line" ColumnName="error_line" />
+                <ScalarProperty Name="error_severity" ColumnName="error_severity" />
+                <ScalarProperty Name="error_message" ColumnName="error_message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="CAT_CALLCENTER_TIPO_CUENTA_NO_AFECTADA">
+            <EntityTypeMapping TypeName="BANCAModel.CAT_CALLCENTER_TIPO_CUENTA_NO_AFECTADA">
+              <MappingFragment StoreEntitySet="CAT_CALLCENTER_TIPO_CUENTA_NO_AFECTADA">
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="ID_CUENTA_NO_AFECTADA" ColumnName="ID_CUENTA_NO_AFECTADA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Permiso denegado";
+}
+
+@{ 
+    String url = Session["urlAnterior"] as string;
+}
+
+<script src="~/Estilos/js/jquery.min.js"></script>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3><strong>¡Permiso denegado!</strong></h3>
+    </div>
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <p style="font-size:18px;"><strong>Lo sentimos, no cuenta con los permisos suficientes para acceder a esta sección</strong></p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <a href="@url" id="btnRegresar" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+    </div>
+</div>

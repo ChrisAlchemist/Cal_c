@@ -1,0 +1,661 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Este archivo es utilizado por el proceso de paquete/publicación de nuestro proyecto Web. Puede personalizar el comportamiento de este proceso
+editando este archivo MSBuild. Para conocer más acerca de esto, visite http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>\\CMV7005\CallCenter</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="Audio/2_E.mp3">
+      <publishTime>02/01/2017 15:22:21</publishTime>
+    </File>
+    <File Include="bin/AccesoDatos.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/AgenteConectaWS.dll">
+      <publishTime>05/10/2019 16:17:29</publishTime>
+    </File>
+    <File Include="bin/App_global.asax.compiled">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/App_global.asax.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/AWSSDK.Core.dll">
+      <publishTime>03/07/2019 11:39:54</publishTime>
+    </File>
+    <File Include="bin/AWSSDK.SimpleEmail.dll">
+      <publishTime>03/07/2019 11:42:48</publishTime>
+    </File>
+    <File Include="bin/ClosedXML.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/ClosedXML.pdb">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/DocumentFormat.OpenXml.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/eMailSend.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Entidades.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/es/System.Net.Http.Formatting.resources.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Helpers.resources.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Http.resources.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Http.WebHost.resources.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Mvc.resources.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Razor.resources.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.WebPages.Deployment.resources.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.WebPages.Razor.resources.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.WebPages.resources.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/itextsharp.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/itextsharp.pdfa.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Mvc.FixedDisplayModes.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/MimeKitLite.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/SmsMailUtils.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/SpreadsheetLight.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/UNECMV.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="bin/UNECMV.pdb">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Connected Services/conectaServicioAutenticador/UNECMV.conectaServicioAutenticador.AutenticarResponse.datasource">
+      <publishTime>07/05/2019 15:20:51</publishTime>
+    </File>
+    <File Include="Connected Services/conectaServicioSAS/UNECMV.conectaServicioSAS.ActualizarUsuarioResponse.datasource">
+      <publishTime>07/05/2019 15:21:03</publishTime>
+    </File>
+    <File Include="Connected Services/conectaServicioSAS/UNECMV.conectaServicioSAS.AgregarAprovisionarUsuarioResponse.datasource">
+      <publishTime>07/05/2019 15:21:03</publishTime>
+    </File>
+    <File Include="Connected Services/conectaServicioSAS/UNECMV.conectaServicioSAS.AgregarUsuarioResponse.datasource">
+      <publishTime>07/05/2019 15:21:03</publishTime>
+    </File>
+    <File Include="Connected Services/conectaServicioSAS/UNECMV.conectaServicioSAS.AprovisionarUsuariosResponse.datasource">
+      <publishTime>07/05/2019 15:21:03</publishTime>
+    </File>
+    <File Include="Connected Services/conectaServicioSAS/UNECMV.conectaServicioSAS.EliminarUsuarioResponse.datasource">
+      <publishTime>07/05/2019 15:21:03</publishTime>
+    </File>
+    <File Include="Connected Services/conectaServicioSAS/UNECMV.conectaServicioSAS.ObtenerEstatusTokenResponse.datasource">
+      <publishTime>07/05/2019 15:21:03</publishTime>
+    </File>
+    <File Include="Connected Services/conectaServicioSAS/UNECMV.conectaServicioSAS.ObtenerUsuarioResponse.datasource">
+      <publishTime>07/05/2019 15:21:03</publishTime>
+    </File>
+    <File Include="Connected Services/conectaServicioSAS/UNECMV.conectaServicioSAS.ReasignacionResponse.datasource">
+      <publishTime>07/05/2019 15:21:02</publishTime>
+    </File>
+    <File Include="Connected Services/conectaServicioSAS/UNECMV.conectaServicioSAS.RevocarTokenResponse.datasource">
+      <publishTime>07/05/2019 15:21:03</publishTime>
+    </File>
+    <File Include="Connected Services/conectaServicioSAS/UNECMV.conectaServicioSAS.User.datasource">
+      <publishTime>07/05/2019 15:21:02</publishTime>
+    </File>
+    <File Include="Controllers/RegistrarController.cs">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Entidad/Correo.cs">
+      <publishTime>07/10/2019 09:58:07</publishTime>
+    </File>
+    <File Include="Entidad/GenerarPDF.cs">
+      <publishTime>07/12/2019 15:32:43</publishTime>
+    </File>
+    <File Include="Entidad/Resources/firma_banca.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Entidad/Resources/fondoCorreo.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Entidad/Resources/fondoCorreo1.PNG">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Entidad/Resources/footer.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Entidad/Resources/logo_caja_revolvente_correos.jpg">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Entidad/Resources/logo_con_letras.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Entidad/Resources/marcaAgua.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Alertify/alertify.core.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Alertify/alertify.default.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Alertify/alertify.min.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/css/bootstrap-theme.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/css/bootstrap-theme.css.map">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/css/bootstrap-theme.min.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/css/bootstrap-theme.min.css.map">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/css/bootstrap.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/css/bootstrap.css.map">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/css/bootstrap.min.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/css/bootstrap.min.css.map">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/css/dashboard.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/css/dataTable.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/css/EstilosBanca.css">
+      <publishTime>01/11/2019 09:11:28</publishTime>
+    </File>
+    <File Include="Estilos/css/EstilosFormularios.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/css/login.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/css/select2-bootstrap.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/css/select2.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/css/Validaciones.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Datepicker/css/datepicker.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Datepicker/js/bootstrap-datepicker.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Datepicker/js/locales/bootstrap-datepicker.es.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/fonts/glyphicons-halflings-regular.eot">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/fonts/glyphicons-halflings-regular.svg">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/fonts/glyphicons-halflings-regular.woff">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/fonts/glyphicons-halflings-regular.woff2">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Imagenes/avatar.png">
+      <publishTime>01/09/2020 16:42:24</publishTime>
+    </File>
+    <File Include="Estilos/Imagenes/avatar_2x.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Imagenes/favicon.ico">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Imagenes/firmaUNE.jpg">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Imagenes/footer.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Imagenes/header.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Imagenes/loader.gif">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Imagenes/loader2.gif">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Imagenes/loader3.gif">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Imagenes/logo_blanco.png">
+      <publishTime>01/10/2020 17:25:45</publishTime>
+    </File>
+    <File Include="Estilos/Imagenes/sort_asc.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Imagenes/sort_asc_disabled.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Imagenes/sort_both.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Imagenes/sort_desc.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Imagenes/sort_desc_disabled.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/js/bootstrap.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/js/bootstrap.min.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/js/dateFormat.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/js/jquery.dataTables.min.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/js/jquery.dateFormat.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/js/jquery.idle.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/js/jquery.maskedinput.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/js/jquery.min.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/js/jQuery.unobtrusive-ajax.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/js/moment.min.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/js/npm.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/js/select2.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Select2/select2.min.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Select2/select2.min.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Wizard/CSS/jquery.steps.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Wizard/CSS/main.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Wizard/CSS/normalize.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Wizard/js/jquery-1.9.1.min.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Wizard/js/jquery.cookie-1.3.1.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Wizard/js/jquery.steps.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/Wizard/js/modernizr-2.6.2.min.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/WizardBootstrap/jquery-latest.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/WizardBootstrap/jquery.bootstrap.wizard.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/WizardBootstrap/jquery.bootstrap.wizard.min.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/WizardBootstrap/prettify.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Estilos/WizardBootstrap/prettify.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Eventos/BancaFunciones.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Eventos/Canalizar.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Eventos/Cancelar.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Eventos/CerrarReporte.js">
+      <publishTime>03/07/2019 10:05:49</publishTime>
+    </File>
+    <File Include="Eventos/Condusef.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Eventos/Debito.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Eventos/Dictaminar.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Eventos/Finalizados.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Eventos/GeneraReporte.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Eventos/Inicio.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Eventos/LamadaSalida.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Eventos/Notificados.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Eventos/Notificar.js">
+      <publishTime>03/07/2019 10:52:48</publishTime>
+    </File>
+    <File Include="Eventos/Preview.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Eventos/registrar.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Eventos/RegistrarCallCenter.js">
+      <publishTime>01/22/2020 13:34:12</publishTime>
+    </File>
+    <File Include="Eventos/RegistrarNotificacion.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Eventos/Responder.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>05/12/2016 09:57:44</publishTime>
+    </File>
+    <File Include="Models/BancaDB.Context.cs">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Models/BancaDB.Context.tt">
+      <publishTime>02/01/2019 12:20:35</publishTime>
+    </File>
+    <File Include="Models/BancaDB.cs">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Models/BancaDB.Designer.cs">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Models/BancaDB.edmx">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Models/BancaDB.edmx.diagram">
+      <publishTime>09/02/2019 10:21:39</publishTime>
+    </File>
+    <File Include="Models/BancaDB.tt">
+      <publishTime>02/01/2019 12:20:35</publishTime>
+    </File>
+    <File Include="Models/BD.edmx.diagram">
+      <publishTime>06/12/2019 13:18:12</publishTime>
+    </File>
+    <File Include="Models/CAT_CALLCENTER_ACCIONES_CAUSA.cs">
+      <publishTime>02/01/2019 12:20:35</publishTime>
+    </File>
+    <File Include="Models/CAT_CALLCENTER_MEDIO_MOVIMIENTO.cs">
+      <publishTime>02/01/2019 12:20:35</publishTime>
+    </File>
+    <File Include="Models/CAT_CALLCENTER_TIPO_CUENTA_NO_AFECTADA.cs">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Models/ComplexType1.cs">
+      <publishTime>03/01/2019 17:12:17</publishTime>
+    </File>
+    <File Include="Models/SP_BANCA_BLOQUEAR_SOCIO_Result.cs">
+      <publishTime>04/01/2019 13:25:08</publishTime>
+    </File>
+    <File Include="Models/SP_BANCA_MODIFICAR_MONTO_MAXIMO_Result.cs">
+      <publishTime>09/01/2019 13:02:32</publishTime>
+    </File>
+    <File Include="Models/SP_BANCA_OBTENER_MONTO_MAXIMO_Result.cs">
+      <publishTime>03/01/2019 15:18:43</publishTime>
+    </File>
+    <File Include="Models/SP_CALLCENTER_INSERTAR_REGISTRO_REPORTE_Result.cs">
+      <publishTime>02/01/2019 12:20:35</publishTime>
+    </File>
+    <File Include="Models/SP_CALLCENTER_OBTENER_MEDIO_MOVIMIENTO_Result.cs">
+      <publishTime>02/01/2019 12:20:35</publishTime>
+    </File>
+    <File Include="Models/TBL_BANCA_SOCIOS.cs">
+      <publishTime>02/01/2019 12:20:35</publishTime>
+    </File>
+    <File Include="Models/TBL_CALLCENTER_REGISTRO_REPORTE.cs">
+      <publishTime>03/01/2019 17:00:46</publishTime>
+    </File>
+    <File Include="Models/UNEDB.edmx.diagram">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>07/05/2019 15:20:17</publishTime>
+    </File>
+    <File Include="PrecompiledApp.config">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.8.0.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.8.0.min.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Scripts/jquery.unobtrusive-ajax.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Scripts/jquery.unobtrusive-ajax.min.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Scripts/moment.min.js">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="sox/sox.exe">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="sox/zlib1.dll">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Banca/BloquearBanca.cshtml">
+      <publishTime>03/07/2019 10:33:19</publishTime>
+    </File>
+    <File Include="Views/Banca/GenerarFormatoReporte.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Banca/ModificarMonto.cshtml">
+      <publishTime>03/07/2019 11:30:57</publishTime>
+    </File>
+    <File Include="Views/Banca/ReposicionSoftoken.cshtml">
+      <publishTime>03/07/2019 11:31:27</publishTime>
+    </File>
+    <File Include="Views/BloqueoBanca/BloqueoBanca.cshtml">
+      <publishTime>01/02/2019 12:20:35</publishTime>
+    </File>
+    <File Include="Views/CanalizadosBanca/CanalizadosBanca.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/CanalizadosUNE/CanalizadosUNE.cshtml">
+      <publishTime>02/01/2019 12:16:32</publishTime>
+    </File>
+    <File Include="Views/Canalizar/Canalizar.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Cancelados/Cancelados.cshtml">
+      <publishTime>08/01/2019 14:06:36</publishTime>
+    </File>
+    <File Include="Views/Cancelar/Cancelar.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/CerrarReporte/CerrarReporte.cshtml">
+      <publishTime>04/01/2019 10:36:51</publishTime>
+    </File>
+    <File Include="Views/CerrarReporte/pdf.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Condusef/Condusef.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Condusef/GeneraReporte.cshtml">
+      <publishTime>02/07/2019 16:47:20</publishTime>
+    </File>
+    <File Include="Views/Debito/Debito.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Dictaminar/Dictaminar.cshtml">
+      <publishTime>09/12/2019 08:32:47</publishTime>
+    </File>
+    <File Include="Views/Error/Error.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Error/Permiso.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Finalizados/Finalizados.cshtml">
+      <publishTime>09/05/2019 15:46:49</publishTime>
+    </File>
+    <File Include="Views/Finalizados/LlamadaSalida.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Inicio/Inicio.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Login/Index.cshtml">
+      <publishTime>01/09/2020 16:59:47</publishTime>
+    </File>
+    <File Include="Views/Notificados/Notificados.cshtml">
+      <publishTime>09/06/2019 10:53:52</publishTime>
+    </File>
+    <File Include="Views/Notificar/Notificar.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Notificar/pdf.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Notificar/RegistrarNotificacion.cshtml">
+      <publishTime>09/12/2019 08:40:49</publishTime>
+    </File>
+    <File Include="Views/Preview/Preview.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Registrar/pdf.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Registrar/Registrar.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/RegistrarCallCenter/RegistrarCallCenter.cshtml">
+      <publishTime>01/02/2020 17:33:00</publishTime>
+    </File>
+    <File Include="Views/Registros/Registros.cshtml">
+      <publishTime>04/05/2019 11:08:17</publishTime>
+    </File>
+    <File Include="Views/Responder/pdfAreaEsp.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Responder/Responder.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/ResueltoArea/ResueltoArea.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

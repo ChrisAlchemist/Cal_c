@@ -1,0 +1,592 @@
+﻿@using CMV_CALLCENTER;
+@using System.Web.Script.Serialization;
+
+@model CMV_CALLCENTER.Models.TBL_UNE_REPORTE
+
+@{
+
+    ViewBag.Title = "Registrar";
+}
+
+@{
+    CMV_CALLCENTER.Models.CLAVES SesionUsuario = Session["SesionUsuario"] as CMV_CALLCENTER.Models.CLAVES;
+    CMV_CALLCENTER.Models.TBL_UNE_PERMISOS_ADMIN permisoUsuario = Session["permiso"] as CMV_CALLCENTER.Models.TBL_UNE_PERMISOS_ADMIN;
+}
+
+<script>
+    var usuarioCallCenter = Boolean('@permisoUsuario.USUARIO_CALL_CENTER');
+    var usuarioSucursal  = Boolean('@permisoUsuario.USUARIO_SUCURSAL');
+</script>
+
+<script src="~/Estilos/js/jquery.min.js"></script>
+<script src="~/Estilos/js/jQuery.unobtrusive-ajax.js"></script>
+<link href="~/Estilos/WizardBootstrap/prettify.css" rel="stylesheet" />
+<link href="~/Estilos/css/Validaciones.css" rel="stylesheet" />
+<script src="~/Estilos/WizardBootstrap/jquery-latest.js"></script>
+<script src="~/Estilos/WizardBootstrap/jquery.bootstrap.wizard.js"></script>
+<script src="~/Estilos/WizardBootstrap/prettify.js"></script>
+<script src="~/Estilos/js/jquery.maskedinput.js"></script>
+<link href="~/Estilos/Datepicker/css/datepicker.css" rel="stylesheet" />
+<script src="~/Estilos/Datepicker/js/bootstrap-datepicker.js"></script>
+<script src="~/Estilos/js/moment.min.js"></script>
+<script src="~/Estilos/js/jquery.dataTables.min.js"></script>
+<link href="~/Estilos/css/dataTable.css" rel="stylesheet" />
+
+<script src="~/Eventos/registrar.js"></script>
+<script>
+    usuarioCallCenter = setPermisos(@permisoUsuario.USUARIO_CALL_CENTER.ToString().ToLower());
+</script>
+<div id="dvLoading" style="margin: -76px 0 0 -40px;" hidden><img src="~/Estilos/Imagenes/loader.gif" style="top:40%; left:50%; position:relative" /></div>
+@*<button type="button" class="btn btn-info" id="btnPrueba" onclick="prueba()"> prueba</button>*@
+<div class='container col-md-12'>
+
+    @*@Html.ActionLink("Prueba Noticaciones", "PruebaNotificaciones","Registrar")*@
+
+    <section id="wizard">
+        <div id="rootwizard">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container col-md-12">
+                        <ul>
+                            <li><a href="#tab1" data-toggle="tab">Captura de datos</a></li>
+                            <li><a href="#tab2" data-toggle="tab" onclick="validatab()">Validación de datos</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane" id="tab1">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="inputEsSocio">Tipo de persona:</label>
+                            @{
+                                List<SelectListItem> itemsSocio = new List<SelectListItem>();
+                                itemsSocio.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+
+                                itemsSocio.Add(new SelectListItem
+                                {
+                                    Text = "Socio",
+                                    Value = "1"
+                                });
+
+                                itemsSocio.Add(new SelectListItem
+                                {
+                                    Text = "Usuario",
+                                    Value = "2"
+                                });
+
+                                itemsSocio.Add(new SelectListItem
+                                {
+                                    Text = "Persona Moral",
+                                    Value = "3"
+                                });
+                                @Html.DropDownListFor(x => x.ES_SOCIO, itemsSocio, new { @class = "form-control select2", @id = "inputEsSocio", @onchange = "EsSocio(value)" })
+                            }
+                        </div>
+                        <div class="col-md-3" id="divInputSocio">
+                            @Html.LabelFor(x => x.NUMERO, "Número de socio:")
+                            @*@if (permisoUsuario.USUARIO_CALL_CENTER==false) {*@
+                            @Html.TextBoxFor(x => x.NUMERO, new { @class = "form-control", @placeholder = "Ej: 667231", @id = "inputSocio", disabled = "disabled ", @oninput = "reiniciaDatosSocio()", @onkeypress = "return valida(event)", @type = "text" })
+                            @*}else{
+                                    @Html.TextBoxFor(x => x.NUMERO, new { @class = "form-control", @placeholder = "Ej: 667231", @id = "inputSocio", @oninput = "reiniciaDatosSocio()", @onkeypress = "return valida(event)", @type = "text" })
+                                }*@
+                        </div>
+                        <div class="col-md-1">
+                            <button id="buscarNumSocio" class="btn btn-info" onclick="hacer_click($('#inputSocio').val())" disabled style="margin-top: 25px;">Buscar</button>
+                        </div>
+                        <div class="col-md-3" id="div-representante-leg">
+                            <label for="selectPerMoral">Representante legal:</label>
+                            <select class="form-control select2" id="selectPerMoral" onchange="cargaDatosPM()" disabled>
+                                <option>Representante Legal</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2" id="div-NoFolioUne">
+                            @Html.LabelFor(x => x.FOLIO, "Número de folio:")
+                            @Html.TextBoxFor(x => x.FOLIO, new { @class = "form-control", @placeholder = "folio", @id = "inputFolio", @readOnly = "", @oninput = "" })
+                        </div>
+                    </div>
+
+                    <hr style="border-color: dimgray;" />
+                    @using (Ajax.BeginForm("RegistrarReporte", "Registrar", new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess" }, new { @id = "frmRegistrar" }))
+                    {
+                        @Html.HiddenFor(x => x.ES_SOCIO, new { @id = "inputEsSocio_" })
+                        @Html.HiddenFor(x => x.NUMERO, new { @id = "inputSocio_" })
+                        @Html.HiddenFor(x => x.ID_DE_SUCURSAL, new { @Value = @SesionUsuario.Id_de_sucursal })
+                        @Html.HiddenFor(x => x.USUARIO_REGISTRA, new { @Value = @SesionUsuario.Numusuario })
+                        @Html.HiddenFor(x => x.FOLIO, new { @id = "inputFolio_" })
+                        @Html.HiddenFor(x => x.ID_ESTATUS_REPORTE, new { @id = "inputIdEstatusReporte_" })
+                        <div class="row">
+                            <div class="col-md-3">
+                                @Html.LabelFor(x => x.NOMBRE_S, "Nombre(s):")
+                                @Html.TextBoxFor(x => x.NOMBRE_S, new { @class = "form-control", @placeholder = "Nombre", @id = "inputNombre", @readonly = "" })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.LabelFor(x => x.APELLIDO_PATERNO, "Apellido Paterno:")
+                                @Html.TextBoxFor(x => x.APELLIDO_PATERNO, new { @class = "form-control", @placeholder = "Ap. Paterno", @id = "inputAP", @readonly = "" })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.LabelFor(x => x.APELLIDO_MATERNO, "Apellido Materno:")
+                                @Html.TextBoxFor(x => x.APELLIDO_MATERNO, new { @class = "form-control", @placeholder = "Ap. Materno", @id = "inputAM", @readonly = "" })
+                            </div>
+                            <div class="col-md-3" id="div-telefono">
+                                @Html.LabelFor(x => x.TELEFONO, "Teléfono:")
+                                @Html.TextBoxFor(x => x.TELEFONO, new { @class = "form-control", @placeholder = "Tel.", @id = "inputTel", @maxlength = "20", @readonly = "", @onkeypress = "validaTel()" })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-3" id="div-celular">
+                                @Html.LabelFor(x => x.TEL_CELULAR, "Celular:")
+                                @Html.TextBoxFor(x => x.TEL_CELULAR, new { @class = "form-control", @placeholder = "Cel.", @id = "inputTelCel", @maxlength = "20", @readonly = "", @onkeypress = "validaCelular()" })
+                            </div>
+                            <div class="col-md-9" id="div-domicilio">
+                                @Html.LabelFor(x => x.DOMICILIO, "Domicilio:")
+                                @Html.TextBoxFor(x => x.DOMICILIO, new { @class = "form-control", @placeholder = "Domicilio", @id = "inputCalle", @maxlength = "200", @readonly = "", @oninput = "validaDomicilio()" })
+                            </div>
+                        </div>
+                        <hr style="border-color: dimgray;" />
+                        <div class="row">
+                            <div class="col-md-3">
+                                @Html.LabelFor(x => x.REPORTE_CORRESPONSALIAS, "Aplica Corresponsal:")
+                                @if (permisoUsuario.USUARIO_CALL_CENTER == true)
+                                {
+                                    @Html.CheckBoxFor(x => x.REPORTE_CORRESPONSALIAS, new { @type = "checkbox", @id = "checkCorresponsalias", @name = "checkCorr", @Value = true, @onClick = "cambioEstadoCheckbox()", @disabled = "disabled" })
+                                }
+                                else
+                                {
+                                    @Html.CheckBoxFor(x => x.REPORTE_CORRESPONSALIAS, new { @type = "checkbox", @id = "checkCorresponsalias", @name = "checkCorr", @Value = true, @onClick = "cambioEstadoCheckbox()" })
+                                }
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-3" id="div-sucursal">
+                                <label for="selectSucursal">Sucursal del socio:</label>
+                                <select class="form-control" id="selectSucursal" disabled>
+                                    <option value="0">Sucursal</option>
+                                    @{
+                                        foreach (var item in ViewData["sucursales"] as List<CMV_CALLCENTER.Models.SUCURSALES>)
+                                        {
+                                            <option value="@item.Id_de_Sucursal">@item.Descripcion</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="selectSucursal">Sucursal de la causa:</label>
+                                @{
+                                    List<SelectListItem> itemsSucRegistro = new List<SelectListItem>();
+                                    itemsSucRegistro.Add(new SelectListItem { Text = "Ninguna", Value = "0" });
+                                    foreach (var item in ViewData["sucursales"] as List<CMV_CALLCENTER.Models.SUCURSALES>)
+                                    {
+                                        itemsSucRegistro.Add(new SelectListItem
+                                        {
+                                            Text = item.Descripcion,
+                                            Value = item.Id_de_Sucursal.ToString()
+                                        });
+                                    }
+                                    itemsSucRegistro.Add(new SelectListItem
+                                    {
+                                        Text = "OXXO",
+                                        Value = "1000"
+                                    });
+                                    @Html.DropDownListFor(x => x.ID_SUCURSAL_REGISTRO, itemsSucRegistro, new { @class = "form-control select2", @id = "selectSucursalRegistro", @onchange = "CambioSucursalRegistro()" })
+                                }
+                            </div>
+                            <div class="col-md-3" id="div-EntFed">
+                                <label for="selectEntidad" class="control-label">Entidad Federativa:</label>
+                                @{
+                                    List<SelectListItem> itemsEntidades = new List<SelectListItem>();
+                                    itemsEntidades.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+                                    foreach (var lista in ViewData["listaEntidades"] as List<CMV_CALLCENTER.Models.ENTIDAD_FEDERATIVA>)
+                                    {
+                                        itemsEntidades.Add(new SelectListItem
+                                        {
+                                            Text = lista.DESCRIPCION,
+                                            Value = lista.ID_ENTIDAD_FEDERATIVA.ToString()
+                                        });
+                                    }
+                                    @Html.DropDownListFor(x => x.ENTIDAD, itemsEntidades, new { @class = "form-control select2", @id = "selectEntidad", @onchange = "selectEntFed()" })
+                                }
+                            </div>
+                            <div class="col-md-3">
+                                <label for="selectMedioContacto" class="control-label">Medio de contacto:</label>
+                                @{
+                                    List<SelectListItem> itemsMedio = new List<SelectListItem>();
+
+                                    if (permisoUsuario.USUARIO_CALL_CENTER == false)
+                                    {
+                                        itemsMedio.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+                                    }
+                                    foreach (var lista in ViewData["listaMediosContacto"] as List<CMV_CALLCENTER.Models.CAT_UNE_MEDIO_CONTACTO>)
+                                    {
+                                        if ((lista.ID_MEDIO_CONTACTO == 1 || lista.ID_MEDIO_CONTACTO == 2) && SesionUsuario.Id_de_sucursal > 1)
+                                        {
+                                            itemsMedio.Add(new SelectListItem
+                                            {
+                                                Text = lista.DESCRIPCION,
+                                                Value = lista.ID_MEDIO_CONTACTO.ToString()
+                                            });
+                                        }
+                                        else if (lista.ID_MEDIO_CONTACTO != 1 && SesionUsuario.Id_de_sucursal == 1)
+                                        {
+                                            itemsMedio.Add(new SelectListItem
+                                            {
+                                                Text = lista.DESCRIPCION,
+                                                Value = lista.ID_MEDIO_CONTACTO.ToString()
+                                            });
+                                        }
+                                    }
+                                    @Html.DropDownListFor(x => x.ID_MEDIO_CONTACTO, itemsMedio, new { @class = "form-control select2", @id = "selectMedioContacto", @onchange = "medioContacto()" })
+                                }
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="selectReporte" class="control-label">Tipo de reporte:</label>
+                                @{
+                                    List<SelectListItem> items = new List<SelectListItem>();
+                                    if (permisoUsuario.USUARIO_CALL_CENTER == false)
+                                    {
+                                        items.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+                                    }
+
+                                    foreach (var lista in ViewData["listaTipoReportes"] as List<CMV_CALLCENTER.Models.CAT_UNE_TIPO_REPORTE>)
+                                    {
+                                        items.Add(new SelectListItem
+                                        {
+                                            Text = lista.DESCRIPCION,
+                                            Value = lista.ID_TIPO_REPORTE.ToString()
+                                        });
+                                    }
+                                    @Html.DropDownListFor(x => x.ID_TIPO_REPORTE, items, new { @class = "form-control select2", @id = "selectReporte", @onchange = "cargarSupuestos(value)", @disabled = "" })
+                                }
+                            </div>
+                            <div class="col-md-3">
+                                <label for="selectPtmoCapt" class="control-label">Tipo de operación:</label>
+                                @{
+                                    List<SelectListItem> itemsCuentas = new List<SelectListItem>();
+                                    itemsCuentas.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+
+                                    foreach (var item in (ViewData["tipoCuentas"] as List<CMV_CALLCENTER.Models.CAT_UNE_TIPO_CUENTA>))
+                                    {
+                                        itemsCuentas.Add(new SelectListItem
+                                        {
+                                            Text = item.DESCRIPCION,
+                                            Value = item.ID_TIPO_CUENTA.ToString()
+                                        });
+                                    }
+                                    @Html.DropDownListFor(x => x.ID_TIPO_CUENTA, itemsCuentas, new { @class = "form-control select2", @id = "selectPtmoCapt", @onchange = "selectCuenta(value)", @disabled = "" })
+                                }
+                            </div>
+                            <div class="col-md-3">
+                                <label for="selectTipoCuenta" class="control-label"> Operación:</label>
+                                @{
+                                    @Html.DropDownListFor(x => x.ID_CUENTA, new SelectList(string.Empty, "Value", "Text"), "SELECCIONAR", new { @class = "form-control select2", @id = "selectTipoCuenta", onchange = "tipoCuenta(value)", @disabled = "" })
+                                }
+                            </div>
+                            <div class="col-md-3" id="div-no-referencia">
+                                @Html.LabelFor(x => x.NUMERO_DE_REFERENCIA, "Número de referencia: ")
+                                @Html.TextBoxFor(x => x.NUMERO_DE_REFERENCIA, new { @class = "form-control", @id = "inputNumReferencia", @readonly = "", @type = "text", @maxlength = "12", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="selectSupuesto" class="control-label">Causa del reporte:</label>
+                                @{
+                                    @Html.DropDownListFor(x => x.ID_SUPUESTOS_REPORTE, new SelectList(string.Empty, "Value", "Text"), "SELECCIONAR", new { @class = "form-control select2", @id = "selectSupuesto", @onchange = "supuestos(value)", @disabled = "" })
+                                }
+                            </div>
+                            <div class="col-md-3" id="div-importe-reclamado">
+                                <label for="inputImporteReclamacion">Importe reclamado:</label>
+                                <input class="form-control" id="inputImporteReclamacion" disabled="" value="$0.00" oninput="validaInputImporte(this.value)" onfocus="limpiarInputReporte()" onblur="this.value=formatCurrency(this.value);" onkeypress="this.value = validaNumeros(this.value)" />
+                                @Html.HiddenFor(x => x.IMPORTE_SOLUCION, new { @class = "form-control", @id = "inputImporteSolucion", @Value = "0.00" })
+                                @Html.HiddenFor(x => x.IMPORTE_RECLAMACION, new { @class = "form-control", @id = "inputImporteReclamacionHidden", @Value = "0.00" })
+                            </div>
+                            <div class="col-md-3" id="div-no-tarjeta">
+                                @Html.LabelFor(x => x.Num_Tarjeta, "Número de tarjeta(Débito):")
+                                @Html.TextBoxFor(x => x.Num_Tarjeta, new { @class = "form-control", @id = "inputNumTarjeta", @readonly = "" })
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-3 hidden" id="divNumCuenta">
+                                @Html.LabelFor(x => x.NUMERO_CUENTA_PTMO, "Número de cuenta/préstamo/DPF:", new { @id = "labelinputNumeroCuentaPtmo" })
+                                @Html.TextBoxFor(x => x.NUMERO_CUENTA_PTMO, new { @class = "form-control", @id = "inputNumeroCuentaPtmo", @readonly = "", @oninput = "cambioinputNumeroCuentaPtmo()", @onkeypress = "javascript:return isNumber(event)" })
+                            </div>
+                            <div class="col-md-3 hidden" id="div-contrato27">
+                                <label for="selectProducto" class="control-label">Producto:</label>
+                                @{
+                                    List<SelectListItem> itemsProducto = new List<SelectListItem>();
+                                    itemsProducto.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+
+                                    foreach (var item in (ViewData["listaProductos"] as List<CMV_CALLCENTER.Models.CAT_UNE_PRODUCTO>))
+                                    {
+                                        itemsProducto.Add(new SelectListItem
+                                        {
+                                            Text = item.NOMBRE,
+                                            Value = item.ID_PRODUCTO.ToString()
+                                        });
+                                    }
+                                    @Html.DropDownListFor(x => x.ID_PRODUCTO, itemsProducto, new { @class = "form-control select2", @id = "selectProducto", @onchange = "cambioProducto()", @disabled = "" })
+                                }
+                            </div>
+                            <div class="col-md-3 hidden" id="divCanalTransaccion">
+                                <label for="selectCanal" class="control-label">Canal de transacción:</label>
+                                @{
+                                    List<SelectListItem> itemsCanales = new List<SelectListItem>();
+                                    itemsCanales.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+
+                                    foreach (var item in (ViewData["listaCanales"] as List<CMV_CALLCENTER.Models.CAT_UNE_CANAL>))
+                                    {
+                                        itemsCanales.Add(new SelectListItem
+                                        {
+                                            Text = item.NOMBRE,
+                                            Value = item.ID_CANAL.ToString()
+                                        });
+                                    }
+                                    @Html.DropDownListFor(x => x.ID_CANAL, itemsCanales, new { @class = "form-control select2", @id = "selectCanal", @onchange = "cambioCanal()", @disabled = "" })
+                                }
+                            </div>
+                            <div class="col-md-3 hidden" id="divMotivoReclamacion">
+                                <label for="selectMotivoCancelacion" class="control-label">Motivo de reclamación:</label>
+                                @{
+                                    List<SelectListItem> itemsReclamacion = new List<SelectListItem>();
+                                    itemsReclamacion.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+
+                                    foreach (var item in (ViewData["listaMotivoCancelacion"] as List<CMV_CALLCENTER.Models.CAT_UNE_MOTIVO_CANCELACION>))
+                                    {
+                                        itemsReclamacion.Add(new SelectListItem
+                                        {
+                                            Text = item.NOMBRE,
+                                            Value = item.ID_MOTIVO_CANCELACION.ToString()
+                                        });
+                                    }
+                                    @Html.DropDownListFor(x => x.ID_MOTIVO_CANCELACION, itemsReclamacion, new { @class = "form-control select2", @id = "selectMotivoCancelacion", @onchange = "cambioMotivoCancelacion()", @disabled = "" })
+                                }
+                            </div>
+                        </div>
+                        <hr style="border-color: dimgray;" />
+                        <div class="row" id="DatosAdiccionales">
+                            <div class="col-md-3">
+                                @Html.LabelFor(x => x.FECHA_SOLICITUD_ACLARACION, "Fecha solicitud de aclaración:")
+                                @Html.TextBoxFor(x => x.FECHA_SOLICITUD_ACLARACION, new { @class = "form-control", @id = "fechaAclaracion", @onchange = "cambioFecha(id)", @disabled = "", @readonly = "" })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.LabelFor(x => x.FECHA_TRANSACCION, "Fecha de la transacción:")
+                                @Html.TextBoxFor(x => x.FECHA_TRANSACCION, new { @class = "form-control", @id = "fechaTransaccion", @onchange = "cambioFecha(id)", @readonly = "" })
+                            </div>
+                            <div class="col-md-3" id="divselectMedioMov">
+                                <label for="selectMedioMov" class="control-label">Medio de detección de movimiento:</label>
+                                @{
+                                    List<SelectListItem> itemsMedioDetMov = new List<SelectListItem>();
+                                    itemsMedioDetMov.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+
+                                    foreach (var item in (ViewData["listaMedioMovimiento"] as List<CMV_CALLCENTER.Models.CAT_CALLCENTER_MEDIO_MOVIMIENTO>))
+                                    {
+                                        itemsMedioDetMov.Add(new SelectListItem
+                                        {
+                                            Text = item.descripcion_medio,
+                                            Value = item.id_medio_movimiento.ToString()
+                                        });
+                                    }
+                                    @Html.DropDownListFor(x => x.id_medio_deteccion_movimiento, itemsMedioDetMov, new { @class = "form-control select2", @id = "selectMedioMov", @onchange = "", @disabled = "" })
+                                }
+                            </div>
+                            <div class="col-md-3" id="divFolioAutorizacion">
+                                @Html.LabelFor(x => x.folio_autorizacion_banca, "Folio de autorización: ")
+                                @Html.TextBoxFor(x => x.folio_autorizacion_banca, new { @class = "form-control", @id = "inputFolioAutorizacion", @disabled = "", @type = "text", @maxlength = "12", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12">
+                                @Html.LabelFor(x => x.DESCRIPCION_REPORTE, "Descripción del reporte:")
+                                @Html.TextAreaFor(x => x.DESCRIPCION_REPORTE, new { @class = "form-control", @placeholder = "Descripción", @id = "inputDescripcion", @maxlength = "1000", @rows = "5", @onkeypress = "descripcionReporte()" })
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="tab-pane" id="tab2">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <strong>Tipo de persona:</strong><input class="form-control" id="spanTipoPer" readonly />
+                        </div>
+                        <div class="col-md-3">
+                            <strong>Número:</strong><input class="form-control" id="spanNumeroSocio" readonly />
+                        </div>
+                        <div class="col-md-4" id="span-div-representante">
+                            <strong>Representante Legal:</strong><input class="form-control" id="spanRL" readonly />
+                        </div>
+                        <div class="col-md-2" id="span-div-NoFolioUne">
+                            <strong>Número de folio:</strong><input class="form-control" id="spanFolio" readonly />
+                        </div>
+                    </div>
+                    <hr style="border-color: dimgray;" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Nombre:</strong><input class="form-control" id="spanNombre" readonly />
+                        </div>
+                        <div class="col-md-3" id="span-div-telefono">
+                            <strong>Teléfono:</strong><input class="form-control" id="spanTel" readonly />
+                        </div>
+                        <div class="col-md-3" id="div-spanTelCel">
+                            <strong>Celular:</strong><input class="form-control" id="spanTelCel" readonly />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-9" id="div-spanDomicilio">
+                            <strong>Domicilio:</strong><input class="form-control" id="spanDomicilio" readonly />
+                        </div>
+                        <div class="col-md-3" id="div-spanSucursal">
+                            <strong>Sucursal del socio:</strong><input class="form-control" id="spanSucursalSocio" readonly />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-3">
+                            <strong>Sucursal de registro:</strong><input class="form-control" id="spanSucursalRegistro" readonly />
+                        </div>
+                        <div class="col-md-3" id="div-spanEntFed">
+                            <strong>Entidad federativa:</strong><input class="form-control" id="spanEntidadFederativa" readonly />
+                        </div>
+                        <div class="col-md-3">
+                            <strong>Medio de contacto:</strong><input class="form-control" id="spanMedio" readonly />
+                        </div>
+                        <div class="col-md-3">
+                            <strong>Tipo de reporte:</strong><input class="form-control" id="spanTP" readonly />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-3">
+                            <strong>Tipo de operación:</strong><input class="form-control" id="spanTCuenta" readonly />
+                        </div>
+                        <div class="col-md-3">
+                            <strong>Operación:</strong><input class="form-control" id="spanCuentas" readonly />
+                        </div>
+                        <div class="col-md-3" id="span-div-no-referencia">
+                            <strong>Número de referencia:</strong><input class="form-control" id="spanNumReferencia" readonly />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Causa del reporte:</strong><input class="form-control" id="spanTS" readonly />
+                        </div>
+                        <div class="col-md-3" id="span-div-importe-rec">
+                            <strong>Importe reclamado:</strong><input class="form-control" id="spanIR" readonly />
+                        </div>
+                        <div class="col-md-3" id="span-div-no-tarjeta">
+                            <strong>Número de tarjeta(Débito):</strong><input class="form-control" id="spanTarjetaD" readonly />
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="row" id="divFormA27">
+                        <div class="col-md-3">
+                            <strong>Numero cuenta/préstamo/dpf:</strong><input class="form-control" id="spaninputNumeroCuentaPtmo" readonly />
+                        </div>
+                        <div class="col-md-3">
+                            <strong>Producto:</strong><input class="form-control" id="spanProducto" readonly />
+                        </div>
+                        <div class="col-md-3">
+                            <strong>Canal de transacción:</strong><input class="form-control" id="spanCanal" readonly />
+                        </div>
+                        <div class="col-md-3">
+                            <strong>Motivo de reclamación:</strong><input class="form-control" id="spanMotivoReclamacion" readonly />
+                        </div>
+                    </div>
+                    <hr style="border-color: dimgray;" />
+                    <div class="row" id="span-DatosAdiccionales">
+                        <div class="col-md-3">
+                            <strong>Fecha solicitud de aclaración:</strong><input class="form-control" id="spanFechaAcla" readonly />
+                        </div>
+                        <div class="col-md-3">
+                            <strong>Fecha de la transacción:</strong><input class="form-control" id="spanFechaTran" readonly />
+                        </div>
+                        <div class="col-md-3" id="divSpanMedioDeteccion">
+                            <strong>Medio de detección de movimiento:</strong><input class="form-control" id="spanMedioDeteccion" readonly />
+                        </div>
+                        <div class="col-md-3" id="divSpanFolioBanca">
+                            <strong>Folio de autorización:</strong><input class="form-control" id="spanFolioBanca" readonly />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>Descripción del reporte:</strong>
+                            @Html.TextArea("1", new { @class = "form-control", @placeholder = "Descripción", @id = "spanDescr", @maxlength = "1000", @rows = "5", @onkeypress = "descripcionReporte()", @readOnly = "" })
+                        </div>
+                    </div>
+                </div>
+                <ul class="pager wizard">
+                    <li class="previous"><a href="javascript:;"><span class="glyphicon glyphicon-arrow-left"></span> Anterior</a></li>
+                    <li id="btn-siguiente" class="next"><a href="javascript:;"><span class="glyphicon glyphicon-arrow-right"></span> Siguiente</a></li>
+                    <li class="finish " style="float: right;"><a href="javascript:;"><span class="glyphicon glyphicon-save"></span> Guardar</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<div class="modal fade" id="myModalCuestionario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">VALIDACIÓN DE DATOS DEL SOCIO</h4>
+            </div>
+            <div class="modal-body" id="cuerpoCuestionario">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" id="btnValidarCuestionarioBanca" onclick="ValidarCuestionarioBanca()"> VALIDAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalDPFs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Seleccionar Plazo Fijo(DPFs)</h4>
+            </div>
+            <div class="modal-body">
+                <table id="tblDPFs" class="display nowrap dataTable dtr-inline" cellspacing="0" width="100%" style="font-size:12px;">
+                    <thead>
+                        <tr>
+                            <th>Seleccionar</th>
+                            <th>Fecha Apertura</th>
+                            <th>Número de contrato</th>
+                            <th>Monto</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoDPFs"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModalCuentaBloqueada" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-body">
+                <h4>El socio ingresado tiene su cuenta bloqueada en CMV Finanzas.</h4>
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" class="btn btn-success" id="btnValidarCuestionarioBanca" onclick="cuentaBloqueada()"> Ok</button>
+                
+            </div>
+        </div>
+    </div>
+</div>

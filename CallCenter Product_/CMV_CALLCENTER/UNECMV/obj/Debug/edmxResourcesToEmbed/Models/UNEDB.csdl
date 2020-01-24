@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BDUNE" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CMV_REC_DATA">
+    <Key>
+      <PropertyRef Name="ID_TBL_INT" />
+    </Key>
+    <Property Name="ID_TBL_INT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="INB_OUT_ID" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="CALLTYPE" Type="Decimal" Precision="1" Scale="0" />
+    <Property Name="CRM_FOLIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RDATE" Type="DateTime" Precision="3" />
+    <Property Name="PATH_REC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CALL_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PHONE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="P_STATUS" Type="Decimal" Precision="1" Scale="0" />
+  </EntityType>
+  <EntityContainer Name="ContextUneBD" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CMV_REC_DATA" EntityType="Self.CMV_REC_DATA" />
+  </EntityContainer>
+</Schema>

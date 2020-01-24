@@ -1,0 +1,817 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HAPEModelStoreContainer" CdmEntityContainer="ContextUne">
+    <EntitySetMapping Name="CAT_UNE_ESTATUS_REPORTE">
+      <EntityTypeMapping TypeName="HAPEModel.CAT_UNE_ESTATUS_REPORTE">
+        <MappingFragment StoreEntitySet="CAT_UNE_ESTATUS_REPORTE">
+          <ScalarProperty Name="ID_ESTATUS_REPORTE" ColumnName="ID_ESTATUS_REPORTE" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAT_UNE_MEDIO_CONTACTO">
+      <EntityTypeMapping TypeName="HAPEModel.CAT_UNE_MEDIO_CONTACTO">
+        <MappingFragment StoreEntitySet="CAT_UNE_MEDIO_CONTACTO">
+          <ScalarProperty Name="ID_MEDIO_CONTACTO" ColumnName="ID_MEDIO_CONTACTO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAT_UNE_SUPUESTOS_REPORTE">
+      <EntityTypeMapping TypeName="HAPEModel.CAT_UNE_SUPUESTOS_REPORTE">
+        <MappingFragment StoreEntitySet="CAT_UNE_SUPUESTOS_REPORTE">
+          <ScalarProperty Name="ID_MOTIVO_CANCELACION" ColumnName="ID_MOTIVO_CANCELACION" />
+          <ScalarProperty Name="ID_CANAL" ColumnName="ID_CANAL" />
+          <ScalarProperty Name="VALIDA_IMPORTE_RECLAMACION" ColumnName="VALIDA_IMPORTE_RECLAMACION" />
+          <ScalarProperty Name="ACTIVO" ColumnName="ACTIVO" />
+          <ScalarProperty Name="ID_CUENTA" ColumnName="ID_CUENTA" />
+          <ScalarProperty Name="ID_TIPO_CUENTA" ColumnName="ID_TIPO_CUENTA" />
+          <ScalarProperty Name="ID_SUPUESTOS_REPORTE" ColumnName="ID_SUPUESTOS_REPORTE" />
+          <ScalarProperty Name="ID_TIPO_REPORTE" ColumnName="ID_TIPO_REPORTE" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="DIAS_REQUERIDOS" ColumnName="DIAS_REQUERIDOS" />
+          <ScalarProperty Name="id_accion_causa" ColumnName="id_accion_causa" />
+          <ScalarProperty Name="requiere_autentificacion" ColumnName="requiere_autentificacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAT_UNE_TIPO_REPORTE">
+      <EntityTypeMapping TypeName="HAPEModel.CAT_UNE_TIPO_REPORTE">
+        <MappingFragment StoreEntitySet="CAT_UNE_TIPO_REPORTE">
+          <ScalarProperty Name="ID_TIPO_REPORTE" ColumnName="ID_TIPO_REPORTE" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_UNE_CANALIZACIONES">
+      <EntityTypeMapping TypeName="HAPEModel.TBL_UNE_CANALIZACIONES">
+        <MappingFragment StoreEntitySet="TBL_UNE_CANALIZACIONES">
+          <ScalarProperty Name="ID_TIPO_COMENTARIO" ColumnName="ID_TIPO_COMENTARIO" />
+          <ScalarProperty Name="ID_CANALIZACION" ColumnName="ID_CANALIZACION" />
+          <ScalarProperty Name="FOLIO" ColumnName="FOLIO" />
+          <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+          <ScalarProperty Name="COMENTARIOS" ColumnName="COMENTARIOS" />
+          <ScalarProperty Name="numusuario" ColumnName="numusuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_UNE_REPORTE">
+      <EntityTypeMapping TypeName="HAPEModel.TBL_UNE_REPORTE">
+        <MappingFragment StoreEntitySet="TBL_UNE_REPORTE">
+          <ScalarProperty Name="fecha_compromiso_reporte" ColumnName="fecha_compromiso_reporte" />
+          <ScalarProperty Name="id_tipo_cuenta_banca" ColumnName="id_tipo_cuenta_banca" />
+          <ScalarProperty Name="reporte_banca" ColumnName="reporte_banca" />
+          <ScalarProperty Name="folio_autorizacion_banca" ColumnName="folio_autorizacion_banca" />
+          <ScalarProperty Name="id_medio_deteccion_movimiento" ColumnName="id_medio_deteccion_movimiento" />
+          <ScalarProperty Name="folio_banca" ColumnName="folio_banca" />
+          <ScalarProperty Name="FECHA_ABONO" ColumnName="FECHA_ABONO" />
+          <ScalarProperty Name="NUMERO_CUENTA_PTMO" ColumnName="NUMERO_CUENTA_PTMO" />
+          <ScalarProperty Name="ID_CAUSA_RESOLUCION" ColumnName="ID_CAUSA_RESOLUCION" />
+          <ScalarProperty Name="ID_RESOLUCION" ColumnName="ID_RESOLUCION" />
+          <ScalarProperty Name="ID_MOTIVO_CANCELACION" ColumnName="ID_MOTIVO_CANCELACION" />
+          <ScalarProperty Name="ID_CANAL" ColumnName="ID_CANAL" />
+          <ScalarProperty Name="ID_PRODUCTO" ColumnName="ID_PRODUCTO" />
+          <ScalarProperty Name="FECHA_TRANSACCION" ColumnName="FECHA_TRANSACCION" />
+          <ScalarProperty Name="FECHA_SOLICITUD_ACLARACION" ColumnName="FECHA_SOLICITUD_ACLARACION" />
+          <ScalarProperty Name="REPORTE_CORRESPONSALIAS" ColumnName="REPORTE_CORRESPONSALIAS" />
+          <ScalarProperty Name="ID_PROCEDE_CORRESPONSALIAS" ColumnName="ID_PROCEDE_CORRESPONSALIAS" />
+          <ScalarProperty Name="NUMERO_DE_REFERENCIA" ColumnName="NUMERO_DE_REFERENCIA" />
+          <ScalarProperty Name="DOMICILIO" ColumnName="DOMICILIO" />
+          <ScalarProperty Name="ID_FINALIZADO_DEBITO" ColumnName="ID_FINALIZADO_DEBITO" />
+          <ScalarProperty Name="BANDEJA_DEBITO" ColumnName="BANDEJA_DEBITO" />
+          <ScalarProperty Name="ID_PROCEDE_DEBITO" ColumnName="ID_PROCEDE_DEBITO" />
+          <ScalarProperty Name="Num_Tarjeta" ColumnName="Num_Tarjeta" />
+          <ScalarProperty Name="Vencido" ColumnName="Vencido" />
+          <ScalarProperty Name="VoBo" ColumnName="VoBo" />
+          <ScalarProperty Name="DIAS_RESTANTES_AREA_ESPECIALIZADA" ColumnName="DIAS_RESTANTES_AREA_ESPECIALIZADA" />
+          <ScalarProperty Name="DIAS_RESTANTES_GENERAL" ColumnName="DIAS_RESTANTES_GENERAL" />
+          <ScalarProperty Name="NUM_FOLIO" ColumnName="NUM_FOLIO" />
+          <ScalarProperty Name="FECHA_Canalizacion" ColumnName="FECHA_Canalizacion" />
+          <ScalarProperty Name="Comentarios_cancelacion" ColumnName="Comentarios_cancelacion" />
+          <ScalarProperty Name="ID_SUCURSAL_REGISTRO" ColumnName="ID_SUCURSAL_REGISTRO" />
+          <ScalarProperty Name="ID_SATISFACTORIO" ColumnName="ID_SATISFACTORIO" />
+          <ScalarProperty Name="ID_CUENTA" ColumnName="ID_CUENTA" />
+          <ScalarProperty Name="ID_TIPO_CUENTA" ColumnName="ID_TIPO_CUENTA" />
+          <ScalarProperty Name="IMPORTE_SOLUCION" ColumnName="IMPORTE_SOLUCION" />
+          <ScalarProperty Name="IMPORTE_RECLAMACION" ColumnName="IMPORTE_RECLAMACION" />
+          <ScalarProperty Name="ENTIDAD" ColumnName="ENTIDAD" />
+          <ScalarProperty Name="FOLIO" ColumnName="FOLIO" />
+          <ScalarProperty Name="ES_SOCIO" ColumnName="ES_SOCIO" />
+          <ScalarProperty Name="NUMERO" ColumnName="NUMERO" />
+          <ScalarProperty Name="NOMBRE_S" ColumnName="NOMBRE_S" />
+          <ScalarProperty Name="APELLIDO_PATERNO" ColumnName="APELLIDO_PATERNO" />
+          <ScalarProperty Name="APELLIDO_MATERNO" ColumnName="APELLIDO_MATERNO" />
+          <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+          <ScalarProperty Name="TEL_CELULAR" ColumnName="TEL_CELULAR" />
+          <ScalarProperty Name="FECHA_ALTA" ColumnName="FECHA_ALTA" />
+          <ScalarProperty Name="USUARIO_REGISTRA" ColumnName="USUARIO_REGISTRA" />
+          <ScalarProperty Name="ID_DE_SUCURSAL" ColumnName="ID_DE_SUCURSAL" />
+          <ScalarProperty Name="DESCRIPCION_REPORTE" ColumnName="DESCRIPCION_REPORTE" />
+          <ScalarProperty Name="ID_TIPO_REPORTE" ColumnName="ID_TIPO_REPORTE" />
+          <ScalarProperty Name="ID_SUPUESTOS_REPORTE" ColumnName="ID_SUPUESTOS_REPORTE" />
+          <ScalarProperty Name="ID_MEDIO_CONTACTO" ColumnName="ID_MEDIO_CONTACTO" />
+          <ScalarProperty Name="ID_ESTATUS_REPORTE" ColumnName="ID_ESTATUS_REPORTE" />
+          <ScalarProperty Name="Fecha_cierre" ColumnName="Fecha_cierre" />
+          <ScalarProperty Name="Observaciones_cierre" ColumnName="Observaciones_cierre" />
+          <ScalarProperty Name="id_cuenta_no_afectada_banca" ColumnName="id_cuenta_no_afectada_banca" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CLAVES">
+      <EntityTypeMapping TypeName="HAPEModel.CLAVES">
+        <MappingFragment StoreEntitySet="CLAVES">
+          <ScalarProperty Name="Comodin" ColumnName="Comodin" />
+          <ScalarProperty Name="Id_Accion" ColumnName="Id_Accion" />
+          <ScalarProperty Name="Id_Proceso" ColumnName="Id_Proceso" />
+          <ScalarProperty Name="Id_Ticket" ColumnName="Id_Ticket" />
+          <ScalarProperty Name="Numusuario_Jefe" ColumnName="Numusuario_Jefe" />
+          <ScalarProperty Name="Objetivo" ColumnName="Objetivo" />
+          <ScalarProperty Name="Id_bloqueo" ColumnName="Id_bloqueo" />
+          <ScalarProperty Name="Id_Rol" ColumnName="Id_Rol" />
+          <ScalarProperty Name="Id_Dpto" ColumnName="Id_Dpto" />
+          <ScalarProperty Name="Permisos_CYC" ColumnName="Permisos_CYC" />
+          <ScalarProperty Name="Correo_externo" ColumnName="Correo_externo" />
+          <ScalarProperty Name="Id_GeneroWoccu" ColumnName="Id_GeneroWoccu" />
+          <ScalarProperty Name="Id_ccostos_nomina" ColumnName="Id_ccostos_nomina" />
+          <ScalarProperty Name="NSS" ColumnName="NSS" />
+          <ScalarProperty Name="Gafete_Fecha" ColumnName="Gafete_Fecha" />
+          <ScalarProperty Name="Gafete_Impreso" ColumnName="Gafete_Impreso" />
+          <ScalarProperty Name="Nom_Maquina" ColumnName="Nom_Maquina" />
+          <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+          <ScalarProperty Name="Leyenda_Ficha" ColumnName="Leyenda_Ficha" />
+          <ScalarProperty Name="Aviso2_Estado" ColumnName="Aviso2_Estado" />
+          <ScalarProperty Name="Aviso1_Estado" ColumnName="Aviso1_Estado" />
+          <ScalarProperty Name="Aviso2_Cal" ColumnName="Aviso2_Cal" />
+          <ScalarProperty Name="Aviso1_Cal" ColumnName="Aviso1_Cal" />
+          <ScalarProperty Name="Nota_Cal" ColumnName="Nota_Cal" />
+          <ScalarProperty Name="Id_area" ColumnName="Id_area" />
+          <ScalarProperty Name="Permisos_Respaldo" ColumnName="Permisos_Respaldo" />
+          <ScalarProperty Name="Permisos" ColumnName="Permisos" />
+          <ScalarProperty Name="Cta_Deud" ColumnName="Cta_Deud" />
+          <ScalarProperty Name="Cierre" ColumnName="Cierre" />
+          <ScalarProperty Name="Id_de_sucursal" ColumnName="Id_de_sucursal" />
+          <ScalarProperty Name="Fecha_Cambio_Contrasena" ColumnName="Fecha_Cambio_Contrasena" />
+          <ScalarProperty Name="Apellido_materno" ColumnName="Apellido_materno" />
+          <ScalarProperty Name="Apellido_paterno" ColumnName="Apellido_paterno" />
+          <ScalarProperty Name="Nombre_s" ColumnName="Nombre_s" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="autorizo" ColumnName="autorizo" />
+          <ScalarProperty Name="Numemp" ColumnName="Numemp" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="Numusuario" ColumnName="Numusuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_PRESENCE_LLAMADAS">
+      <EntityTypeMapping TypeName="HAPEModel.TBL_PRESENCE_LLAMADAS">
+        <MappingFragment StoreEntitySet="TBL_PRESENCE_LLAMADAS">
+          <ScalarProperty Name="nombre_audio" ColumnName="nombre_audio" />
+          <ScalarProperty Name="tipo_llamada" ColumnName="tipo_llamada" />
+          <ScalarProperty Name="ruta_audio" ColumnName="ruta_audio" />
+          <ScalarProperty Name="call_id_presence" ColumnName="call_id_presence" />
+          <ScalarProperty Name="folio_prensence" ColumnName="folio_prensence" />
+          <ScalarProperty Name="folio_cmv" ColumnName="folio_cmv" />
+          <ScalarProperty Name="contador" ColumnName="contador" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_UNE_ACTUALIZA_TELEFONOS" FunctionName="HAPEModel.Store.SP_UNE_ACTUALIZA_TELEFONOS" />
+    <FunctionImportMapping FunctionImportName="SP_UNE_CARGAR_SUPUESTOS" FunctionName="HAPEModel.Store.SP_UNE_CARGAR_SUPUESTOS">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HAPEModel.SP_UNE_CARGAR_SUPUESTOS_Result">
+          <ScalarProperty Name="ID_SUPUESTOS_REPORTE" ColumnName="ID_SUPUESTOS_REPORTE" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="DIAS_REQUERIDOS" ColumnName="DIAS_REQUERIDOS" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_UNE_OBTENER_FOLIO" FunctionName="HAPEModel.Store.SP_UNE_OBTENER_FOLIO">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HAPEModel.SP_UNE_OBTENER_FOLIO_Result">
+          <ScalarProperty Name="FOLIO" ColumnName="FOLIO" />
+          <ScalarProperty Name="ESTATUS" ColumnName="ESTATUS" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="TBL_UNE_USUARIOS_ASIGNADOS">
+      <EntityTypeMapping TypeName="HAPEModel.TBL_UNE_USUARIOS_ASIGNADOS">
+        <MappingFragment StoreEntitySet="TBL_UNE_USUARIOS_ASIGNADOS">
+          <ScalarProperty Name="fecha_asignacion" ColumnName="fecha_asignacion" />
+          <ScalarProperty Name="responsable" ColumnName="responsable" />
+          <ScalarProperty Name="numusuario" ColumnName="numusuario" />
+          <ScalarProperty Name="folio" ColumnName="folio" />
+          <ScalarProperty Name="contador" ColumnName="contador" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_UNE_OBTENER_AREA_SUCURSAL" FunctionName="HAPEModel.Store.SP_UNE_OBTENER_AREA_SUCURSAL">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HAPEModel.SP_UNE_OBTENER_AREA_SUCURSAL_Result">
+          <ScalarProperty Name="PUESTO" ColumnName="PUESTO" />
+          <ScalarProperty Name="ESTATUS" ColumnName="ESTATUS" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_UNE_CARGA_ULTIMO_COMENTARIO" FunctionName="HAPEModel.Store.SP_UNE_CARGA_ULTIMO_COMENTARIO">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HAPEModel.SP_UNE_CARGA_ULTIMO_COMENTARIO_Result">
+          <ScalarProperty Name="ID_CANALIZACION" ColumnName="ID_CANALIZACION" />
+          <ScalarProperty Name="FOLIO" ColumnName="FOLIO" />
+          <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+          <ScalarProperty Name="COMENTARIOS" ColumnName="COMENTARIOS" />
+          <ScalarProperty Name="numusuario" ColumnName="numusuario" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_UNE_REPRESENTANTES_LEGALES" FunctionName="HAPEModel.Store.SP_UNE_REPRESENTANTES_LEGALES">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HAPEModel.SP_UNE_REPRESENTANTES_LEGALES_Result">
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="id_persona_rel" ColumnName="id_persona_rel" />
+          <ScalarProperty Name="ESTATUS" ColumnName="ESTATUS" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_UNE_CARGA_DATOS_REPRESENTANTE_LEGAL" FunctionName="HAPEModel.Store.SP_UNE_CARGA_DATOS_REPRESENTANTE_LEGAL">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HAPEModel.SP_UNE_CARGA_DATOS_REPRESENTANTE_LEGAL_Result">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido_paterno" ColumnName="apellido_paterno" />
+          <ScalarProperty Name="apellido_materno" ColumnName="apellido_materno" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="calle" ColumnName="calle" />
+          <ScalarProperty Name="num_ext" ColumnName="num_ext" />
+          <ScalarProperty Name="num_int" ColumnName="num_int" />
+          <ScalarProperty Name="Nombre_Colonia" ColumnName="Nombre_Colonia" />
+          <ScalarProperty Name="Codigo_Postal" ColumnName="Codigo_Postal" />
+          <ScalarProperty Name="CNBV_Municipio" ColumnName="CNBV_Municipio" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="estatus" ColumnName="estatus" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="ENTIDAD_FEDERATIVA">
+      <EntityTypeMapping TypeName="HAPEModel.ENTIDAD_FEDERATIVA">
+        <MappingFragment StoreEntitySet="ENTIDAD_FEDERATIVA">
+          <ScalarProperty Name="NIVEL_RIESGO" ColumnName="NIVEL_RIESGO" />
+          <ScalarProperty Name="Id_Pais" ColumnName="Id_Pais" />
+          <ScalarProperty Name="ID_PROSA_ENTIDAD_F" ColumnName="ID_PROSA_ENTIDAD_F" />
+          <ScalarProperty Name="CLAVE_ESTADO" ColumnName="CLAVE_ESTADO" />
+          <ScalarProperty Name="FECHA_MODIFICA" ColumnName="FECHA_MODIFICA" />
+          <ScalarProperty Name="FECHA_ALTA" ColumnName="FECHA_ALTA" />
+          <ScalarProperty Name="USUARIO_MODIFICA" ColumnName="USUARIO_MODIFICA" />
+          <ScalarProperty Name="USUARIO_ALTA" ColumnName="USUARIO_ALTA" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="ID_ENTIDAD_FEDERATIVA" ColumnName="ID_ENTIDAD_FEDERATIVA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_UNE_OBTENER_ENTIDAD_FEDERATIVA" FunctionName="HAPEModel.Store.SP_UNE_OBTENER_ENTIDAD_FEDERATIVA">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HAPEModel.SP_UNE_OBTENER_ENTIDAD_FEDERATIVA_Result">
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="ID_ENTIDAD_FEDERATIVA" ColumnName="ID_ENTIDAD_FEDERATIVA" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="CAT_UNE_CUENTAS">
+      <EntityTypeMapping TypeName="HAPEModel.CAT_UNE_CUENTAS">
+        <MappingFragment StoreEntitySet="CAT_UNE_CUENTAS">
+          <ScalarProperty Name="ID_PRODUCTO" ColumnName="ID_PRODUCTO" />
+          <ScalarProperty Name="ID_MOV_HAPE" ColumnName="ID_MOV_HAPE" />
+          <ScalarProperty Name="ID_TIPO_CUENTA" ColumnName="ID_TIPO_CUENTA" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="ID_CUENTA" ColumnName="ID_CUENTA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAT_UNE_TIPO_CUENTA">
+      <EntityTypeMapping TypeName="HAPEModel.CAT_UNE_TIPO_CUENTA">
+        <MappingFragment StoreEntitySet="CAT_UNE_TIPO_CUENTA">
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="ID_TIPO_CUENTA" ColumnName="ID_TIPO_CUENTA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_UNE_RESPUESTA_SATISFACTORIA">
+      <EntityTypeMapping TypeName="HAPEModel.TBL_UNE_RESPUESTA_SATISFACTORIA">
+        <MappingFragment StoreEntitySet="TBL_UNE_RESPUESTA_SATISFACTORIA">
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="ID_SATISFACTORIO" ColumnName="ID_SATISFACTORIO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUCURSALES">
+      <EntityTypeMapping TypeName="HAPEModel.SUCURSALES">
+        <MappingFragment StoreEntitySet="SUCURSALES">
+          <ScalarProperty Name="fecha_apertura" ColumnName="fecha_apertura" />
+          <ScalarProperty Name="clave_sucursal_pld" ColumnName="clave_sucursal_pld" />
+          <ScalarProperty Name="maximo_disponible" ColumnName="maximo_disponible" />
+          <ScalarProperty Name="LONGITUD" ColumnName="LONGITUD" />
+          <ScalarProperty Name="LATITUD" ColumnName="LATITUD" />
+          <ScalarProperty Name="baja_logica" ColumnName="baja_logica" />
+          <ScalarProperty Name="OPERA_DOMINGO" ColumnName="OPERA_DOMINGO" />
+          <ScalarProperty Name="Id_prosa" ColumnName="Id_prosa" />
+          <ScalarProperty Name="Id_Horario" ColumnName="Id_Horario" />
+          <ScalarProperty Name="Id_localid_Woccu" ColumnName="Id_localid_Woccu" />
+          <ScalarProperty Name="Id_Mpio_Woccu" ColumnName="Id_Mpio_Woccu" />
+          <ScalarProperty Name="Id_Estado_Woccu" ColumnName="Id_Estado_Woccu" />
+          <ScalarProperty Name="CveIF_Woccu" ColumnName="CveIF_Woccu" />
+          <ScalarProperty Name="Id_Sucursal_Woccu" ColumnName="Id_Sucursal_Woccu" />
+          <ScalarProperty Name="Clave_CNBV" ColumnName="Clave_CNBV" />
+          <ScalarProperty Name="Id_Colonia_CNBV" ColumnName="Id_Colonia_CNBV" />
+          <ScalarProperty Name="PLD_Tipo_Riesgo" ColumnName="PLD_Tipo_Riesgo" />
+          <ScalarProperty Name="Region_Actual" ColumnName="Region_Actual" />
+          <ScalarProperty Name="Cuenta_Oport" ColumnName="Cuenta_Oport" />
+          <ScalarProperty Name="Sucursal_Bansefi" ColumnName="Sucursal_Bansefi" />
+          <ScalarProperty Name="Grupo" ColumnName="Grupo" />
+          <ScalarProperty Name="Monto_Max_Caja" ColumnName="Monto_Max_Caja" />
+          <ScalarProperty Name="Usuario_Max" ColumnName="Usuario_Max" />
+          <ScalarProperty Name="Usuario_Min" ColumnName="Usuario_Min" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="Prov_Suc" ColumnName="Prov_Suc" />
+          <ScalarProperty Name="Depende_de" ColumnName="Depende_de" />
+          <ScalarProperty Name="Jef_Sucursal" ColumnName="Jef_Sucursal" />
+          <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+          <ScalarProperty Name="Id_Poblacion" ColumnName="Id_Poblacion" />
+          <ScalarProperty Name="socioutilitario" ColumnName="socioutilitario" />
+          <ScalarProperty Name="cuentadisponible" ColumnName="cuentadisponible" />
+          <ScalarProperty Name="correo" ColumnName="correo" />
+          <ScalarProperty Name="id_colonia" ColumnName="id_colonia" />
+          <ScalarProperty Name="PolizaFin" ColumnName="PolizaFin" />
+          <ScalarProperty Name="PolizaIni" ColumnName="PolizaIni" />
+          <ScalarProperty Name="Cuentabancos" ColumnName="Cuentabancos" />
+          <ScalarProperty Name="Num_Sucursal" ColumnName="Num_Sucursal" />
+          <ScalarProperty Name="Ccostos" ColumnName="Ccostos" />
+          <ScalarProperty Name="Zona" ColumnName="Zona" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Numero_interior" ColumnName="Numero_interior" />
+          <ScalarProperty Name="Numero_exterior" ColumnName="Numero_exterior" />
+          <ScalarProperty Name="Calle" ColumnName="Calle" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Id_de_Sucursal" ColumnName="Id_de_Sucursal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_UNE_PERMISOS_ADMIN">
+      <EntityTypeMapping TypeName="HAPEModel.TBL_UNE_PERMISOS_ADMIN">
+        <MappingFragment StoreEntitySet="TBL_UNE_PERMISOS_ADMIN">
+          <ScalarProperty Name="USUARIO_SUCURSAL" ColumnName="USUARIO_SUCURSAL" />
+          <ScalarProperty Name="ADMINISTRADOR_CALL_CENTER" ColumnName="ADMINISTRADOR_CALL_CENTER" />
+          <ScalarProperty Name="USUARIO_CALL_CENTER" ColumnName="USUARIO_CALL_CENTER" />
+          <ScalarProperty Name="PERMISO_OPERAR_DETALLE" ColumnName="PERMISO_OPERAR_DETALLE" />
+          <ScalarProperty Name="PERMISO_DEBITO" ColumnName="PERMISO_DEBITO" />
+          <ScalarProperty Name="PERMISO_REGISTRAR" ColumnName="PERMISO_REGISTRAR" />
+          <ScalarProperty Name="USUARIO_UNE" ColumnName="USUARIO_UNE" />
+          <ScalarProperty Name="PERMISO_CONDUSEF" ColumnName="PERMISO_CONDUSEF" />
+          <ScalarProperty Name="ACTIVO" ColumnName="ACTIVO" />
+          <ScalarProperty Name="FECHA_ALTA" ColumnName="FECHA_ALTA" />
+          <ScalarProperty Name="NOM_ROL" ColumnName="NOM_ROL" />
+          <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
+          <ScalarProperty Name="CONTADOR" ColumnName="CONTADOR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_UNE_PERMISOS_USUARIO" FunctionName="HAPEModel.Store.SP_UNE_PERMISOS_USUARIO" />
+    <EntitySetMapping Name="TBL_UNE_ARCHIVOS_ADJUNTOS">
+      <EntityTypeMapping TypeName="HAPEModel.TBL_UNE_ARCHIVOS_ADJUNTOS">
+        <MappingFragment StoreEntitySet="TBL_UNE_ARCHIVOS_ADJUNTOS">
+          <ScalarProperty Name="NUMUSUARIO" ColumnName="NUMUSUARIO" />
+          <ScalarProperty Name="NOMBRE_ARCHIVO" ColumnName="NOMBRE_ARCHIVO" />
+          <ScalarProperty Name="ID_TIPO_ARCHIVO" ColumnName="ID_TIPO_ARCHIVO" />
+          <ScalarProperty Name="FECHA_ALTA" ColumnName="FECHA_ALTA" />
+          <ScalarProperty Name="RUTA_ARCHIVO" ColumnName="RUTA_ARCHIVO" />
+          <ScalarProperty Name="FOLIO" ColumnName="FOLIO" />
+          <ScalarProperty Name="ID_ARCHIVO_ADJUNTAR" ColumnName="ID_ARCHIVO_ADJUNTAR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_UNE_TIPO_ARCHIVO">
+      <EntityTypeMapping TypeName="HAPEModel.TBL_UNE_TIPO_ARCHIVO">
+        <MappingFragment StoreEntitySet="TBL_UNE_TIPO_ARCHIVO">
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="ID_TIPO_ARCHIVO" ColumnName="ID_TIPO_ARCHIVO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_UNE_OBTENER_ARCHIVOS_ADJUNTOS" FunctionName="HAPEModel.Store.SP_UNE_OBTENER_ARCHIVOS_ADJUNTOS" />
+    <FunctionImportMapping FunctionImportName="SP_UNE_REESTABLECER_FOLIOS_USUARIO" FunctionName="HAPEModel.Store.SP_UNE_REESTABLECER_FOLIOS_USUARIO" />
+    <FunctionImportMapping FunctionImportName="SP_UNE_CARGA_COMENTARIO" FunctionName="HAPEModel.Store.SP_UNE_CARGA_COMENTARIO">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HAPEModel.SP_UNE_CARGA_COMENTARIO_Result">
+          <ScalarProperty Name="ID_CANALIZACION" ColumnName="ID_CANALIZACION" />
+          <ScalarProperty Name="FOLIO" ColumnName="FOLIO" />
+          <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+          <ScalarProperty Name="COMENTARIOS" ColumnName="COMENTARIOS" />
+          <ScalarProperty Name="numusuario" ColumnName="numusuario" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="TBL_UNE_PIVOTE_REPORTE">
+      <EntityTypeMapping TypeName="HAPEModel.TBL_UNE_PIVOTE_REPORTE">
+        <MappingFragment StoreEntitySet="TBL_UNE_PIVOTE_REPORTE">
+          <ScalarProperty Name="CAUSA" ColumnName="CAUSA" />
+          <ScalarProperty Name="TIPO_REPORTE" ColumnName="TIPO_REPORTE" />
+          <ScalarProperty Name="SUCURSAL_SOCIO" ColumnName="SUCURSAL_SOCIO" />
+          <ScalarProperty Name="SUCURSAL_REGISTRO" ColumnName="SUCURSAL_REGISTRO" />
+          <ScalarProperty Name="IMPORTE_SOLUCION" ColumnName="IMPORTE_SOLUCION" />
+          <ScalarProperty Name="IMPORTE_RECLAMADO" ColumnName="IMPORTE_RECLAMADO" />
+          <ScalarProperty Name="DESCRIPCION_REPORTE" ColumnName="DESCRIPCION_REPORTE" />
+          <ScalarProperty Name="SERVICIO" ColumnName="SERVICIO" />
+          <ScalarProperty Name="OPERACION" ColumnName="OPERACION" />
+          <ScalarProperty Name="ENTIDAD_FEDERATIVA" ColumnName="ENTIDAD_FEDERATIVA" />
+          <ScalarProperty Name="FECHA_NOTIFICACION" ColumnName="FECHA_NOTIFICACION" />
+          <ScalarProperty Name="FECHA_RESOLUCION" ColumnName="FECHA_RESOLUCION" />
+          <ScalarProperty Name="NUMUSUARIO" ColumnName="NUMUSUARIO" />
+          <ScalarProperty Name="SUBESTATUS" ColumnName="SUBESTATUS" />
+          <ScalarProperty Name="ESTATUS" ColumnName="ESTATUS" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="NUMERO" ColumnName="NUMERO" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="ES_SOCIO" ColumnName="ES_SOCIO" />
+          <ScalarProperty Name="FECHA_ALTA" ColumnName="FECHA_ALTA" />
+          <ScalarProperty Name="FOLIO" ColumnName="FOLIO" />
+          <ScalarProperty Name="NUMUSUARIO_REPORTE" ColumnName="NUMUSUARIO_REPORTE" />
+          <ScalarProperty Name="CONTADOR" ColumnName="CONTADOR" />
+          <ScalarProperty Name="PIVOTE" ColumnName="PIVOTE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_UNE_CARGAR_REPORTE" FunctionName="HAPEModel.Store.SP_UNE_CARGAR_REPORTE">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HAPEModel.SP_UNE_CARGAR_REPORTE_Result1">
+          <ScalarProperty Name="PIVOTE" ColumnName="PIVOTE" />
+          <ScalarProperty Name="CONTADOR" ColumnName="CONTADOR" />
+          <ScalarProperty Name="NUMUSUARIO_REPORTE" ColumnName="NUMUSUARIO_REPORTE" />
+          <ScalarProperty Name="FOLIO" ColumnName="FOLIO" />
+          <ScalarProperty Name="FECHA_ALTA" ColumnName="FECHA_ALTA" />
+          <ScalarProperty Name="ES_SOCIO" ColumnName="ES_SOCIO" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="NUMERO" ColumnName="NUMERO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="ESTATUS" ColumnName="ESTATUS" />
+          <ScalarProperty Name="SUBESTATUS" ColumnName="SUBESTATUS" />
+          <ScalarProperty Name="NUMUSUARIO" ColumnName="NUMUSUARIO" />
+          <ScalarProperty Name="FECHA_RESOLUCION" ColumnName="FECHA_RESOLUCION" />
+          <ScalarProperty Name="FECHA_NOTIFICACION" ColumnName="FECHA_NOTIFICACION" />
+          <ScalarProperty Name="ENTIDAD_FEDERATIVA" ColumnName="ENTIDAD_FEDERATIVA" />
+          <ScalarProperty Name="OPERACION" ColumnName="OPERACION" />
+          <ScalarProperty Name="SERVICIO" ColumnName="SERVICIO" />
+          <ScalarProperty Name="DESCRIPCION_REPORTE" ColumnName="DESCRIPCION_REPORTE" />
+          <ScalarProperty Name="IMPORTE_RECLAMADO" ColumnName="IMPORTE_RECLAMADO" />
+          <ScalarProperty Name="IMPORTE_SOLUCION" ColumnName="IMPORTE_SOLUCION" />
+          <ScalarProperty Name="SUCURSAL_REGISTRO" ColumnName="SUCURSAL_REGISTRO" />
+          <ScalarProperty Name="SUCURSAL_SOCIO" ColumnName="SUCURSAL_SOCIO" />
+          <ScalarProperty Name="TIPO_REPORTE" ColumnName="TIPO_REPORTE" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_UNE_BUSCA_NUMERO_SOCIO" FunctionName="HAPEModel.Store.SP_UNE_BUSCA_NUMERO_SOCIO">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HAPEModel.SP_UNE_BUSCA_NUMERO_SOCIO_Result1">
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="Nombre_s" ColumnName="Nombre_s" />
+          <ScalarProperty Name="Apellido_Paterno" ColumnName="Apellido_Paterno" />
+          <ScalarProperty Name="Apellido_Materno" ColumnName="Apellido_Materno" />
+          <ScalarProperty Name="CALLE" ColumnName="CALLE" />
+          <ScalarProperty Name="NUMERO_EXTERIOR" ColumnName="NUMERO_EXTERIOR" />
+          <ScalarProperty Name="NUMERO_INTERIOR" ColumnName="NUMERO_INTERIOR" />
+          <ScalarProperty Name="Id_Colonia_CNBV" ColumnName="Id_Colonia_CNBV" />
+          <ScalarProperty Name="Nombre_Colonia" ColumnName="Nombre_Colonia" />
+          <ScalarProperty Name="CP" ColumnName="CP" />
+          <ScalarProperty Name="municipio" ColumnName="municipio" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="Tel_Celular" ColumnName="Tel_Celular" />
+          <ScalarProperty Name="Tel_Trabajo" ColumnName="Tel_Trabajo" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Telefono_adicional" ColumnName="Telefono_adicional" />
+          <ScalarProperty Name="Id_de_Sucursal" ColumnName="Id_de_Sucursal" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="estatus" ColumnName="estatus" />
+          <ScalarProperty Name="Num_Tarjeta" ColumnName="Num_Tarjeta" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="CAT_UNE_PROCEDE_DEBITO">
+      <EntityTypeMapping TypeName="HAPEModel.CAT_UNE_PROCEDE_DEBITO">
+        <MappingFragment StoreEntitySet="CAT_UNE_PROCEDE_DEBITO">
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="ID_PROCEDE_DEBITO" ColumnName="ID_PROCEDE_DEBITO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_UNE_COMISIONES">
+      <EntityTypeMapping TypeName="HAPEModel.TBL_UNE_COMISIONES">
+        <MappingFragment StoreEntitySet="TBL_UNE_COMISIONES">
+          <ScalarProperty Name="MONTO" ColumnName="MONTO" />
+          <ScalarProperty Name="CONCEPTO" ColumnName="CONCEPTO" />
+          <ScalarProperty Name="ID_COMISION" ColumnName="ID_COMISION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_ATM_INSERTAR_COMISION" FunctionName="HAPEModel.Store.SP_ATM_INSERTAR_COMISION" />
+    <EntitySetMapping Name="CAT_UNE_FINALIZADO_DEBITO">
+      <EntityTypeMapping TypeName="HAPEModel.CAT_UNE_FINALIZADO_DEBITO">
+        <MappingFragment StoreEntitySet="CAT_UNE_FINALIZADO_DEBITO">
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="ID_FINALIZADO_DEBITO" ColumnName="ID_FINALIZADO_DEBITO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_UNE_REESTABLECER_FOLIOS_USUARIO_SESION" FunctionName="HAPEModel.Store.SP_UNE_REESTABLECER_FOLIOS_USUARIO_SESION" />
+    <FunctionImportMapping FunctionImportName="SP_UNE_ACTUALIZA_FOLIO_USUARIO_SESION" FunctionName="HAPEModel.Store.SP_UNE_ACTUALIZA_FOLIO_USUARIO_SESION" />
+    <FunctionImportMapping FunctionImportName="SP_UNE_ENVIAR_CORREOS" FunctionName="HAPEModel.Store.SP_UNE_ENVIAR_CORREOS" />
+    <FunctionImportMapping FunctionImportName="SP_UNE_OBTENER_USUARIOS" FunctionName="HAPEModel.Store.SP_UNE_OBTENER_USUARIOS">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HAPEModel.SP_UNE_OBTENER_USUARIOS_Result">
+          <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+          <ScalarProperty Name="Numusuario" ColumnName="Numusuario" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_UNE_OBTENER_SUPUESTOS_VALIDA_IMPORTE" FunctionName="HAPEModel.Store.SP_UNE_OBTENER_SUPUESTOS_VALIDA_IMPORTE">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HAPEModel.SP_UNE_OBTENER_SUPUESTOS_VALIDA_IMPORTE_Result">
+          <ScalarProperty Name="ID_SUPUESTOS_REPORTE" ColumnName="ID_SUPUESTOS_REPORTE" />
+          <ScalarProperty Name="ID_TIPO_REPORTE" ColumnName="ID_TIPO_REPORTE" />
+          <ScalarProperty Name="ID_TIPO_CUENTA" ColumnName="ID_TIPO_CUENTA" />
+          <ScalarProperty Name="ID_CUENTA" ColumnName="ID_CUENTA" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="DIAS_REQUERIDOS" ColumnName="DIAS_REQUERIDOS" />
+          <ScalarProperty Name="ACTIVO" ColumnName="ACTIVO" />
+          <ScalarProperty Name="VALIDA_IMPORTE_RECLAMACION" ColumnName="VALIDA_IMPORTE_RECLAMACION" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_UNE_OBTENER_NOMBRE_RESPONSABLE" FunctionName="HAPEModel.Store.SP_UNE_OBTENER_NOMBRE_RESPONSABLE" />
+    <EntitySetMapping Name="SICORP_ROLES">
+      <EntityTypeMapping TypeName="HAPEModel.SICORP_ROLES">
+        <MappingFragment StoreEntitySet="SICORP_ROLES">
+          <ScalarProperty Name="Id_Nivel_de_Rol" ColumnName="Id_Nivel_de_Rol" />
+          <ScalarProperty Name="nomenclatura" ColumnName="nomenclatura" />
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="Id_tipo_jefe" ColumnName="Id_tipo_jefe" />
+          <ScalarProperty Name="Id_Dpto" ColumnName="Id_Dpto" />
+          <ScalarProperty Name="Nom_Rol" ColumnName="Nom_Rol" />
+          <ScalarProperty Name="Id_Rol" ColumnName="Id_Rol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_UNE_REGISTRA_REPORTE" FunctionName="HAPEModel.Store.SP_UNE_REGISTRA_REPORTE" />
+    <FunctionImportMapping FunctionImportName="SP_CMV_OBTENER_CORREO_SERVIDOR_MODULO" FunctionName="HAPEModel.Store.SP_CMV_OBTENER_CORREO_SERVIDOR_MODULO">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HAPEModel.SP_CMV_OBTENER_CORREO_SERVIDOR_MODULO_Result">
+          <ScalarProperty Name="CUENTA_EMISOR" ColumnName="CUENTA_EMISOR" />
+          <ScalarProperty Name="SERVIDOR" ColumnName="SERVIDOR" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_UNE_OBTENER_FOLIOS_LLAMADA_SALIDA" FunctionName="HAPEModel.Store.SP_UNE_OBTENER_FOLIOS_LLAMADA_SALIDA">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HAPEModel.SP_UNE_OBTENER_FOLIOS_LLAMADA_SALIDA_Result">
+          <ScalarProperty Name="NUM_FOLIO" ColumnName="NUM_FOLIO" />
+          <ScalarProperty Name="NOMBRE_S" ColumnName="NOMBRE_S" />
+          <ScalarProperty Name="APELLIDO_PATERNO" ColumnName="APELLIDO_PATERNO" />
+          <ScalarProperty Name="APELLIDO_MATERNO" ColumnName="APELLIDO_MATERNO" />
+          <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+          <ScalarProperty Name="TEL_CELULAR" ColumnName="TEL_CELULAR" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="TBL_UNE_CONVERSION_LLAMADAS">
+      <EntityTypeMapping TypeName="HAPEModel.TBL_UNE_CONVERSION_LLAMADAS">
+        <MappingFragment StoreEntitySet="TBL_UNE_CONVERSION_LLAMADAS">
+          <ScalarProperty Name="NOMBRE_ARCHIVO" ColumnName="NOMBRE_ARCHIVO" />
+          <ScalarProperty Name="RUTA" ColumnName="RUTA" />
+          <ScalarProperty Name="FECHA_CONVERSION" ColumnName="FECHA_CONVERSION" />
+          <ScalarProperty Name="NUM_FOLIO" ColumnName="NUM_FOLIO" />
+          <ScalarProperty Name="INB_OUT_ID" ColumnName="INB_OUT_ID" />
+          <ScalarProperty Name="ID_CONVERSION_LLAMADA" ColumnName="ID_CONVERSION_LLAMADA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAT_UNE_PROCEDE_CORRESPONSALIAS">
+      <EntityTypeMapping TypeName="HAPEModel.CAT_UNE_PROCEDE_CORRESPONSALIAS">
+        <MappingFragment StoreEntitySet="CAT_UNE_PROCEDE_CORRESPONSALIAS">
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="ID_PROCEDE_CORRESPONSALIAS" ColumnName="ID_PROCEDE_CORRESPONSALIAS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_BANCA_OBTIENE_SOCIO" FunctionName="HAPEModel.Store.SP_BANCA_OBTIENE_SOCIO">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HAPEModel.SP_BANCA_OBTIENE_SOCIO_Result">
+          <ScalarProperty Name="estatus" ColumnName="estatus" />
+          <ScalarProperty Name="existeError" ColumnName="existeError" />
+          <ScalarProperty Name="mensajeError" ColumnName="mensajeError" />
+          <ScalarProperty Name="nombreCompleto" ColumnName="nombreCompleto" />
+          <ScalarProperty Name="puedeActivar" ColumnName="puedeActivar" />
+          <ScalarProperty Name="bloqueado" ColumnName="bloqueado" />
+          <ScalarProperty Name="tieneContratoBanca" ColumnName="tieneContratoBanca" />
+          <ScalarProperty Name="banca_activa" ColumnName="banca_activa" />
+          <ScalarProperty Name="id_estatus_banca" ColumnName="id_estatus_banca" />
+          <ScalarProperty Name="monto_maximo_transferencia" ColumnName="monto_maximo_transferencia" />
+          <ScalarProperty Name="id_tipo_notificacion" ColumnName="id_tipo_notificacion" />
+          <ScalarProperty Name="Mail" ColumnName="Mail" />
+          <ScalarProperty Name="Tel_Celular" ColumnName="Tel_Celular" />
+          <ScalarProperty Name="Codigo_Postal" ColumnName="Codigo_Postal" />
+          <ScalarProperty Name="Nombre_Colonia" ColumnName="Nombre_Colonia" />
+          <ScalarProperty Name="Nombre_Localidad" ColumnName="Nombre_Localidad" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="domiCompleto" ColumnName="domiCompleto" />
+          <ScalarProperty Name="id_motivo_bloqueo" ColumnName="id_motivo_bloqueo" />
+          <ScalarProperty Name="Id_Persona" ColumnName="Id_Persona" />
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="Nombre_s" ColumnName="Nombre_s" />
+          <ScalarProperty Name="Apellido_Paterno" ColumnName="Apellido_Paterno" />
+          <ScalarProperty Name="Apellido_Materno" ColumnName="Apellido_Materno" />
+          <ScalarProperty Name="Calle" ColumnName="Calle" />
+          <ScalarProperty Name="Numero_Exterior" ColumnName="Numero_Exterior" />
+          <ScalarProperty Name="Numero_Interior" ColumnName="Numero_Interior" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Fecha_Alta" ColumnName="Fecha_Alta" />
+          <ScalarProperty Name="Reingreso" ColumnName="Reingreso" />
+          <ScalarProperty Name="Fecha_Modifica" ColumnName="Fecha_Modifica" />
+          <ScalarProperty Name="NumUsuario" ColumnName="NumUsuario" />
+          <ScalarProperty Name="Id_Colonia" ColumnName="Id_Colonia" />
+          <ScalarProperty Name="Id_Colonia2" ColumnName="Id_Colonia2" />
+          <ScalarProperty Name="Id_Tipo_Persona" ColumnName="Id_Tipo_Persona" />
+          <ScalarProperty Name="Id_edo_civil" ColumnName="Id_edo_civil" />
+          <ScalarProperty Name="Id_ocupacion" ColumnName="Id_ocupacion" />
+          <ScalarProperty Name="Id_profesion" ColumnName="Id_profesion" />
+          <ScalarProperty Name="Id_de_Sucursal" ColumnName="Id_de_Sucursal" />
+          <ScalarProperty Name="Telefono_adicional" ColumnName="Telefono_adicional" />
+          <ScalarProperty Name="Clave" ColumnName="Clave" />
+          <ScalarProperty Name="Lugar_de_nacimiento" ColumnName="Lugar_de_nacimiento" />
+          <ScalarProperty Name="Fecha_de_nacimiento" ColumnName="Fecha_de_nacimiento" />
+          <ScalarProperty Name="Periodicidad_de_compromiso" ColumnName="Periodicidad_de_compromiso" />
+          <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+          <ScalarProperty Name="Domicilio_anterior" ColumnName="Domicilio_anterior" />
+          <ScalarProperty Name="Fecha_inicio_labores" ColumnName="Fecha_inicio_labores" />
+          <ScalarProperty Name="Ingreso_mensual" ColumnName="Ingreso_mensual" />
+          <ScalarProperty Name="Otro_ingreso" ColumnName="Otro_ingreso" />
+          <ScalarProperty Name="Horario" ColumnName="Horario" />
+          <ScalarProperty Name="Periodicidad_otros_gastos" ColumnName="Periodicidad_otros_gastos" />
+          <ScalarProperty Name="Gastos_mensuales" ColumnName="Gastos_mensuales" />
+          <ScalarProperty Name="Disponibles" ColumnName="Disponibles" />
+          <ScalarProperty Name="Periodicidad_ingresos" ColumnName="Periodicidad_ingresos" />
+          <ScalarProperty Name="Gastos" ColumnName="Gastos" />
+          <ScalarProperty Name="Curp" ColumnName="Curp" />
+          <ScalarProperty Name="Rfc" ColumnName="Rfc" />
+          <ScalarProperty Name="Dependientes_economicos" ColumnName="Dependientes_economicos" />
+          <ScalarProperty Name="Edades_dependientes_economicos" ColumnName="Edades_dependientes_economicos" />
+          <ScalarProperty Name="Arraigo" ColumnName="Arraigo" />
+          <ScalarProperty Name="Id_empresa" ColumnName="Id_empresa" />
+          <ScalarProperty Name="Id_vivienda" ColumnName="Id_vivienda" />
+          <ScalarProperty Name="Compromiso_de_ahorro" ColumnName="Compromiso_de_ahorro" />
+          <ScalarProperty Name="Id_banco" ColumnName="Id_banco" />
+          <ScalarProperty Name="Id_medio" ColumnName="Id_medio" />
+          <ScalarProperty Name="Id_caja" ColumnName="Id_caja" />
+          <ScalarProperty Name="Id_motivo" ColumnName="Id_motivo" />
+          <ScalarProperty Name="Id_poblacion" ColumnName="Id_poblacion" />
+          <ScalarProperty Name="Expediente" ColumnName="Expediente" />
+          <ScalarProperty Name="Id_de_giro" ColumnName="Id_de_giro" />
+          <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="Id_Puesto" ColumnName="Id_Puesto" />
+          <ScalarProperty Name="Bloqueado_Cobranza" ColumnName="Bloqueado_Cobranza" />
+          <ScalarProperty Name="Id_Escolaridad" ColumnName="Id_Escolaridad" />
+          <ScalarProperty Name="Id_Promotor" ColumnName="Id_Promotor" />
+          <ScalarProperty Name="Autoriza" ColumnName="Autoriza" />
+          <ScalarProperty Name="Id_Convenio" ColumnName="Id_Convenio" />
+          <ScalarProperty Name="Bloqueado_Exclusion" ColumnName="Bloqueado_Exclusion" />
+          <ScalarProperty Name="Id_Sieban" ColumnName="Id_Sieban" />
+          <ScalarProperty Name="Id_colegio" ColumnName="Id_colegio" />
+          <ScalarProperty Name="Id_Promocion" ColumnName="Id_Promocion" />
+          <ScalarProperty Name="Id_Promaf" ColumnName="Id_Promaf" />
+          <ScalarProperty Name="Id_Shif" ColumnName="Id_Shif" />
+          <ScalarProperty Name="Id_Colonia_CNBV" ColumnName="Id_Colonia_CNBV" />
+          <ScalarProperty Name="Id_Ocupacion_CNBV" ColumnName="Id_Ocupacion_CNBV" />
+          <ScalarProperty Name="Id_Nomina" ColumnName="Id_Nomina" />
+          <ScalarProperty Name="Actualizado" ColumnName="Actualizado" />
+          <ScalarProperty Name="Numusuario_Actualiza" ColumnName="Numusuario_Actualiza" />
+          <ScalarProperty Name="Fecha_Actualizacion" ColumnName="Fecha_Actualizacion" />
+          <ScalarProperty Name="Compromiso_de_Ahorro_Max" ColumnName="Compromiso_de_Ahorro_Max" />
+          <ScalarProperty Name="Tel_Trabajo" ColumnName="Tel_Trabajo" />
+          <ScalarProperty Name="ID_GRUPO" ColumnName="ID_GRUPO" />
+          <ScalarProperty Name="Id_SAT" ColumnName="Id_SAT" />
+          <ScalarProperty Name="Numero_ExSocio" ColumnName="Numero_ExSocio" />
+          <ScalarProperty Name="NombreUsuarioAlta" ColumnName="NombreUsuarioAlta" />
+          <ScalarProperty Name="NumEmpleadoAlta" ColumnName="NumEmpleadoAlta" />
+          <ScalarProperty Name="CobroLegal" ColumnName="CobroLegal" />
+          <ScalarProperty Name="DatosActualizados" ColumnName="DatosActualizados" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="CAT_UNE_TIPO_CUENTA_BANCA">
+      <EntityTypeMapping TypeName="HAPEModel.CAT_UNE_TIPO_CUENTA_BANCA">
+        <MappingFragment StoreEntitySet="CAT_UNE_TIPO_CUENTA_BANCA">
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="ID_TIPO_CUENTA_BANCA" ColumnName="ID_TIPO_CUENTA_BANCA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAT_UNE_CANAL">
+      <EntityTypeMapping TypeName="HAPEModel.CAT_UNE_CANAL">
+        <MappingFragment StoreEntitySet="CAT_UNE_CANAL">
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="ID_CANAL" ColumnName="ID_CANAL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAT_UNE_CAUSA_RESOLUCION">
+      <EntityTypeMapping TypeName="HAPEModel.CAT_UNE_CAUSA_RESOLUCION">
+        <MappingFragment StoreEntitySet="CAT_UNE_CAUSA_RESOLUCION">
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="ID_CAUSA_RESOLUCION" ColumnName="ID_CAUSA_RESOLUCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAT_UNE_MOTIVO_CANCELACION">
+      <EntityTypeMapping TypeName="HAPEModel.CAT_UNE_MOTIVO_CANCELACION">
+        <MappingFragment StoreEntitySet="CAT_UNE_MOTIVO_CANCELACION">
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="ID_MOTIVO_CANCELACION" ColumnName="ID_MOTIVO_CANCELACION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAT_UNE_PRODUCTO">
+      <EntityTypeMapping TypeName="HAPEModel.CAT_UNE_PRODUCTO">
+        <MappingFragment StoreEntitySet="CAT_UNE_PRODUCTO">
+          <ScalarProperty Name="ID_MOV_HAPE" ColumnName="ID_MOV_HAPE" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="ID_PRODUCTO" ColumnName="ID_PRODUCTO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAT_UNE_RESOLUCION">
+      <EntityTypeMapping TypeName="HAPEModel.CAT_UNE_RESOLUCION">
+        <MappingFragment StoreEntitySet="CAT_UNE_RESOLUCION">
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="ID_RESOLUCION" ColumnName="ID_RESOLUCION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_UNE_CARGAR_REPORTE_2701" FunctionName="HAPEModel.Store.SP_UNE_CARGAR_REPORTE_2701">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HAPEModel.SP_UNE_CARGAR_REPORTE_2701_Result">
+          <ScalarProperty Name="CONTADOR" ColumnName="CONTADOR" />
+          <ScalarProperty Name="NUMUSUARIO_REPORTE" ColumnName="NUMUSUARIO_REPORTE" />
+          <ScalarProperty Name="PERIODO_REPORTA" ColumnName="PERIODO_REPORTA" />
+          <ScalarProperty Name="CLAVE_INSTITUCION" ColumnName="CLAVE_INSTITUCION" />
+          <ScalarProperty Name="REPORTE" ColumnName="REPORTE" />
+          <ScalarProperty Name="NUMERO_DE_SECUENCIA" ColumnName="NUMERO_DE_SECUENCIA" />
+          <ScalarProperty Name="FOLIO_DE_RECLAMACIÓN" ColumnName="FOLIO_DE_RECLAMACIÓN" />
+          <ScalarProperty Name="FECHA_DE_RECLAMACION" ColumnName="FECHA_DE_RECLAMACION" />
+          <ScalarProperty Name="FECHA_DE_SUCESO" ColumnName="FECHA_DE_SUCESO" />
+          <ScalarProperty Name="NÚMERO_DE_CUENTA" ColumnName="NÚMERO_DE_CUENTA" />
+          <ScalarProperty Name="PRODUCTO" ColumnName="PRODUCTO" />
+          <ScalarProperty Name="CANAL_TRANSACCION" ColumnName="CANAL_TRANSACCION" />
+          <ScalarProperty Name="MOTIVO_RECLAMACION" ColumnName="MOTIVO_RECLAMACION" />
+          <ScalarProperty Name="MONTO_RECLAMACION" ColumnName="MONTO_RECLAMACION" />
+          <ScalarProperty Name="ESTADO_RECLAMACION" ColumnName="ESTADO_RECLAMACION" />
+          <ScalarProperty Name="RESOLUCION" ColumnName="RESOLUCION" />
+          <ScalarProperty Name="FECHA_RESOLUCION" ColumnName="FECHA_RESOLUCION" />
+          <ScalarProperty Name="CAUSA_RESOLUCION" ColumnName="CAUSA_RESOLUCION" />
+          <ScalarProperty Name="IMPORTE_ABONADO_CLIENTE" ColumnName="IMPORTE_ABONADO_CLIENTE" />
+          <ScalarProperty Name="FECHA_ABONO_CLIENTE" ColumnName="FECHA_ABONO_CLIENTE" />
+          <ScalarProperty Name="IMPORTE_RECUPERADO" ColumnName="IMPORTE_RECUPERADO" />
+          <ScalarProperty Name="QUEBRANTO_PARA_INSTITUCION" ColumnName="QUEBRANTO_PARA_INSTITUCION" />
+          <ScalarProperty Name="ORIGEN_RECLAMACION" ColumnName="ORIGEN_RECLAMACION" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_UNE_OBTENER_PLAZOS_FIJOS_ACTIVOS" FunctionName="HAPEModel.Store.SP_UNE_OBTENER_PLAZOS_FIJOS_ACTIVOS">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HAPEModel.SP_UNE_OBTENER_PLAZOS_FIJOS_ACTIVOS_Result">
+          <ScalarProperty Name="fecha_mov" ColumnName="fecha_mov" />
+          <ScalarProperty Name="fecha_dpf_final" ColumnName="fecha_dpf_final" />
+          <ScalarProperty Name="num_dpf" ColumnName="num_dpf" />
+          <ScalarProperty Name="tasa_dpf" ColumnName="tasa_dpf" />
+          <ScalarProperty Name="monto" ColumnName="monto" />
+          <ScalarProperty Name="saldo" ColumnName="saldo" />
+          <ScalarProperty Name="dias" ColumnName="dias" />
+          <ScalarProperty Name="interes_dpf" ColumnName="interes_dpf" />
+          <ScalarProperty Name="folio" ColumnName="folio" />
+          <ScalarProperty Name="tipo_poliza" ColumnName="tipo_poliza" />
+          <ScalarProperty Name="numusuario" ColumnName="numusuario" />
+          <ScalarProperty Name="id_persona" ColumnName="id_persona" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_UNE_OBTENER_NUMPTMO" FunctionName="HAPEModel.Store.SP_UNE_OBTENER_NUMPTMO">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HAPEModel.SP_UNE_OBTENER_NUMPTMO_Result">
+          <ScalarProperty Name="NUMPTMO" ColumnName="NUMPTMO" />
+          <ScalarProperty Name="NUMERO" ColumnName="NUMERO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_CALLCENTER_GENERAR_FECHA_COMPROMISO_REPORTE" FunctionName="HAPEModel.Store.SP_CALLCENTER_GENERAR_FECHA_COMPROMISO_REPORTE" />
+  </EntityContainerMapping>
+</Mapping>

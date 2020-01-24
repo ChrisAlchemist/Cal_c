@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "pdfAreaEsp";
+    String ruta = ViewData["ruta"].ToString();
+}
+<script src="~/Estilos/js/jquery.min.js"></script>
+<h3>Imprimir acuse de respuesta</h3>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <iframe src="@ruta" height="450" width="100%"></iframe>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <center><a href="@Url.Action("Inicio","Inicio")" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> Continuar</a></center>
+    </div>
+</div>

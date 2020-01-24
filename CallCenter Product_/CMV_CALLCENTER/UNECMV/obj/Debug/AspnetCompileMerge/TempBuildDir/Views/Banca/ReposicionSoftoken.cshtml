@@ -1,0 +1,168 @@
+﻿@using System.Web.Script.Serialization;
+
+@{
+    ViewBag.Title = "Reposicion Softoken";
+}
+
+
+@model UNECMV.Models.SP_BANCA_OBTIENE_SOCIO_Result
+
+<title>UNE - CMV</title>
+<link href="~/Estilos/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="icon" type="image/x-icon" href="~/Estilos/Imagenes/favicon.ico" />
+
+<div hidden id="dvLoading" style="position:fixed; background-color:gray; width: 100%; height: 100%; top:0; left:0;z-index:10000; opacity:.7">
+    <img src="~/Estilos/Imagenes/loader.gif" style="top:40%; left:46%; position:fixed" />
+</div>
+
+<div class="col-lg-10 col-lg-offset-1">
+    <!--></!-->
+    <div style="text-align: center;">
+        <label>Reposición de Softoken de “CMV Finanzas”</label>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            @Html.Label("Número:")
+            @Html.TextBoxFor(x => x.Numero, new { @class = "form-control", @placeholder = "Ej: 667231", @id = "inputNumeroSocio", @readOnly = "" })
+        </div>
+        <div class="col-md-3">
+            @Html.Label("Nombre(s):")
+            @Html.TextBoxFor(x => x.Nombre_s, new { @class = "form-control", @id = "inputNombreSocio", @readOnly = "" })
+        </div>
+        <div class="col-md-3">
+            @Html.Label("Apellido Paterno:")
+            @Html.TextBoxFor(x => x.Apellido_Paterno, new { @class = "form-control", @id = "inputAP", @readOnly = "" })
+        </div>
+        <div class="col-md-3">
+            @Html.Label("Apellido Materno:")
+            @Html.TextBoxFor(x => x.Apellido_Materno, new { @class = "form-control", @id = "inputAM", @readOnly = "" })
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3" id="div-row-datosPersonales">
+            @Html.Label("Número de Celular:")
+            @Html.TextBoxFor(x => x.Tel_Celular, new { @class = "form-control", @id = "inputTelCelular", @readOnly = "" })
+
+        </div>
+        <div class="col-md-3">
+            @Html.Label("Correo Electrónico:")
+            @Html.TextBoxFor(x => x.Mail, new { @class = "form-control", @id = "inputMail", @readOnly = "" })
+        </div>
+        <div class="col-md-3">
+            @Html.Label("Código Postal:")
+            @Html.TextBoxFor(x => x.Codigo_Postal, new { @class = "form-control", @id = "inputCP", @readOnly = "" })
+        </div>
+        <div class="col-md-3">
+            @Html.Label("Fecha de Nacimiento:")
+            @Html.TextBoxFor(x => x.Fecha_de_nacimiento, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "inputFechNac", @readOnly = "" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            @Html.TextBoxFor(x => x.nombreCompleto, new { @class = "form-control", @id = "inputNomCompleto", @readOnly = "", @type = "hidden" })
+        </div>
+    </div>
+    <br />
+
+    @{
+        List<SelectListItem> itemsMedioNotificacion = new List<SelectListItem>();
+        itemsMedioNotificacion.Add(new SelectListItem { Text = "SELECCIONAR", Value = "0" });
+        foreach (var lista in ViewData["listaMediosNotificacion"] as List<UNECMV.Entidad.TipoNotificacion>)
+        {
+            itemsMedioNotificacion.Add(new SelectListItem
+            {
+                Text = lista.descripcion,
+                Value = lista.idTipoNotificacion.ToString()
+            });
+        }
+        @Html.DropDownListFor(x => x.id_tipo_notificacion, itemsMedioNotificacion, new { @class = "form-control select2", @id = "cmbSoftoken", @onchange = "", @readonly = "", @disabled = "disabled" })
+
+    }
+
+
+    <hr style="border-color: dimgray;">
+    <div class="row">
+
+        @if (Model.id_motivo_bloqueo == 1 && Model.banca_activa)
+        {
+            <div style="text-align: center;">
+                <a onclick="validaToken()" style="color:#337ab7" class="btn btn-default">
+                    <span class="glyphicon glyphicon-refresh"></span> Generar Formato Softoken
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="modal fade" id="myModalNoDisponible" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">ESTATUS DE LA ACCIÓN</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p id="mensaje-Disposicion"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btn-modal-noDisponible" type="button" class="btn btn-info" data-dismiss="modal"> Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+    <br />
+
+    <!--localhost:49369/Banca/BloquearBanca?numeroSocio=83764-->
+</div>
+<div class="modal fade" id="myModalToken" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">ESTATUS DE LA ACCIÓN</h4>
+            </div>
+            <div class="modal-body">
+                <p id="mensaje-token"></p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="ReposicionarToken()" type="button" class="btn btn-info" > Aceptar</button>
+            
+                <button type="button" class="btn btn-info" data-dismiss="modal"> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModalReposicionar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">ESTATUS DE LA ACCIÓN</h4>
+            </div>
+            <div class="modal-body">
+                <p id="mensaje-reposicionar"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-modal-reposicionar" type="button" class="btn btn-info" data-dismiss="modal"> Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var reporte = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.reporte));
+</script>
+
+<script src="~/Estilos/js/jquery.min.js"></script>
+<script src="~/Estilos/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        LlenarModalDisposicion("  tiene su cuenta inactiva o bloqueada, no tiene disposición para la reposición de su token");
+    });
+</script>
+<script src="~/Eventos/BancaFunciones.js"></script>

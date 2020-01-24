@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://www.conecta.mx" targetNamespace="http://www.conecta.mx" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Autenticar" type="tns:Autenticar" />
+  <xs:element name="AutenticarResponse" type="tns:AutenticarResponse" />
+  <xs:element name="CustomException" nillable="true" type="tns:faultBean" />
+  <xs:complexType name="Autenticar">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="usuario" type="xs:string" />
+      <xs:element minOccurs="0" name="pin" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AutenticarResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="faultBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="faultcode" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

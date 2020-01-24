@@ -1,0 +1,294 @@
+﻿@using CMV_CALLCENTER;
+
+@{
+    CMV_CALLCENTER.Models.CLAVES SesionUsuario = Session["SesionUsuario"] as CMV_CALLCENTER.Models.CLAVES;
+    CMV_CALLCENTER.Models.TBL_UNE_PERMISOS_ADMIN permisoUsuario = Session["permiso"] as CMV_CALLCENTER.Models.TBL_UNE_PERMISOS_ADMIN;
+    int? tipoJefe = Session["tipoJefe"] as int?;
+    if (SesionUsuario == null && ViewBag.Title != "Login")
+    {
+        Response.Redirect("~/Login/Index");
+    }
+
+}
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    @*<meta http-equiv='Content-Type' content='text/html; charset-iso8859-1'>*@
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="icon" type="image/x-icon" href="~/Estilos/Imagenes/favicon.ico" />
+
+    <title>@ViewBag.Title</title>
+    <link href="~/Estilos/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Estilos/css/dashboard.css" rel="stylesheet" />
+
+    <link href="~/Estilos/Alertify/alertify.core.css" rel="stylesheet" />
+    <link href="~/Estilos/Alertify/alertify.default.css" rel="stylesheet" />
+    <script src="~/Estilos/Alertify/alertify.min.js"></script>
+    <script src="~/Estilos/js/jquery.dataTables.min.js"></script>
+
+    <link href="~/Estilos/css/dataTable.css" rel="stylesheet" />
+    
+    <script>
+
+        function rootUrl(url) {
+            var _rootUrl = '@Url.Content("~")';
+            var x = url;
+            if (url.indexOf(_rootUrl) != 0) {
+                x = _rootUrl + "/" + url;
+                x = x.replace(/\/\//g, "/").replace(/\/\//g, "/");
+            }
+            return x;
+        };
+
+        function valida(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+
+            //Tecla de retroceso para borrar, siempre la permite
+            if (tecla == 8) {
+                return true;
+            }
+
+            // Patron de entrada, en este caso solo acepta numeros
+            patron = /[0-9]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
+
+        function formatCurrency(num)
+        {
+            num = num.toString().replace(/ |,/g,'');
+            num = num.toString().replace('$','');
+            if(isNaN(num))
+                num = "0";
+            cents = Math.floor((num*100+0.5)%100);
+            num = Math.floor((num*100+0.5)/100).toString();
+            if(cents < 10)
+                cents = "0" + cents;
+            for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+                num = num.substring(0,num.length-(4*i+3))+','+num.substring(num.length-(4*i+3));
+            return ('$' + num + '.' + cents);
+        }
+
+
+    </script>
+
+</head>
+<body oncontextmenu='return false'>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*@if ((permisoUsuario.USUARIO_CALL_CENTER == true && permisoUsuario.ADMINISTRADOR_CALL_CENTER == false) || permisoUsuario.USUARIO_SUCURSAL == true)
+                    {*@
+                <a class="navbar-brand" style="font-size:13px;" href="@Url.Action("Registros", "Registros")">CALL CENTER - CMV FINANZAS</a>
+                @*}
+                    //else if (permisoUsuario.USUARIO_CALL_CENTER == true && permisoUsuario.ADMINISTRADOR_CALL_CENTER == true)
+                    //{
+                    <a class="navbar-brand" style="font-size:13px;" href="@/*Url.Action("Registros", "Registros")*/">CAJA MORELIA VALLADOLID<!--CMV FINANZAS--></a>
+                    //}
+                    //else
+                    //{
+                    <a class="navbar-brand" style="font-size:13px;" href="@/*Url.Action("Registros", "Registros")*/">UNE - CMV</a>
+                    //}*@
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    @if (permisoUsuario.PERMISO_REGISTRAR == 1)
+                    {
+                        @*
+                            <li role="presentation" class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Operaciones <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+
+                                    @if (permisoUsuario.USUARIO_CALL_CENTER == true)
+                                    {
+                                        <li><a href="@Url.Action("RegistrarCallCenter", "RegistrarCallCenter")"><span class="glyphicon glyphicon-earphone"> </span> Registrar reporte Call Center</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="@Url.Action("Registrar", "Registrar")"><span class="glyphicon glyphicon-cloud-upload"> </span> Registrar reporte</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        *@
+                    }
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            Reportes <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            @if (permisoUsuario.ADMINISTRADOR_CALL_CENTER == true)
+                            {
+                                @*<li class="parent-submenu">
+                                        <a href="javascript:();">
+                                            <span class="glyphicon glyphicon-cloud-upload"> </span>
+                                            UNE   <span style="font-size:80%" class="glyphicon glyphicon-chevron-right"></span>
+                                            <ul class="submenu">
+
+                                                <li class="item-submenu"><a href="@Url.Action("Inicio", "Inicio")"><span class="glyphicon glyphicon-send"> </span> Canalizados al área especializada</a></li>
+
+                                                <li class="item-submenu"><a href="@Url.Action("Debito", "Debito")"><span class="glyphicon glyphicon-credit-card"> </span> Debito</a></li>
+                                            </ul>
+                                        </a>
+                                    </li>*@
+
+                                <li class="parent-submenu">
+                                    <a href="javascript:();">
+                                        <span class="glyphicon glyphicon-phone-alt"></span>
+                                        Call Center <span style="font-size:80%" class="glyphicon glyphicon-chevron-right"></span>
+                                        <ul class="submenu">
+                                            <li class="item-submenu"><a href="@Url.Action("Registros", "Registros")"><span class="glyphicon glyphicon-edit"> </span> Registrados</a></li>
+                                            <li class="item-submenu"><a href="@Url.Action("InicioCallcenter", "Inicio")"><span class="glyphicon glyphicon-open"> </span> Canalizados (Call Center)</a></li>
+                                            <li class="item-submenu"><a href="@Url.Action("ResueltoArea", "ResueltoArea")"><span class="glyphicon glyphicon-ok"> </span> Resueltos por el área especializada</a></li>
+                                            <li class="item-submenu"><a href="@Url.Action("Notificados", "Notificados")"><span class="glyphicon glyphicon-open"> </span> Reportes Notificados</a></li>
+                                            <li class="item-submenu"><a href="@Url.Action("Finalizados", "Finalizados")"><span class="glyphicon glyphicon-check"> </span> Finalizados</a></li>
+                                            <li class="item-submenu"><a href="@Url.Action("Cancelados", "Cancelados")"><span class="glyphicon glyphicon-remove-sign"> </span> Cancelados</a></li>
+                                        </ul>
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+
+                                if (permisoUsuario.USUARIO_UNE == 1 || permisoUsuario.PERMISO_REGISTRAR == 1 || tipoJefe == 4)
+                                {
+                                    <li><a href="@Url.Action("Registros", "Registros")"><span class="glyphicon glyphicon-edit"> </span> Registrados</a></li>
+                                }
+
+                                if (permisoUsuario.USUARIO_SUCURSAL != true)
+                                {
+                                    if (permisoUsuario.USUARIO_UNE == 1 && permisoUsuario.ADMINISTRADOR_CALL_CENTER != true)
+                                    {
+                                        <li><a href="@Url.Action("CanalizadosUNE", "CanalizadosUNE")"><span class="glyphicon glyphicon-share"> </span> Canalizados a UNE</a></li>
+                                    }
+                                    if (permisoUsuario.USUARIO_CALL_CENTER == true)
+                                    {
+                                        <li><a href="@Url.Action("InicioCallcenter", "Inicio")"><span class="glyphicon glyphicon-send"> </span> Canalizados al área especializada</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="@Url.Action("Inicio", "Inicio")"><span class="glyphicon glyphicon-send"> </span> Canalizados al área especializada</a></li>
+                                    }
+
+                                    if ((permisoUsuario.USUARIO_UNE == 1 || permisoUsuario.PERMISO_REGISTRAR == 1 || tipoJefe == 4) && (permisoUsuario.USUARIO_CALL_CENTER == true || permisoUsuario.PERMISO_REGISTRAR == 1))
+                                    {
+                                        <li><a href="@Url.Action("ResueltoArea", "ResueltoArea")"><span class="glyphicon glyphicon-ok"> </span> Resueltos por el área especializada</a></li>
+                                    }
+                                    if (permisoUsuario.USUARIO_UNE == 1 || permisoUsuario.USUARIO_CALL_CENTER == true)
+                                    {
+                                        <li><a href="@Url.Action("Notificados", "Notificados")"><span class="glyphicon glyphicon-open"> </span> Reportes Notificados</a></li>
+                                    }
+
+                                }
+
+                                if (permisoUsuario.USUARIO_UNE == 1 || permisoUsuario.PERMISO_REGISTRAR == 1 || tipoJefe == 4 || permisoUsuario.USUARIO_CALL_CENTER == true)
+                                {
+                                    <li><a href="@Url.Action("Finalizados", "Finalizados")"><span class="glyphicon glyphicon-check"> </span> Finalizados</a></li>
+                                }
+
+                                if (permisoUsuario.PERMISO_DEBITO == 1)
+                                {
+                                    <li><a href="@Url.Action("Debito", "Debito")"><span class="glyphicon glyphicon-credit-card"> </span> Debito</a></li>
+                                }
+
+                                if (permisoUsuario.PERMISO_CONDUSEF == 1)
+                                {
+                                    <li><a href="@Url.Action("GeneraReporte", "Condusef")"><span class="glyphicon glyphicon-list-alt"> </span> CONDUSEF</a></li>
+                                }
+
+                                if (permisoUsuario.USUARIO_UNE == 1 || permisoUsuario.PERMISO_REGISTRAR == 1)
+                                {
+                                    <li><a href="@Url.Action("Cancelados", "Cancelados")"><span class="glyphicon glyphicon-remove-sign"> </span> Cancelados</a></li>
+                                }
+
+                                if (permisoUsuario.USUARIO_CALL_CENTER == true)
+                                {
+                                    //<li><a href="@Url.Action("CanalizadosBanca", "CanalizadosBanca")"><span class="glyphicon glyphicon-share"> </span> Canalizados a banca</a></li>
+                                }
+
+                            }
+
+                        </ul>
+                    </li>
+
+
+
+                    <li><a href="#">@SesionUsuario.Nombre_s @SesionUsuario.Apellido_paterno @SesionUsuario.Apellido_materno</a></li>
+                    <li><a href="@Url.Action("CerrarSesion", "Inicio")"><span class="glyphicon glyphicon-log-out" aria-hidden="true"> </span> Cerrar Sesion</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 main">
+
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Estilos/js/bootstrap.min.js"></script>
+
+    <style>
+
+        .parent-submenu:hover .submenu {
+            visibility: visible;
+            margin-left: 100%;
+            opacity: 1.0;
+        }
+
+        .submenu {
+            visibility: hidden;
+            position: absolute;
+            list-style: none;
+            margin-left: 105%;
+            margin-top: -28px;
+            background-color: #fff;
+            padding: 5px 15px 5px 15px;
+            box-shadow: 1px 1px 2px #000;
+            opacity: .5;
+            transition: all 0.3s ease-in-out;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+        }
+
+        .item-submenu {
+            inline-size: max-content;
+        }
+
+            .item-submenu a {
+                display: inline-flex;
+                text-decoration: none;
+                color: #808080;
+            }
+
+                .item-submenu a:hover {
+                    color: rgba(122,122,122,.7);
+                }
+
+                .item-submenu a span {
+                    padding: 2px;
+                }
+    </style>
+
+
+    <script src="~/Scripts/Datejs-master/build/date.js"></script>
+    @RenderSection("modales", false)
+    <script src="~/Estilos/js/dateFormat.js"></script>
+    <script src="~/Estilos/js/jquery.dateFormat.js"></script>
+</body>
+
+
+</html>

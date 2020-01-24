@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Finalizados";
+}
+
+@{ 
+    UNECMV.Models.CLAVES SesionUsuario = Session["SesionUsuario"] as UNECMV.Models.CLAVES;
+    var listaTipoReportes = new UNECMV.Controllers.FinalizadosController().obtenerReportes(SesionUsuario.Numusuario);
+}
+
+<script src="~/Eventos/Inicio.js"></script>
+<center><h3 class="page-header" id="dashboardID">Reportes Registrados</h3></center>
+
+<table id="example" class="table table-striped" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Folio</th>
+            <th>Estatus</th>
+            <th>Fecha Registro</th>
+            <th>Preview</th>
+            <th>Canalizar</th>
+            @if (SesionUsuario.Id_de_sucursal > 1)
+            {
+                <th>Cerrar</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            DateTime dt;
+            foreach (var obj in listaTipoReportes)
+            {
+                dt = Convert.ToDateTime(@obj.FECHA_ALTA);
+                <tr>
+                    <td>@obj.NOMBRE_S @obj.APELLIDO_PATERNO @obj.APELLIDO_MATERNO</td>
+                    <td>@obj.FOLIO</td>
+                    <td id="@obj.FOLIO">@obj.CAT_UNE_ESTATUS_REPORTE.DESCRIPCION</td>
+                    <td>@dt.ToShortDateString()</td>
+                    <td><a role="button" class="btn btn-info btn-xs" href="@Url.Action("Preview","Preview", @obj)">Vista Previa</a></td>
+                    @if (obj.ID_ESTATUS_REPORTE == 1)
+                    {
+                        <td><button type="button" id="@obj.FOLIO+Canalizar" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal" onclick="modalValor(@obj.FOLIO)">Canalizar UNE</button></td>
+                        <td><a role="button" id="@obj.FOLIO+Cerrar" class="btn btn-success btn-xs" href="@Url.Action("CerrarReporte","CerrarReporte",@obj)">Cerrar Reporte</a></td>
+                    }
+                    else
+                    {
+                        <td><button type="button" class="btn btn-warning btn-xs" disabled="">Canalizar UNE</button></td>
+                        <td><a role="button" class="btn btn-success btn-xs" href="#" disabled="">Cerrar Reporte</a></td>
+                    }
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script src="~/Estilos/js/jquery.min.js"></script>

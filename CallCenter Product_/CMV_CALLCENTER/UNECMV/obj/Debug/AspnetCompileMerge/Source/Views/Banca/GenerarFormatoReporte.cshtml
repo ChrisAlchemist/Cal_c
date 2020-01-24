@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "GenerarFormatoReporte";
+
+    String ruta = ViewBag.ruta;
+    UNECMV.Models.TBL_UNE_REPORTE reporte = ViewData["rep"] as UNECMV.Models.TBL_UNE_REPORTE;
+}
+
+<script src="~/Estilos/js/jquery.min.js"></script>
+<center><h3>Constancia de respuesta de reporte</h3></center>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <iframe src="@ruta" height="450" width="100%"></iframe>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <center><a href="@Url.Action("ResueltoArea","ResueltoArea")" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> Continuar</a></center>
+    </div>
+</div>

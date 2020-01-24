@@ -1,0 +1,255 @@
+﻿@using CMV_CALLCENTER.Models
+@model TBL_PRESENCE_LLAMADAS
+
+@{
+    ViewBag.Title = "Finalizados";
+}
+
+@{
+    CMV_CALLCENTER.Models.CLAVES SesionUsuario = Session["SesionUsuario"] as CMV_CALLCENTER.Models.CLAVES;
+    CMV_CALLCENTER.Models.TBL_UNE_PERMISOS_ADMIN permisoUsuario = Session["permiso"] as CMV_CALLCENTER.Models.TBL_UNE_PERMISOS_ADMIN;
+    int? tipoJefe = Session["tipoJefe"] as int?;
+}
+
+<script src="~/Estilos/js/jquery.min.js"></script>
+<script src="~/Estilos/js/jquery.dataTables.min.js"></script>
+<script src="~/Eventos/Inicio.js"></script>
+<script src="~/Eventos/Finalizados.js"></script>
+<link href="~/Estilos/css/dataTable.css" rel="stylesheet" />
+<link href="~/Estilos/css/Validaciones.css" rel="stylesheet" />
+<center><h3 class="page-header" id="dashboardID">Reportes Finalizados</h3></center>
+
+<table id="example" class="display nowrap dataTable dtr-inline" cellspacing="0" width="100%" style="font-size:12px;">
+    <thead>
+        <tr>
+            <th>Folio</th>
+            <th>Nombre</th>
+            <th>Número</th>
+            <th>Fec. Alta</th>
+            @if (permisoUsuario.USUARIO_CALL_CENTER == false)
+            {
+            <th>T. Restante</th>
+            }
+            
+            <th>Causa</th>
+            <th>Usuario alta</th>
+            <th>Nom. Usuario alta</th>
+            <th>Fec. Notificación</th>
+            <th>Fec. Cierre</th>
+            <th>Favorable</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            DateTime dt, dc;
+            String fechaAlta, fechaCie;
+            foreach (var obj in ViewData["listaReportes"] as List<TBL_UNE_REPORTE>)
+            {
+                dt = Convert.ToDateTime(@obj.FECHA_ALTA);
+                dc = Convert.ToDateTime(@obj.Fecha_cierre);
+                fechaAlta = String.Format("{0:dd/MM/yyyy}", dt);
+                fechaCie = String.Format("{0:dd/MM/yyyy}", dc);
+                String nombre = new CMV_CALLCENTER.Controllers.RegistrosController().ObtenerNombreUsuarioAlta(obj.USUARIO_REGISTRA);
+                <tr>
+                    @if (obj.reporte_banca == false)
+                    {
+                        <td>@obj.NUM_FOLIO</td>
+                    }
+                    else
+                    {
+                        <td>@obj.folio_banca</td>
+
+                    }
+                    <td>@obj.NOMBRE_S @obj.APELLIDO_PATERNO @obj.APELLIDO_MATERNO</td>
+                    @{
+                        if (obj.NUMERO.Equals(""))
+                        {
+                            <td>N/A</td>
+                        }
+                        else
+                        {
+                            <td>@obj.NUMERO</td>
+                        }
+                    }
+                    <td>@fechaAlta</td>
+                    @{
+                        if (obj.DIAS_RESTANTES_GENERAL != null && permisoUsuario.USUARIO_CALL_CENTER == false)
+                        {
+                            <td>@obj.DIAS_RESTANTES_GENERAL días</td>
+                        }
+                        else if(obj.DIAS_RESTANTES_GENERAL == null)
+                        {
+                            <td>N/A</td>
+                        }
+                    }
+                    @{
+                        String descripcion = "";
+                        foreach (var item in ViewData["causas"] as List<CAT_UNE_SUPUESTOS_REPORTE>)
+                        {
+                            if (item.ID_SUPUESTOS_REPORTE == obj.ID_SUPUESTOS_REPORTE)
+                            {
+                                descripcion = item.DESCRIPCION;
+                                break;
+                            }
+                        }
+                        if (descripcion.Length <= 45)
+                        {
+                            <td>@descripcion</td>
+                        }
+                        else
+                        {
+                            <td>@descripcion.Substring(0, 44)...</td>
+                        }
+                    }
+                    <td>@obj.USUARIO_REGISTRA</td>
+                    <td>@nombre</td>
+                    @{
+                        DateTime fecha = new CMV_CALLCENTER.Controllers.FinalizadosController().obtenerFecha(obj.FOLIO, SesionUsuario.Usuario, SesionUsuario.Contrasena);
+                        string fechaNot = String.Format("{0:dd/MM/yyyy}", fecha);
+                        <td>@fechaNot</td>
+                    }
+
+                    <td>@fechaCie</td>
+                    @if (obj.ID_SATISFACTORIO == 1)
+                    {
+                        <td>Favorable</td>
+                    }
+                    else
+                    {
+                        <td>No Favorable</td>
+                    }
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Acciones <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("Preview","Preview", @obj)"><span class="glyphicon glyphicon-folder-open"></span> Ver Detalle</a></li>
+                                @if (permisoUsuario.USUARIO_UNE == 1)
+                                {
+                                    <li><a href="#" data-toggle="modal" data-target="#myModal" onclick="crearFolio(@obj.FOLIO)" data-controls-modal="#myModal" data-backdrop="static" data-keyboard="false"><span class="glyphicon glyphicon-level-up"></span> Adjuntar audio</a></li>
+                                }
+                                @if (permisoUsuario.USUARIO_UNE == 1)
+                                {
+                                    <li><a href="#" onclick="reproducir(@obj.FOLIO, @obj.NUM_FOLIO)" data-toggle="modal" data-target="#myModalAudio" data-controls-modal="#myModalAudio" data-backdrop="static" data-keyboard="false"><span class="glyphicon glyphicon-play-circle"></span> Reproducir</a></li>
+                                }
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">ADJUNTAR ARCHIVO DE LLAMADA</h4>
+            </div>
+            <form id="frmAdjuntar">
+                <div class="modal-body">
+                    @Html.HiddenFor(x => x.folio_cmv, new { @id = "numFolio" })
+                    <div id="dvLoading" style="margin: -73px 0 0 -15px;" hidden><img src="~/Estilos/Imagenes/loader.gif" style="top:50%; left:50%; position:relative" /></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="inputAudio">Adjuntar Audio:</label>
+                            <input type="file" name="file" id="inputAudio" value="Adjuntar" class="form-control" accept="audio/mp3" />
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            @{
+                                List<SelectListItem> items = new List<SelectListItem>();
+                                items.Add(new SelectListItem { Text = "Seleccionar tipo de llamada", Value = "N" });
+                                items.Add(new SelectListItem
+                                {
+                                    Text = "Entrada",
+                                    Value = "E"
+                                });
+
+                                items.Add(new SelectListItem
+                                {
+                                    Text = "Salida",
+                                    Value = "S"
+                                });
+
+                                @Html.DropDownListFor(x => x.tipo_llamada, items, new { @class = "form-control select2", @id = "selectTipoLlamada", @onchange = "validaExisteArchivo()" })
+                            }
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-success" role="alert" id="divAlertaExito" hidden>
+                                <strong>Accion realizada correctamente</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="alert alert-danger" role="alert" id="divAlertaFracaso" hidden>
+                                <strong>Error en la respuesta del reporte</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="alert alert-warning" role="alert" id="divAlertaWarning" hidden>
+                                <strong>Este reporte ya cuenta con un archivo de audio, si continua con el proceso se sustituira el archivo almacenado.</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCerrarAdjuntar">Cancelar</button>
+                    <button type="submit" class="btn btn-success" id="btnAdjuntar"><span class="glyphicon glyphicon-level-up"></span> Adjuntar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModalAudio" tabindex="-1" role="dialog" aria-labelledby="myModalLabelAudio">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabelAudio">REPRODUCIR ARCHIVOS DE AUDIO <kbd><span id="spanModalEncabezadoAudio"></span></kbd></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>Audio de entrada:</span><br />
+                        <div id="divAudioE">
+                            <span>No hay archivo de audio</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>Audio de salida:</span><br />
+                        <div id="divAudioS">
+                            <span>No hay archivo de audio</span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCerrarAdjuntar" onclick="cerrar()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,861 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HAPEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CAT_UNE_CANAL">
+    <Key>
+      <PropertyRef Name="ID_CANAL" />
+    </Key>
+    <Property Name="ID_CANAL" Type="int" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_CAUSA_RESOLUCION">
+    <Key>
+      <PropertyRef Name="ID_CAUSA_RESOLUCION" />
+    </Key>
+    <Property Name="ID_CAUSA_RESOLUCION" Type="int" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_CUENTAS">
+    <Key>
+      <PropertyRef Name="ID_CUENTA" />
+    </Key>
+    <Property Name="ID_CUENTA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" />
+    <Property Name="ID_TIPO_CUENTA" Type="int" />
+    <Property Name="ID_MOV_HAPE" Type="int" />
+    <Property Name="ID_PRODUCTO" Type="int" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_ESTATUS_REPORTE">
+    <Key>
+      <PropertyRef Name="ID_ESTATUS_REPORTE" />
+    </Key>
+    <Property Name="ID_ESTATUS_REPORTE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_FINALIZADO_DEBITO">
+    <Key>
+      <PropertyRef Name="ID_FINALIZADO_DEBITO" />
+    </Key>
+    <Property Name="ID_FINALIZADO_DEBITO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_MEDIO_CONTACTO">
+    <Key>
+      <PropertyRef Name="ID_MEDIO_CONTACTO" />
+    </Key>
+    <Property Name="ID_MEDIO_CONTACTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_MOTIVO_CANCELACION">
+    <Key>
+      <PropertyRef Name="ID_MOTIVO_CANCELACION" />
+    </Key>
+    <Property Name="ID_MOTIVO_CANCELACION" Type="int" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_PROCEDE_CORRESPONSALIAS">
+    <Key>
+      <PropertyRef Name="ID_PROCEDE_CORRESPONSALIAS" />
+    </Key>
+    <Property Name="ID_PROCEDE_CORRESPONSALIAS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_PROCEDE_DEBITO">
+    <Key>
+      <PropertyRef Name="ID_PROCEDE_DEBITO" />
+    </Key>
+    <Property Name="ID_PROCEDE_DEBITO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_PRODUCTO">
+    <Key>
+      <PropertyRef Name="ID_PRODUCTO" />
+    </Key>
+    <Property Name="ID_PRODUCTO" Type="int" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="1000" />
+    <Property Name="ID_MOV_HAPE" Type="int" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_RESOLUCION">
+    <Key>
+      <PropertyRef Name="ID_RESOLUCION" />
+    </Key>
+    <Property Name="ID_RESOLUCION" Type="int" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_SUPUESTOS_REPORTE">
+    <Key>
+      <PropertyRef Name="ID_SUPUESTOS_REPORTE" />
+    </Key>
+    <Property Name="ID_SUPUESTOS_REPORTE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_TIPO_REPORTE" Type="int" />
+    <Property Name="ID_TIPO_CUENTA" Type="int" />
+    <Property Name="ID_CUENTA" Type="int" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="200" />
+    <Property Name="DIAS_REQUERIDOS" Type="int" />
+    <Property Name="ACTIVO" Type="int" />
+    <Property Name="VALIDA_IMPORTE_RECLAMACION" Type="int" />
+    <Property Name="ID_CANAL" Type="int" />
+    <Property Name="ID_MOTIVO_CANCELACION" Type="int" />
+    <Property Name="requiere_autentificacion" Type="bit" />
+    <Property Name="id_accion_causa" Type="int" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_TIPO_CUENTA">
+    <Key>
+      <PropertyRef Name="ID_TIPO_CUENTA" />
+    </Key>
+    <Property Name="ID_TIPO_CUENTA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_TIPO_CUENTA_BANCA">
+    <Key>
+      <PropertyRef Name="ID_TIPO_CUENTA_BANCA" />
+    </Key>
+    <Property Name="ID_TIPO_CUENTA_BANCA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="CAT_UNE_TIPO_REPORTE">
+    <Key>
+      <PropertyRef Name="ID_TIPO_REPORTE" />
+    </Key>
+    <Property Name="ID_TIPO_REPORTE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="CLAVES">
+    <Key>
+      <PropertyRef Name="Numusuario" />
+    </Key>
+    <Property Name="Numusuario" Type="int" Nullable="false" />
+    <Property Name="Usuario" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Numemp" Type="int" Nullable="false" />
+    <Property Name="autorizo" Type="int" Nullable="false" />
+    <Property Name="Correo" Type="varchar" MaxLength="30" />
+    <Property Name="Nombre_s" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Apellido_paterno" Type="varchar" MaxLength="20" />
+    <Property Name="Apellido_materno" Type="varchar" MaxLength="20" />
+    <Property Name="Fecha_Cambio_Contrasena" Type="datetime" Nullable="false" />
+    <Property Name="Contrasena_Encriptada" Type="varchar" MaxLength="30" />
+    <Property Name="Id_de_sucursal" Type="int" Nullable="false" />
+    <Property Name="Cierre" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="Cta_Deud" Type="varchar" MaxLength="14" />
+    <Property Name="Permisos" Type="varchar" MaxLength="16" />
+    <Property Name="Permisos_Respaldo" Type="varchar" MaxLength="15" />
+    <Property Name="Id_area" Type="int" Nullable="false" />
+    <Property Name="Nota_Cal" Type="varchar" MaxLength="200" />
+    <Property Name="Aviso1_Cal" Type="varchar" MaxLength="200" />
+    <Property Name="Aviso2_Cal" Type="varchar" MaxLength="200" />
+    <Property Name="Aviso1_Estado" Type="varchar" MaxLength="200" />
+    <Property Name="Aviso2_Estado" Type="varchar" MaxLength="200" />
+    <Property Name="Leyenda_Ficha" Type="varchar" MaxLength="200" />
+    <Property Name="Contrasena" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Nom_Maquina" Type="varchar" MaxLength="15" />
+    <Property Name="Gafete_Impreso" Type="char" MaxLength="1" />
+    <Property Name="Gafete_Fecha" Type="datetime" />
+    <Property Name="NSS" Type="varchar" MaxLength="15" />
+    <Property Name="Id_ccostos_nomina" Type="smallint" />
+    <Property Name="Id_GeneroWoccu" Type="int" />
+    <Property Name="Correo_externo" Type="varchar" MaxLength="30" />
+    <Property Name="Permisos_CYC" Type="varchar" MaxLength="30" />
+    <Property Name="Id_Dpto" Type="int" />
+    <Property Name="Id_Rol" Type="int" />
+    <Property Name="Id_bloqueo" Type="int" Nullable="false" />
+    <Property Name="Objetivo" Type="varchar" MaxLength="255" />
+    <Property Name="Numusuario_Jefe" Type="int" />
+    <Property Name="Id_Ticket" Type="int" />
+    <Property Name="Id_Proceso" Type="int" />
+    <Property Name="Id_Accion" Type="int" />
+    <Property Name="Comodin" Type="int" />
+  </EntityType>
+  <EntityType Name="ENTIDAD_FEDERATIVA">
+    <Key>
+      <PropertyRef Name="ID_ENTIDAD_FEDERATIVA" />
+    </Key>
+    <Property Name="ID_ENTIDAD_FEDERATIVA" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="USUARIO_ALTA" Type="int" Nullable="false" />
+    <Property Name="USUARIO_MODIFICA" Type="int" />
+    <Property Name="FECHA_ALTA" Type="datetime" Nullable="false" />
+    <Property Name="FECHA_MODIFICA" Type="datetime" />
+    <Property Name="CLAVE_ESTADO" Type="varchar" MaxLength="4" />
+    <Property Name="ID_PROSA_ENTIDAD_F" Type="int" />
+    <Property Name="Id_Pais" Type="int" />
+    <Property Name="NIVEL_RIESGO" Type="int" />
+  </EntityType>
+  <EntityType Name="SICORP_ROLES">
+    <Key>
+      <PropertyRef Name="Id_Rol" />
+    </Key>
+    <Property Name="Id_Rol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom_Rol" Type="varchar" MaxLength="80" />
+    <Property Name="Id_Dpto" Type="int" Nullable="false" />
+    <Property Name="Id_tipo_jefe" Type="int" />
+    <Property Name="activo" Type="bit" />
+    <Property Name="nomenclatura" Type="varchar" MaxLength="255" />
+    <Property Name="Id_Nivel_de_Rol" Type="int" />
+  </EntityType>
+  <EntityType Name="SUCURSALES">
+    <Key>
+      <PropertyRef Name="Id_de_Sucursal" />
+    </Key>
+    <Property Name="Id_de_Sucursal" Type="int" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="35" Nullable="false" />
+    <Property Name="Calle" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="Numero_exterior" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Numero_interior" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Telefono" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Zona" Type="int" Nullable="false" />
+    <Property Name="Ccostos" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Num_Sucursal" Type="smallint" Nullable="false" />
+    <Property Name="Cuentabancos" Type="varchar" MaxLength="36" Nullable="false" />
+    <Property Name="PolizaIni" Type="int" Nullable="false" />
+    <Property Name="PolizaFin" Type="int" Nullable="false" />
+    <Property Name="id_colonia" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="correo" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="cuentadisponible" Type="varchar" MaxLength="36" Nullable="false" />
+    <Property Name="socioutilitario" Type="int" Nullable="false" />
+    <Property Name="Id_Poblacion" Type="int" Nullable="false" />
+    <Property Name="Ciudad" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Jef_Sucursal" Type="int" Nullable="false" />
+    <Property Name="Depende_de" Type="int" Nullable="false" />
+    <Property Name="Prov_Suc" Type="float" Nullable="false" />
+    <Property Name="Region" Type="int" Nullable="false" />
+    <Property Name="Usuario_Min" Type="int" Nullable="false" />
+    <Property Name="Usuario_Max" Type="int" Nullable="false" />
+    <Property Name="Monto_Max_Caja" Type="int" Nullable="false" />
+    <Property Name="Grupo" Type="smallint" Nullable="false" />
+    <Property Name="Sucursal_Bansefi" Type="int" Nullable="false" />
+    <Property Name="Cuenta_Oport" Type="varchar" MaxLength="36" Nullable="false" />
+    <Property Name="Region_Actual" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="PLD_Tipo_Riesgo" Type="smallint" />
+    <Property Name="Id_Colonia_CNBV" Type="int" />
+    <Property Name="Clave_CNBV" Type="varchar" MaxLength="10" />
+    <Property Name="Id_Sucursal_Woccu" Type="varchar" MaxLength="10" />
+    <Property Name="CveIF_Woccu" Type="varchar" MaxLength="10" />
+    <Property Name="Id_Estado_Woccu" Type="int" />
+    <Property Name="Id_Mpio_Woccu" Type="int" />
+    <Property Name="Id_localid_Woccu" Type="int" />
+    <Property Name="Id_Horario" Type="smallint" Nullable="false" />
+    <Property Name="Id_prosa" Type="int" />
+    <Property Name="OPERA_DOMINGO" Type="bit" />
+    <Property Name="baja_logica" Type="int" />
+    <Property Name="LATITUD" Type="varchar" MaxLength="20" />
+    <Property Name="LONGITUD" Type="varchar" MaxLength="20" />
+    <Property Name="maximo_disponible" Type="money" />
+    <Property Name="clave_sucursal_pld" Type="varchar" MaxLength="20" />
+    <Property Name="fecha_apertura" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TBL_PRESENCE_LLAMADAS">
+    <Key>
+      <PropertyRef Name="contador" />
+    </Key>
+    <Property Name="contador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="folio_cmv" Type="int" />
+    <Property Name="folio_prensence" Type="varchar" MaxLength="100" />
+    <Property Name="call_id_presence" Type="int" />
+    <Property Name="ruta_audio" Type="varchar" MaxLength="100" />
+    <Property Name="nombre_audio" Type="varchar" MaxLength="100" />
+    <Property Name="tipo_llamada" Type="varchar" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="TBL_UNE_ARCHIVOS_ADJUNTOS">
+    <Key>
+      <PropertyRef Name="ID_ARCHIVO_ADJUNTAR" />
+    </Key>
+    <Property Name="ID_ARCHIVO_ADJUNTAR" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FOLIO" Type="int" />
+    <Property Name="NOMBRE_ARCHIVO" Type="varchar" MaxLength="100" />
+    <Property Name="RUTA_ARCHIVO" Type="varchar" MaxLength="200" />
+    <Property Name="FECHA_ALTA" Type="datetime" />
+    <Property Name="NUMUSUARIO" Type="int" />
+    <Property Name="ID_TIPO_ARCHIVO" Type="int" />
+  </EntityType>
+  <EntityType Name="TBL_UNE_CANALIZACIONES">
+    <Key>
+      <PropertyRef Name="ID_CANALIZACION" />
+    </Key>
+    <Property Name="ID_CANALIZACION" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FOLIO" Type="int" />
+    <Property Name="fecha_alta" Type="datetime" />
+    <Property Name="COMENTARIOS" Type="varchar" MaxLength="1000" />
+    <Property Name="numusuario" Type="int" />
+    <Property Name="ID_TIPO_COMENTARIO" Type="int" />
+  </EntityType>
+  <EntityType Name="TBL_UNE_COMISIONES">
+    <Key>
+      <PropertyRef Name="ID_COMISION" />
+    </Key>
+    <Property Name="ID_COMISION" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CONCEPTO" Type="varchar" MaxLength="100" />
+    <Property Name="MONTO" Type="money" />
+  </EntityType>
+  <EntityType Name="TBL_UNE_CONVERSION_LLAMADAS">
+    <Key>
+      <PropertyRef Name="ID_CONVERSION_LLAMADA" />
+    </Key>
+    <Property Name="ID_CONVERSION_LLAMADA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="INB_OUT_ID" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="NUM_FOLIO" Type="varchar" MaxLength="50" />
+    <Property Name="FECHA_CONVERSION" Type="datetime" />
+    <Property Name="RUTA" Type="varchar" MaxLength="50" />
+    <Property Name="NOMBRE_ARCHIVO" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TBL_UNE_PERMISOS_ADMIN">
+    <Key>
+      <PropertyRef Name="CONTADOR" />
+    </Key>
+    <Property Name="CONTADOR" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_ROL" Type="int" />
+    <Property Name="NOM_ROL" Type="varchar" MaxLength="100" />
+    <Property Name="FECHA_ALTA" Type="datetime" />
+    <Property Name="ACTIVO" Type="int" />
+    <Property Name="USUARIO_UNE" Type="int" />
+    <Property Name="PERMISO_CONDUSEF" Type="int" />
+    <Property Name="PERMISO_REGISTRAR" Type="int" />
+    <Property Name="PERMISO_DEBITO" Type="int" />
+    <Property Name="PERMISO_OPERAR_DETALLE" Type="int" />
+    <Property Name="USUARIO_CALL_CENTER" Type="bit" />
+    <Property Name="ADMINISTRADOR_CALL_CENTER" Type="bit" />
+    <Property Name="USUARIO_SUCURSAL" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBL_UNE_PIVOTE_REPORTE">
+    <Key>
+      <PropertyRef Name="PIVOTE" />
+    </Key>
+    <Property Name="PIVOTE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CONTADOR" Type="int" />
+    <Property Name="NUMUSUARIO_REPORTE" Type="int" />
+    <Property Name="FOLIO" Type="int" />
+    <Property Name="FECHA_ALTA" Type="datetime" />
+    <Property Name="ES_SOCIO" Type="int" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+    <Property Name="NUMERO" Type="int" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="30" />
+    <Property Name="ESTATUS" Type="varchar" MaxLength="30" />
+    <Property Name="SUBESTATUS" Type="varchar" MaxLength="50" />
+    <Property Name="NUMUSUARIO" Type="int" />
+    <Property Name="FECHA_RESOLUCION" Type="datetime" />
+    <Property Name="FECHA_NOTIFICACION" Type="datetime" />
+    <Property Name="ENTIDAD_FEDERATIVA" Type="varchar" MaxLength="50" />
+    <Property Name="OPERACION" Type="varchar" MaxLength="30" />
+    <Property Name="SERVICIO" Type="varchar" MaxLength="100" />
+    <Property Name="DESCRIPCION_REPORTE" Type="varchar" MaxLength="1000" />
+    <Property Name="IMPORTE_RECLAMADO" Type="money" />
+    <Property Name="IMPORTE_SOLUCION" Type="money" />
+    <Property Name="SUCURSAL_REGISTRO" Type="varchar" MaxLength="50" />
+    <Property Name="SUCURSAL_SOCIO" Type="varchar" MaxLength="50" />
+    <Property Name="TIPO_REPORTE" Type="varchar" MaxLength="30" />
+    <Property Name="CAUSA" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="TBL_UNE_REPORTE">
+    <Key>
+      <PropertyRef Name="FOLIO" />
+    </Key>
+    <Property Name="FOLIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NUM_FOLIO" Type="int" />
+    <Property Name="ES_SOCIO" Type="int" />
+    <Property Name="NUMERO" Type="int" />
+    <Property Name="NOMBRE_S" Type="varchar" MaxLength="60" />
+    <Property Name="APELLIDO_PATERNO" Type="varchar" MaxLength="60" />
+    <Property Name="APELLIDO_MATERNO" Type="varchar" MaxLength="60" />
+    <Property Name="TELEFONO" Type="varchar" MaxLength="20" />
+    <Property Name="TEL_CELULAR" Type="varchar" MaxLength="20" />
+    <Property Name="FECHA_ALTA" Type="datetime" />
+    <Property Name="USUARIO_REGISTRA" Type="int" />
+    <Property Name="ID_DE_SUCURSAL" Type="int" />
+    <Property Name="DESCRIPCION_REPORTE" Type="varchar" MaxLength="1000" />
+    <Property Name="ENTIDAD" Type="int" />
+    <Property Name="IMPORTE_RECLAMACION" Type="money" />
+    <Property Name="IMPORTE_SOLUCION" Type="money" />
+    <Property Name="ID_TIPO_REPORTE" Type="int" />
+    <Property Name="ID_SUPUESTOS_REPORTE" Type="int" />
+    <Property Name="ID_MEDIO_CONTACTO" Type="int" />
+    <Property Name="ID_ESTATUS_REPORTE" Type="int" />
+    <Property Name="Fecha_cierre" Type="datetime" />
+    <Property Name="Observaciones_cierre" Type="varchar" MaxLength="1000" />
+    <Property Name="ID_TIPO_CUENTA" Type="int" />
+    <Property Name="ID_CUENTA" Type="int" />
+    <Property Name="ID_SATISFACTORIO" Type="int" />
+    <Property Name="ID_SUCURSAL_REGISTRO" Type="int" />
+    <Property Name="Comentarios_cancelacion" Type="varchar" MaxLength="1000" />
+    <Property Name="FECHA_Canalizacion" Type="datetime" />
+    <Property Name="DIAS_RESTANTES_GENERAL" Type="int" />
+    <Property Name="DIAS_RESTANTES_AREA_ESPECIALIZADA" Type="int" />
+    <Property Name="VoBo" Type="int" />
+    <Property Name="Vencido" Type="int" />
+    <Property Name="Num_Tarjeta" Type="varchar" MaxLength="16" />
+    <Property Name="ID_PROCEDE_DEBITO" Type="int" />
+    <Property Name="BANDEJA_DEBITO" Type="int" />
+    <Property Name="ID_FINALIZADO_DEBITO" Type="int" />
+    <Property Name="DOMICILIO" Type="varchar" MaxLength="200" />
+    <Property Name="FECHA_SOLICITUD_ACLARACION" Type="datetime" />
+    <Property Name="FECHA_TRANSACCION" Type="datetime" />
+    <Property Name="NUMERO_DE_REFERENCIA" Type="varchar" MaxLength="12" />
+    <Property Name="ID_PROCEDE_CORRESPONSALIAS" Type="int" />
+    <Property Name="REPORTE_CORRESPONSALIAS" Type="bit" />
+    <Property Name="ID_PRODUCTO" Type="int" />
+    <Property Name="ID_CANAL" Type="int" />
+    <Property Name="ID_MOTIVO_CANCELACION" Type="int" />
+    <Property Name="ID_RESOLUCION" Type="int" />
+    <Property Name="ID_CAUSA_RESOLUCION" Type="int" />
+    <Property Name="NUMERO_CUENTA_PTMO" Type="varchar" MaxLength="20" />
+    <Property Name="FECHA_ABONO" Type="datetime" />
+    <Property Name="folio_banca" Type="int" />
+    <Property Name="id_medio_deteccion_movimiento" Type="int" />
+    <Property Name="folio_autorizacion_banca" Type="int" />
+    <Property Name="reporte_banca" Type="bit" />
+    <Property Name="id_tipo_cuenta_banca" Type="int" />
+    <Property Name="fecha_compromiso_reporte" Type="datetime" />
+    <Property Name="id_cuenta_no_afectada_banca" Type="int" />
+  </EntityType>
+  <EntityType Name="TBL_UNE_RESPUESTA_SATISFACTORIA">
+    <Key>
+      <PropertyRef Name="ID_SATISFACTORIO" />
+    </Key>
+    <Property Name="ID_SATISFACTORIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TBL_UNE_TIPO_ARCHIVO">
+    <Key>
+      <PropertyRef Name="ID_TIPO_ARCHIVO" />
+    </Key>
+    <Property Name="ID_TIPO_ARCHIVO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TBL_UNE_USUARIOS_ASIGNADOS">
+    <Key>
+      <PropertyRef Name="contador" />
+    </Key>
+    <Property Name="contador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="folio" Type="int" />
+    <Property Name="numusuario" Type="int" />
+    <Property Name="responsable" Type="int" />
+    <Property Name="fecha_asignacion" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_CAT_UNE_CUENTAS_TBL_UNE_REPORTE">
+    <End Role="CAT_UNE_CUENTAS" Type="Self.CAT_UNE_CUENTAS" Multiplicity="0..1" />
+    <End Role="TBL_UNE_REPORTE" Type="Self.TBL_UNE_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_CUENTAS">
+        <PropertyRef Name="ID_CUENTA" />
+      </Principal>
+      <Dependent Role="TBL_UNE_REPORTE">
+        <PropertyRef Name="ID_CUENTA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAT_UNE_ESTATUS_REPORTE_TBL_UNE_REPORTE">
+    <End Role="CAT_UNE_ESTATUS_REPORTE" Type="Self.CAT_UNE_ESTATUS_REPORTE" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TBL_UNE_REPORTE" Type="Self.TBL_UNE_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_ESTATUS_REPORTE">
+        <PropertyRef Name="ID_ESTATUS_REPORTE" />
+      </Principal>
+      <Dependent Role="TBL_UNE_REPORTE">
+        <PropertyRef Name="ID_ESTATUS_REPORTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAT_UNE_FINALIZADO_DEBITO_TBL_UNE_REPORTE">
+    <End Role="CAT_UNE_FINALIZADO_DEBITO" Type="Self.CAT_UNE_FINALIZADO_DEBITO" Multiplicity="1" />
+    <End Role="CAT_UNE_FINALIZADO_DEBITO1" Type="Self.CAT_UNE_FINALIZADO_DEBITO" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_FINALIZADO_DEBITO">
+        <PropertyRef Name="ID_FINALIZADO_DEBITO" />
+      </Principal>
+      <Dependent Role="CAT_UNE_FINALIZADO_DEBITO1">
+        <PropertyRef Name="ID_FINALIZADO_DEBITO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAT_UNE_MEDIO_CONTACTO_TBL_UNE_REPORTE">
+    <End Role="CAT_UNE_MEDIO_CONTACTO" Type="Self.CAT_UNE_MEDIO_CONTACTO" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TBL_UNE_REPORTE" Type="Self.TBL_UNE_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_MEDIO_CONTACTO">
+        <PropertyRef Name="ID_MEDIO_CONTACTO" />
+      </Principal>
+      <Dependent Role="TBL_UNE_REPORTE">
+        <PropertyRef Name="ID_MEDIO_CONTACTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAT_UNE_PROCEDE_DEBITO_TBL_UNE_REPORTE">
+    <End Role="CAT_UNE_PROCEDE_DEBITO" Type="Self.CAT_UNE_PROCEDE_DEBITO" Multiplicity="0..1" />
+    <End Role="TBL_UNE_REPORTE" Type="Self.TBL_UNE_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_PROCEDE_DEBITO">
+        <PropertyRef Name="ID_PROCEDE_DEBITO" />
+      </Principal>
+      <Dependent Role="TBL_UNE_REPORTE">
+        <PropertyRef Name="ID_PROCEDE_DEBITO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAT_UNE_TIPO_CUENTA_CAT_UNE_CUENTAS">
+    <End Role="CAT_UNE_TIPO_CUENTA" Type="Self.CAT_UNE_TIPO_CUENTA" Multiplicity="0..1" />
+    <End Role="CAT_UNE_CUENTAS" Type="Self.CAT_UNE_CUENTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_TIPO_CUENTA">
+        <PropertyRef Name="ID_TIPO_CUENTA" />
+      </Principal>
+      <Dependent Role="CAT_UNE_CUENTAS">
+        <PropertyRef Name="ID_TIPO_CUENTA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAT_UNE_TIPO_CUENTA_TBL_UNE_REPORTE">
+    <End Role="CAT_UNE_TIPO_CUENTA" Type="Self.CAT_UNE_TIPO_CUENTA" Multiplicity="0..1" />
+    <End Role="TBL_UNE_REPORTE" Type="Self.TBL_UNE_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_TIPO_CUENTA">
+        <PropertyRef Name="ID_TIPO_CUENTA" />
+      </Principal>
+      <Dependent Role="TBL_UNE_REPORTE">
+        <PropertyRef Name="ID_TIPO_CUENTA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_CUENTAS">
+    <End Role="CAT_UNE_CUENTAS" Type="Self.CAT_UNE_CUENTAS" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CAT_UNE_SUPUESTOS_REPORTE" Type="Self.CAT_UNE_SUPUESTOS_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_CUENTAS">
+        <PropertyRef Name="ID_CUENTA" />
+      </Principal>
+      <Dependent Role="CAT_UNE_SUPUESTOS_REPORTE">
+        <PropertyRef Name="ID_CUENTA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_SUPUESTOS_REPORTE">
+    <End Role="CAT_UNE_TIPO_REPORTE" Type="Self.CAT_UNE_TIPO_REPORTE" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CAT_UNE_SUPUESTOS_REPORTE" Type="Self.CAT_UNE_SUPUESTOS_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_TIPO_REPORTE">
+        <PropertyRef Name="ID_TIPO_REPORTE" />
+      </Principal>
+      <Dependent Role="CAT_UNE_SUPUESTOS_REPORTE">
+        <PropertyRef Name="ID_TIPO_REPORTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_TIPO_CUENTA">
+    <End Role="CAT_UNE_TIPO_CUENTA" Type="Self.CAT_UNE_TIPO_CUENTA" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CAT_UNE_SUPUESTOS_REPORTE" Type="Self.CAT_UNE_SUPUESTOS_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_TIPO_CUENTA">
+        <PropertyRef Name="ID_TIPO_CUENTA" />
+      </Principal>
+      <Dependent Role="CAT_UNE_SUPUESTOS_REPORTE">
+        <PropertyRef Name="ID_TIPO_CUENTA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CAT_UNE_TIPO_REPORTE_TBL_UNE_REPORTE">
+    <End Role="CAT_UNE_TIPO_REPORTE" Type="Self.CAT_UNE_TIPO_REPORTE" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TBL_UNE_REPORTE" Type="Self.TBL_UNE_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_TIPO_REPORTE">
+        <PropertyRef Name="ID_TIPO_REPORTE" />
+      </Principal>
+      <Dependent Role="TBL_UNE_REPORTE">
+        <PropertyRef Name="ID_TIPO_REPORTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBL_UNE_REPORTE_CAT_UNE_PROCEDE_CORRESPONSALIAS_ID_PROCEDE_CORRESPONSALIAS">
+    <End Role="CAT_UNE_PROCEDE_CORRESPONSALIAS" Type="Self.CAT_UNE_PROCEDE_CORRESPONSALIAS" Multiplicity="0..1" />
+    <End Role="TBL_UNE_REPORTE" Type="Self.TBL_UNE_REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAT_UNE_PROCEDE_CORRESPONSALIAS">
+        <PropertyRef Name="ID_PROCEDE_CORRESPONSALIAS" />
+      </Principal>
+      <Dependent Role="TBL_UNE_REPORTE">
+        <PropertyRef Name="ID_PROCEDE_CORRESPONSALIAS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBL_UNE_REPORTE_TBL_UNE_CANALIZACIONES">
+    <End Role="TBL_UNE_REPORTE" Type="Self.TBL_UNE_REPORTE" Multiplicity="0..1" />
+    <End Role="TBL_UNE_CANALIZACIONES" Type="Self.TBL_UNE_CANALIZACIONES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_UNE_REPORTE">
+        <PropertyRef Name="FOLIO" />
+      </Principal>
+      <Dependent Role="TBL_UNE_CANALIZACIONES">
+        <PropertyRef Name="FOLIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBL_UNE_REPORTE_TBL_UNE_USUARIOS_ASIGNADOS">
+    <End Role="TBL_UNE_REPORTE" Type="Self.TBL_UNE_REPORTE" Multiplicity="0..1" />
+    <End Role="TBL_UNE_USUARIOS_ASIGNADOS" Type="Self.TBL_UNE_USUARIOS_ASIGNADOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_UNE_REPORTE">
+        <PropertyRef Name="FOLIO" />
+      </Principal>
+      <Dependent Role="TBL_UNE_USUARIOS_ASIGNADOS">
+        <PropertyRef Name="folio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBL_UNE_TIPO_ARCHIVO_TBL_UNE_ARCHIVOS_ADJUNTOS_ID_TIPO_ARCHIVO">
+    <End Role="TBL_UNE_TIPO_ARCHIVO" Type="Self.TBL_UNE_TIPO_ARCHIVO" Multiplicity="0..1" />
+    <End Role="TBL_UNE_ARCHIVOS_ADJUNTOS" Type="Self.TBL_UNE_ARCHIVOS_ADJUNTOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_UNE_TIPO_ARCHIVO">
+        <PropertyRef Name="ID_TIPO_ARCHIVO" />
+      </Principal>
+      <Dependent Role="TBL_UNE_ARCHIVOS_ADJUNTOS">
+        <PropertyRef Name="ID_TIPO_ARCHIVO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="SP_ATM_INSERTAR_COMISION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="numero" Type="int" Mode="In" />
+    <Parameter Name="id_tipomov" Type="int" Mode="In" />
+    <Parameter Name="monto" Type="money" Mode="In" />
+    <Parameter Name="fecha" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_BANCA_OBTIENE_SOCIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="numeroSocio" Type="bigint" Mode="In" />
+    <Parameter Name="noUsuario" Type="int" Mode="In" />
+    <Parameter Name="idTIpoPersona" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_CALLCENTER_GENERAR_FECHA_COMPROMISO_REPORTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="dias_resolucion" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_CALLCENTER_OBTENER_CUESTIONARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="numero_socio" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_CMV_OBTENER_CORREO_SERVIDOR_MODULO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NOM_EXE" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_ACTUALIZA_FOLIO_USUARIO_SESION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="numusuario" Type="int" Mode="In" />
+    <Parameter Name="FOLIO" Type="int" Mode="In" />
+    <Parameter Name="SESION" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_ACTUALIZA_TELEFONOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NUMERO" Type="int" Mode="In" />
+    <Parameter Name="TELEFONO" Type="varchar" Mode="In" />
+    <Parameter Name="TEL_CELULAR" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_BUSCA_NUMERO_SOCIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="numero" Type="int" Mode="In" />
+    <Parameter Name="tipoPersona" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_CARGA_COMENTARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FOLIO" Type="int" Mode="In" />
+    <Parameter Name="CASO" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_CARGA_DATOS_REPRESENTANTE_LEGAL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID_PERSONA_REL" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_CARGA_ULTIMO_COMENTARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FOLIO" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_CARGAR_REPORTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FECHA_INICIAL" Type="varchar" Mode="In" />
+    <Parameter Name="FECHA_FINAL" Type="varchar" Mode="In" />
+    <Parameter Name="TIPO_REPORTE" Type="int" Mode="In" />
+    <Parameter Name="ESTATUS_GENERAL" Type="int" Mode="In" />
+    <Parameter Name="SUBESTATUS" Type="int" Mode="In" />
+    <Parameter Name="ENTIDAD_FEDERATIVA" Type="int" Mode="In" />
+    <Parameter Name="SUCURSAL_SOCIO" Type="int" Mode="In" />
+    <Parameter Name="NUMUSUARIO" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_CARGAR_REPORTE_2701" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FECHA_INICIAL" Type="varchar" Mode="In" />
+    <Parameter Name="FECHA_FINAL" Type="varchar" Mode="In" />
+    <Parameter Name="TIPO_REPORTE" Type="int" Mode="In" />
+    <Parameter Name="ESTATUS_GENERAL" Type="int" Mode="In" />
+    <Parameter Name="SUBESTATUS" Type="int" Mode="In" />
+    <Parameter Name="ENTIDAD_FEDERATIVA" Type="int" Mode="In" />
+    <Parameter Name="SUCURSAL_SOCIO" Type="int" Mode="In" />
+    <Parameter Name="NUMUSUARIO" Type="int" Mode="In" />
+    <Parameter Name="FILTRO_MONTO_RECLAMACION" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_CARGAR_SUPUESTOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID_TIPO_REPORTE" Type="int" Mode="In" />
+    <Parameter Name="ID_TIPO_CUENTA" Type="int" Mode="In" />
+    <Parameter Name="ID_CUENTA" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_ENVIAR_CORREOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_UNE_OBTENER_ARCHIVOS_ADJUNTOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FOLIO" Type="int" Mode="In" />
+    <Parameter Name="CASO" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_OBTENER_AREA_SUCURSAL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NUMUSUARIO" Type="int" Mode="In" />
+    <Parameter Name="IDSUCURSAL" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_OBTENER_ENTIDAD_FEDERATIVA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID_DE_SUCURSAL" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_OBTENER_FOLIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NUMUSUARIO" Type="int" Mode="In" />
+    <Parameter Name="SESION" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_OBTENER_FOLIOS_LLAMADA_SALIDA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TELEFONO" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_OBTENER_NOMBRE_RESPONSABLE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FOLIO" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_OBTENER_NUMPTMO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NUMERO" Type="int" Mode="In" />
+    <Parameter Name="IDMOV" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_OBTENER_PLAZOS_FIJOS_ACTIVOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NUMERO" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_OBTENER_SUPUESTOS_VALIDA_IMPORTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_UNE_OBTENER_USUARIOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_UNE_PERMISOS_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID_ROL" Type="int" Mode="In" />
+    <Parameter Name="CASO" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_REESTABLECER_FOLIOS_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="numusuario" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_REESTABLECER_FOLIOS_USUARIO_SESION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="numusuario" Type="int" Mode="In" />
+    <Parameter Name="SESION" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_REGISTRA_REPORTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NUM_FOLIO" Type="int" Mode="In" />
+    <Parameter Name="ES_SOCIO" Type="int" Mode="In" />
+    <Parameter Name="NUMERO" Type="int" Mode="In" />
+    <Parameter Name="NOMBRE_S" Type="varchar" Mode="In" />
+    <Parameter Name="APELLIDO_PATERNO" Type="varchar" Mode="In" />
+    <Parameter Name="APELLIDO_MATERNO" Type="varchar" Mode="In" />
+    <Parameter Name="TELEFONO" Type="varchar" Mode="In" />
+    <Parameter Name="TEL_CELULAR" Type="varchar" Mode="In" />
+    <Parameter Name="USUARIO_REGISTRA" Type="int" Mode="In" />
+    <Parameter Name="ID_DE_SUCURSAL" Type="int" Mode="In" />
+    <Parameter Name="DESCRIPCION_REPORTE" Type="varchar" Mode="In" />
+    <Parameter Name="ENTIDAD" Type="int" Mode="In" />
+    <Parameter Name="IMPORTE_RECLAMACION" Type="money" Mode="In" />
+    <Parameter Name="IMPORTE_SOLUCION" Type="money" Mode="In" />
+    <Parameter Name="ID_TIPO_REPORTE" Type="int" Mode="In" />
+    <Parameter Name="ID_SUPUESTOS_REPORTE" Type="int" Mode="In" />
+    <Parameter Name="ID_MEDIO_CONTACTO" Type="int" Mode="In" />
+    <Parameter Name="ID_ESTATUS_REPORTE" Type="int" Mode="In" />
+    <Parameter Name="ID_TIPO_CUENTA" Type="int" Mode="In" />
+    <Parameter Name="ID_CUENTA" Type="int" Mode="In" />
+    <Parameter Name="ID_SUCURSAL_REGISTRO" Type="int" Mode="In" />
+    <Parameter Name="DIAS_RESTANTES_GENERAL" Type="int" Mode="In" />
+    <Parameter Name="Num_Tarjeta" Type="varchar" Mode="In" />
+    <Parameter Name="DOMICILIO" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_UNE_REPRESENTANTES_LEGALES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NUMERO" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="HAPEModelStoreContainer">
+    <EntitySet Name="CAT_UNE_CANAL" EntityType="Self.CAT_UNE_CANAL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAT_UNE_CAUSA_RESOLUCION" EntityType="Self.CAT_UNE_CAUSA_RESOLUCION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAT_UNE_CUENTAS" EntityType="Self.CAT_UNE_CUENTAS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAT_UNE_ESTATUS_REPORTE" EntityType="Self.CAT_UNE_ESTATUS_REPORTE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAT_UNE_FINALIZADO_DEBITO" EntityType="Self.CAT_UNE_FINALIZADO_DEBITO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAT_UNE_MEDIO_CONTACTO" EntityType="Self.CAT_UNE_MEDIO_CONTACTO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAT_UNE_MOTIVO_CANCELACION" EntityType="Self.CAT_UNE_MOTIVO_CANCELACION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAT_UNE_PROCEDE_CORRESPONSALIAS" EntityType="Self.CAT_UNE_PROCEDE_CORRESPONSALIAS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAT_UNE_PROCEDE_DEBITO" EntityType="Self.CAT_UNE_PROCEDE_DEBITO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAT_UNE_PRODUCTO" EntityType="Self.CAT_UNE_PRODUCTO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAT_UNE_RESOLUCION" EntityType="Self.CAT_UNE_RESOLUCION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAT_UNE_SUPUESTOS_REPORTE" EntityType="Self.CAT_UNE_SUPUESTOS_REPORTE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAT_UNE_TIPO_CUENTA" EntityType="Self.CAT_UNE_TIPO_CUENTA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAT_UNE_TIPO_CUENTA_BANCA" EntityType="Self.CAT_UNE_TIPO_CUENTA_BANCA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CAT_UNE_TIPO_REPORTE" EntityType="Self.CAT_UNE_TIPO_REPORTE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CLAVES" EntityType="Self.CLAVES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ENTIDAD_FEDERATIVA" EntityType="Self.ENTIDAD_FEDERATIVA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SICORP_ROLES" EntityType="Self.SICORP_ROLES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SUCURSALES" EntityType="Self.SUCURSALES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_PRESENCE_LLAMADAS" EntityType="Self.TBL_PRESENCE_LLAMADAS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_UNE_ARCHIVOS_ADJUNTOS" EntityType="Self.TBL_UNE_ARCHIVOS_ADJUNTOS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_UNE_CANALIZACIONES" EntityType="Self.TBL_UNE_CANALIZACIONES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_UNE_COMISIONES" EntityType="Self.TBL_UNE_COMISIONES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_UNE_CONVERSION_LLAMADAS" EntityType="Self.TBL_UNE_CONVERSION_LLAMADAS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_UNE_PERMISOS_ADMIN" EntityType="Self.TBL_UNE_PERMISOS_ADMIN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_UNE_PIVOTE_REPORTE" EntityType="Self.TBL_UNE_PIVOTE_REPORTE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_UNE_REPORTE" EntityType="Self.TBL_UNE_REPORTE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_UNE_RESPUESTA_SATISFACTORIA" EntityType="Self.TBL_UNE_RESPUESTA_SATISFACTORIA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_UNE_TIPO_ARCHIVO" EntityType="Self.TBL_UNE_TIPO_ARCHIVO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_UNE_USUARIOS_ASIGNADOS" EntityType="Self.TBL_UNE_USUARIOS_ASIGNADOS" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CAT_UNE_CUENTAS_TBL_UNE_REPORTE" Association="Self.FK_CAT_UNE_CUENTAS_TBL_UNE_REPORTE">
+      <End Role="CAT_UNE_CUENTAS" EntitySet="CAT_UNE_CUENTAS" />
+      <End Role="TBL_UNE_REPORTE" EntitySet="TBL_UNE_REPORTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAT_UNE_ESTATUS_REPORTE_TBL_UNE_REPORTE" Association="Self.FK_CAT_UNE_ESTATUS_REPORTE_TBL_UNE_REPORTE">
+      <End Role="CAT_UNE_ESTATUS_REPORTE" EntitySet="CAT_UNE_ESTATUS_REPORTE" />
+      <End Role="TBL_UNE_REPORTE" EntitySet="TBL_UNE_REPORTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAT_UNE_FINALIZADO_DEBITO_TBL_UNE_REPORTE" Association="Self.FK_CAT_UNE_FINALIZADO_DEBITO_TBL_UNE_REPORTE">
+      <End Role="CAT_UNE_FINALIZADO_DEBITO" EntitySet="CAT_UNE_FINALIZADO_DEBITO" />
+      <End Role="CAT_UNE_FINALIZADO_DEBITO1" EntitySet="CAT_UNE_FINALIZADO_DEBITO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAT_UNE_MEDIO_CONTACTO_TBL_UNE_REPORTE" Association="Self.FK_CAT_UNE_MEDIO_CONTACTO_TBL_UNE_REPORTE">
+      <End Role="CAT_UNE_MEDIO_CONTACTO" EntitySet="CAT_UNE_MEDIO_CONTACTO" />
+      <End Role="TBL_UNE_REPORTE" EntitySet="TBL_UNE_REPORTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAT_UNE_PROCEDE_DEBITO_TBL_UNE_REPORTE" Association="Self.FK_CAT_UNE_PROCEDE_DEBITO_TBL_UNE_REPORTE">
+      <End Role="CAT_UNE_PROCEDE_DEBITO" EntitySet="CAT_UNE_PROCEDE_DEBITO" />
+      <End Role="TBL_UNE_REPORTE" EntitySet="TBL_UNE_REPORTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAT_UNE_TIPO_CUENTA_CAT_UNE_CUENTAS" Association="Self.FK_CAT_UNE_TIPO_CUENTA_CAT_UNE_CUENTAS">
+      <End Role="CAT_UNE_TIPO_CUENTA" EntitySet="CAT_UNE_TIPO_CUENTA" />
+      <End Role="CAT_UNE_CUENTAS" EntitySet="CAT_UNE_CUENTAS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAT_UNE_TIPO_CUENTA_TBL_UNE_REPORTE" Association="Self.FK_CAT_UNE_TIPO_CUENTA_TBL_UNE_REPORTE">
+      <End Role="CAT_UNE_TIPO_CUENTA" EntitySet="CAT_UNE_TIPO_CUENTA" />
+      <End Role="TBL_UNE_REPORTE" EntitySet="TBL_UNE_REPORTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_CUENTAS" Association="Self.FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_CUENTAS">
+      <End Role="CAT_UNE_CUENTAS" EntitySet="CAT_UNE_CUENTAS" />
+      <End Role="CAT_UNE_SUPUESTOS_REPORTE" EntitySet="CAT_UNE_SUPUESTOS_REPORTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_SUPUESTOS_REPORTE" Association="Self.FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_SUPUESTOS_REPORTE">
+      <End Role="CAT_UNE_TIPO_REPORTE" EntitySet="CAT_UNE_TIPO_REPORTE" />
+      <End Role="CAT_UNE_SUPUESTOS_REPORTE" EntitySet="CAT_UNE_SUPUESTOS_REPORTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_TIPO_CUENTA" Association="Self.FK_CAT_UNE_TIPO_REPORTE_CAT_UNE_TIPO_CUENTA">
+      <End Role="CAT_UNE_TIPO_CUENTA" EntitySet="CAT_UNE_TIPO_CUENTA" />
+      <End Role="CAT_UNE_SUPUESTOS_REPORTE" EntitySet="CAT_UNE_SUPUESTOS_REPORTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CAT_UNE_TIPO_REPORTE_TBL_UNE_REPORTE" Association="Self.FK_CAT_UNE_TIPO_REPORTE_TBL_UNE_REPORTE">
+      <End Role="CAT_UNE_TIPO_REPORTE" EntitySet="CAT_UNE_TIPO_REPORTE" />
+      <End Role="TBL_UNE_REPORTE" EntitySet="TBL_UNE_REPORTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBL_UNE_REPORTE_CAT_UNE_PROCEDE_CORRESPONSALIAS_ID_PROCEDE_CORRESPONSALIAS" Association="Self.FK_TBL_UNE_REPORTE_CAT_UNE_PROCEDE_CORRESPONSALIAS_ID_PROCEDE_CORRESPONSALIAS">
+      <End Role="CAT_UNE_PROCEDE_CORRESPONSALIAS" EntitySet="CAT_UNE_PROCEDE_CORRESPONSALIAS" />
+      <End Role="TBL_UNE_REPORTE" EntitySet="TBL_UNE_REPORTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBL_UNE_REPORTE_TBL_UNE_CANALIZACIONES" Association="Self.FK_TBL_UNE_REPORTE_TBL_UNE_CANALIZACIONES">
+      <End Role="TBL_UNE_REPORTE" EntitySet="TBL_UNE_REPORTE" />
+      <End Role="TBL_UNE_CANALIZACIONES" EntitySet="TBL_UNE_CANALIZACIONES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBL_UNE_REPORTE_TBL_UNE_USUARIOS_ASIGNADOS" Association="Self.FK_TBL_UNE_REPORTE_TBL_UNE_USUARIOS_ASIGNADOS">
+      <End Role="TBL_UNE_REPORTE" EntitySet="TBL_UNE_REPORTE" />
+      <End Role="TBL_UNE_USUARIOS_ASIGNADOS" EntitySet="TBL_UNE_USUARIOS_ASIGNADOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBL_UNE_TIPO_ARCHIVO_TBL_UNE_ARCHIVOS_ADJUNTOS_ID_TIPO_ARCHIVO" Association="Self.FK_TBL_UNE_TIPO_ARCHIVO_TBL_UNE_ARCHIVOS_ADJUNTOS_ID_TIPO_ARCHIVO">
+      <End Role="TBL_UNE_TIPO_ARCHIVO" EntitySet="TBL_UNE_TIPO_ARCHIVO" />
+      <End Role="TBL_UNE_ARCHIVOS_ADJUNTOS" EntitySet="TBL_UNE_ARCHIVOS_ADJUNTOS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
